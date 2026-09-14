@@ -50,7 +50,12 @@ input[type="date"]::-webkit-calendar-picker-indicator{
 .calendarBtn{position:absolute;right:4px;top:4px;width:35px;height:34px;border:0;border-radius:7px;background:#e8f4ff;color:#075aa7;font-size:18px}
 .hiddenPicker{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important;overflow:hidden!important}
 @media(max-width:700px){.datepickwrap{width:100%}}
-.cloudhint{font-size:12px;color:#47637f;margin:6px 2px 10px;line-height:1.35}</style>
+.cloudhint{font-size:12px;color:#47637f;margin:6px 2px 10px;line-height:1.35}
+.categoryManagerItem{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid #e4ebf2}
+.categoryManagerItem .catname{flex:1;font-weight:700;color:#17324d;min-width:0;word-break:break-word}
+.categoryManagerItem button{border:0;border-radius:8px;padding:7px 9px;font-weight:700;cursor:pointer}
+.catEdit{background:#e8f4ff;color:#075aa7}.catDelete{background:#ffe9e9;color:#b42318}
+</style>
 <link rel="manifest" href="./manifest.webmanifest">
 <meta name="theme-color" content="#063D78">
 <meta name="mobile-web-app-capable" content="yes">
@@ -82,6 +87,22 @@ input[type="date"]::-webkit-calendar-picker-indicator{
 
 <div class="modal" id="monthlyModal"><div class="modalcard monthly-card"><button class="close" onclick="closeMonthlyReport()">×</button><h2>📅 Monthly Expense Report</h2><div class="modalgrid monthly-controls"><div><label>Month</label><select id="reportMonth"><option value="0">January</option><option value="1">February</option><option value="2">March</option><option value="3">April</option><option value="4">May</option><option value="5">June</option><option value="6">July</option><option value="7">August</option><option value="8">September</option><option value="9">October</option><option value="10">November</option><option value="11">December</option></select></div><div><label>Year</label><input id="reportYear" type="number" min="2000" max="2100"></div></div><button class="save" onclick="generateMonthlyReport()">View Monthly Report</button><div id="monthlyResult" class="monthly-result"></div><button class="save" onclick="printMonthlyReport()">⬇️ Download / Save PDF</button></div></div>
 
+
+<div class="modal" id="manageCategoriesModal">
+  <div class="modalcard">
+    <button class="close" onclick="closeCategoryManager()">×</button>
+    <h2>🏷️ Manage Categories</h2>
+    <div class="small" style="margin-bottom:10px">
+      नई category जोड़ें, नाम बदलें या category हटाएँ।<br>
+      <b>Order automatic रहेगा:</b> जिस category का उपयोग सबसे ज्यादा होगा, वह ऊपर आएगी।
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:12px">
+      <input id="newCategoryName" class="full" placeholder="नई Expense Category">
+      <button class="save secondary" style="white-space:nowrap;margin:0" onclick="addCategory()">＋ Add</button>
+    </div>
+    <div id="categoryManagerList"></div>
+  </div>
+</div>
 <div class="modal" id="backupModal"><div class="modalcard"><button class="close" onclick="closeBackup()">×</button><h2>☁️ Backup / Restore</h2>
 <div class="pin-status">💾 <b>Local Auto-Save:</b> ON<br><span class="small">आपका data इस browser/device में भी save रहता है।</span></div>
 <div class="pin-status" style="background:#eaf8ef">📊 <b>Google Sheets Cloud Backup</b><br><span class="small">Spreadsheet: <b>EXPENSE TRACKER</b><br>Account: <b>mukesh24g@gmail.com</b></span></div>
@@ -91,7 +112,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{
 <button class="save" onclick="syncCurrentMonth()">🔄 Sync Current Month</button>
 <button class="save" onclick="syncAllData()">☁️ Sync All Data</button>
 <div id="syncStatus" class="pin-status" style="margin-top:9px">⚪ Google Sheet अभी connect नहीं है।</div>
-<button class="save secondary" onclick="downloadBackup()">⬇️ Export Local Backup</button>
+<button class="save secondary" onclick="openCategoryManager()">🏷️ Manage Categories</button><button class="save secondary" onclick="downloadBackup()">⬇️ Export Local Backup</button>
 <input id="restoreFile" class="full" type="file" accept=".json,application/json" onchange="restoreBackup(event)" style="margin-top:10px">
 <button class="save muted" onclick="exportCSV()">📄 Export CSV</button>
 <button class="save danger" onclick="clearAllData()">⚠️ Delete All Expense Data</button></div></div>
@@ -131,7 +152,7 @@ function applyPickedDate(id,isoDate){
   if(id==='viewFrom'||id==='viewTo')renderViewExpenses();
 }
 function init(){categories.innerHTML=cats.map(([i,n])=>`<div class="cat"><div class="ico">${i}</div><div><div class="name">${n}</div><span class="amt" id="cat-${n}">₹ 0</span></div></div>`).join('');ecat.innerHTML=cats.map(x=>`<option>${x[1]}</option>`).join('');viewCat.innerHTML='<option value="">All Categories</option>'+cats.map(x=>`<option>${x[1]}</option>`).join('');let d=new Date(),first=new Date(d.getFullYear(),d.getMonth(),1);setDateField('from',first.toISOString().slice(0,10));setDateField('to',iso());setDateField('edate',iso());reportMonth.value=d.getMonth();reportYear.value=d.getFullYear();render();loadSheetConfig();updatePinStatus();if(localStorage.getItem('expenseTrackerPinHash'))lockModal.classList.add('show')}
-function render(){let a=getISO('from'),b=getISO('to'),arr=data.filter(x=>(!a||x.date>=a)&&(!b||x.date<=b));rangeTotal.textContent=money(sum(arr));cashTotal.textContent=money(sum(arr.filter(x=>x.mode==='Cash')));onlineTotal.textContent=money(sum(arr.filter(x=>x.mode==='Online')));topExpense.textContent=money(arr.slice().sort((x,y)=>y.amount-x.amount)[0]?.amount||0);cats.forEach(([i,n])=>document.getElementById('cat-'+n).textContent=money(sum(arr.filter(x=>x.cat===n))));let now=new Date(),t=iso();today.textContent=money(sum(data.filter(x=>x.date===t)));let day=now.getDay()||7,mon=new Date(now);mon.setHours(0,0,0,0);mon.setDate(now.getDate()-day+1);let sun=new Date(mon);sun.setDate(mon.getDate()+6);sun.setHours(23,59,59,999);week.textContent=money(sum(data.filter(x=>{let q=new Date(x.date);return q>=mon&&q<=sun})));month.textContent=money(sum(data.filter(x=>{let q=new Date(x.date);return q.getFullYear()===now.getFullYear()&&q.getMonth()===now.getMonth()})));let lm=new Date(now.getFullYear(),now.getMonth()-1,1),le=new Date(now.getFullYear(),now.getMonth(),0);lastmonth.textContent=money(sum(data.filter(x=>{let q=new Date(x.date);return q>=lm&&q<=le})));uptodate.textContent=money(sum(data));drawCategory(arr);drawTop(arr);renderQuickSearch()}
+function render(){renderCategoryOptions();let a=getISO('from'),b=getISO('to'),arr=data.filter(x=>(!a||x.date>=a)&&(!b||x.date<=b));rangeTotal.textContent=money(sum(arr));cashTotal.textContent=money(sum(arr.filter(x=>x.mode==='Cash')));onlineTotal.textContent=money(sum(arr.filter(x=>x.mode==='Online')));topExpense.textContent=money(arr.slice().sort((x,y)=>y.amount-x.amount)[0]?.amount||0);cats.forEach(([i,n])=>document.getElementById('cat-'+n).textContent=money(sum(arr.filter(x=>x.cat===n))));let now=new Date(),t=iso();today.textContent=money(sum(data.filter(x=>x.date===t)));let day=now.getDay()||7,mon=new Date(now);mon.setHours(0,0,0,0);mon.setDate(now.getDate()-day+1);let sun=new Date(mon);sun.setDate(mon.getDate()+6);sun.setHours(23,59,59,999);week.textContent=money(sum(data.filter(x=>{let q=new Date(x.date);return q>=mon&&q<=sun})));month.textContent=money(sum(data.filter(x=>{let q=new Date(x.date);return q.getFullYear()===now.getFullYear()&&q.getMonth()===now.getMonth()})));let lm=new Date(now.getFullYear(),now.getMonth()-1,1),le=new Date(now.getFullYear(),now.getMonth(),0);lastmonth.textContent=money(sum(data.filter(x=>{let q=new Date(x.date);return q>=lm&&q<=le})));uptodate.textContent=money(sum(data));drawCategory(arr);drawTop(arr);renderQuickSearch()}
 function drawCategory(arr){let top=cats.map(([i,n])=>[n,sum(arr.filter(x=>x.cat===n))]).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]).slice(0,8),mx=Math.max(...top.map(x=>x[1]),1);catChart.innerHTML=top.length?top.map(x=>`<div class="baritem"><span>${x[0]}</span><div class="bartrack"><div class="barfill" style="width:${x[1]/mx*100}%"></div></div><b>${money(x[1])}</b></div>`).join(''):'<div class="empty">अभी कोई expense data नहीं है।</div>'}
 function drawTop(arr){let top=arr.slice().sort((a,b)=>b.amount-a.amount).slice(0,5);topList.innerHTML=top.length?top.map((x,i)=>`<div class="baritem"><span>${i+1}. ${x.cat}</span><div>${fmtDate(x.date)} · ${x.desc||'Expense'}</div><b>${money(x.amount)}</b></div>`).join(''):'<div class="empty">अभी कोई expense data नहीं है।</div>'}
 function renderQuickSearch(){let q=(quickSearch.value||'').toLowerCase().trim();if(!q){quickResults.style.display='none';return}let rows=data.filter(x=>`${x.date} ${x.cat} ${x.desc||''} ${x.amount} ${x.mode}`.toLowerCase().includes(q)).slice(0,8);quickResults.style.display='block';quickResults.innerHTML=rows.length?rows.map(x=>`<div style="display:flex;justify-content:space-between;padding:7px;border-bottom:1px solid #e2e8ef"><span>${fmtDate(x.date)} · ${x.cat} · ${x.desc||'-'}</span><b>${money(x.amount)}</b></div>`).join(''):'<div class="empty">No matching expense found.</div>'}
@@ -200,6 +221,72 @@ async function syncCurrentMonth(){ return syncMonth(currentMonthKey()); }
 async function syncAllData(){
   return postToSheet({action:'syncAll',sheetId:localStorage.getItem('expenseTrackerSheetId')||sheet_id,expenses:data});
 }
+
+function escapeHtml(v){return String(v??'').replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]))}
+function getCategories(){
+  const defaults=['Food & Dining','Grocery','Transport','Fuel/Petrol','Shopping','Bills & Utilities','Education','Health','Entertainment','Gift And Donation','Bike','Others'];
+  try{const x=JSON.parse(localStorage.getItem('expenseCategories')||'null');return Array.isArray(x)&&x.length?x:defaults}catch(e){return defaults}
+}
+function saveCategories(cats){
+  const clean=[...new Set(cats.map(x=>String(x).trim()).filter(Boolean))];
+  localStorage.setItem('expenseCategories',JSON.stringify(clean));
+  renderCategoryOptions(); renderCategoryManager();
+}
+function categoryUsageCount(cat){return data.reduce((n,x)=>n+(x.cat===cat?1:0),0)}
+function rankedCategories(){
+  return getCategories().map((cat,i)=>({cat,count:categoryUsageCount(cat),i}))
+    .sort((a,b)=>b.count-a.count||a.i-b.i).map(x=>x.cat)
+}
+function renderCategoryOptions(){
+  const cats=rankedCategories();
+  if(typeof ecat!=='undefined'&&ecat){
+    const cur=ecat.value;
+    ecat.innerHTML='<option value="">Select Category</option>'+cats.map(c=>`<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
+    if(cats.includes(cur))ecat.value=cur;
+  }
+  if(typeof viewCat!=='undefined'&&viewCat){
+    const cur=viewCat.value;
+    viewCat.innerHTML='<option value="">All Categories</option>'+cats.map(c=>`<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
+    if(cats.includes(cur))viewCat.value=cur;
+  }
+}
+function renderCategoryManager(){
+  const box=document.getElementById('categoryManagerList');if(!box)return;
+  box.innerHTML=rankedCategories().map(c=>`<div class="categoryManagerItem">
+    <div class="catname">${escapeHtml(c)} <span class="small">(${categoryUsageCount(c)} uses)</span></div>
+    <button class="catEdit" onclick="renameCategory(${JSON.stringify(c)})">✏️ Rename</button>
+    <button class="catDelete" onclick="deleteCategory(${JSON.stringify(c)})">🗑️</button>
+  </div>`).join('');
+}
+function openCategoryManager(){renderCategoryManager();document.getElementById('manageCategoriesModal').classList.add('show')}
+function closeCategoryManager(){document.getElementById('manageCategoriesModal').classList.remove('show')}
+function addCategory(){
+  const input=document.getElementById('newCategoryName'),name=(input.value||'').trim();
+  if(!name){alert('Category name डालें।');return}
+  const cats=getCategories();
+  if(cats.some(c=>c.toLowerCase()===name.toLowerCase())){alert('यह category पहले से मौजूद है।');return}
+  cats.push(name);saveCategories(cats);input.value='';
+}
+function renameCategory(oldName){
+  const next=prompt('नई category का नाम लिखें:',oldName);
+  if(next===null)return;
+  const name=next.trim();if(!name||name===oldName)return;
+  const cats=getCategories();
+  if(cats.some(c=>c.toLowerCase()===name.toLowerCase())){alert('यह category पहले से मौजूद है।');return}
+  const i=cats.indexOf(oldName);if(i<0)return;
+  cats[i]=name;data.forEach(x=>{if(x.cat===oldName)x.cat=name});
+  saveCategories(cats);persist();if(typeof syncAllData==='function')syncAllData();render();
+}
+function deleteCategory(name){
+  const used=categoryUsageCount(name);
+  if(!confirm(`"${name}"${used?` (${used} expenses में used)`:""} category delete करें?`))return;
+  const cats=getCategories().filter(c=>c!==name);
+  if(used){
+    if(!cats.includes('Others'))cats.push('Others');
+    data.forEach(x=>{if(x.cat===name)x.cat='Others'});
+  }
+  saveCategories(cats);persist();if(typeof syncAllData==='function')syncAllData();render();
+}
 function clearAllData(){if(confirm('सभी expense data permanently delete करना है?')&&confirm('Final confirmation: सभी entries हट जाएँगी। Continue?')){data=[];persist();if(localStorage.getItem('expenseTrackerAppsScriptUrl'))syncAllData();render();closeBackup()}}
 async function hashPin(pin){let buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(pin));return [...new Uint8Array(buf)].map(x=>x.toString(16).padStart(2,'0')).join('')}
 function openSettings(){settingsModal.classList.add('show');updatePinStatus()}function closeSettings(){settingsModal.classList.remove('show')}
@@ -211,23 +298,10 @@ function scrollTop(){window.scrollTo({top:0,behavior:'smooth'})}
 init();
 </script>
 <script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
-}
-let deferredInstallPrompt = null;
-window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault();
-  deferredInstallPrompt = e;
-  const b = document.getElementById('pwaInstall');
-  if (b) b.style.display = 'block';
-});
-async function installPWA(){
-  if(!deferredInstallPrompt) return;
-  deferredInstallPrompt.prompt();
-  await deferredInstallPrompt.userChoice;
-  deferredInstallPrompt = null;
-  const b=document.getElementById('pwaInstall'); if(b)b.style.display='none';
-}
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js'));
+let deferredInstallPrompt=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstallPrompt=e;const b=document.getElementById('pwaInstall');if(b)b.style.display='block'});
+async function installPWA(){if(!deferredInstallPrompt)return;deferredInstallPrompt.prompt();await deferredInstallPrompt.userChoice;deferredInstallPrompt=null;const b=document.getElementById('pwaInstall');if(b)b.style.display='none'}
 </script>
 <button id="pwaInstall" onclick="installPWA()" style="display:none;position:fixed;right:12px;bottom:18px;z-index:99999;border:0;border-radius:999px;padding:12px 16px;background:#0879E8;color:#fff;font-weight:800;box-shadow:0 5px 18px rgba(0,0,0,.25)">📲 Install App</button>
 </body></html>
