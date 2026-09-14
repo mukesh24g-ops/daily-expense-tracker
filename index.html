@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="hi"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#062f67"><title>Daily Expense Tracker by Mukesh Kumar</title>
+<style>
+*{box-sizing:border-box} :root{--navy:#052b5d;--blue:#0879e8;--green:#08a85a;--red:#d82435;--ink:#102b50;--gold:#ffd735}
+body{margin:0;font-family:Arial,"Noto Sans Devanagari",sans-serif;background:#061f4d;color:var(--ink)}
+button,input,select{font:inherit}button{cursor:pointer}.app{min-height:100vh;background:linear-gradient(145deg,#05285a,#075ca4 58%,#063d7b)}
+.top{padding:12px 14px 8px;color:#fff}.headrow{display:flex;align-items:center;gap:12px}.brand{display:flex;align-items:center;gap:10px;min-width:0}.logo{font-size:43px}.brand h1{margin:0;font-size:30px;font-weight:900;white-space:nowrap}.brand h1 span{color:#ffd72e}.tag{font-size:14px;margin-top:3px}.credit{margin-left:auto;background:linear-gradient(135deg,#e19a3e,#b96a16);border:2px solid #70400f;border-radius:12px;padding:10px 18px;font-weight:900;white-space:nowrap}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:0 12px 9px}.kpi{border:2px solid #8e55df;border-radius:16px;text-align:center;padding:8px 5px;box-shadow:0 4px 9px #0004;background:linear-gradient(135deg,#f0a7e9,#c753ed)}.kpi:nth-child(2){background:linear-gradient(135deg,#c7e8ff,#82bff5)}.kpi:nth-child(3){background:linear-gradient(135deg,#c8f7d8,#73dfa0)}.kpi:nth-child(4){background:linear-gradient(135deg,#ffd4a5,#ffad55)}.kpi:nth-child(5){background:linear-gradient(135deg,#d8b9ff,#b86ce9)}.kpi strong{display:block;font-size:13px}.kpi b{display:block;color:#e31f2d;font-size:22px;margin-top:6px}
+.body{display:grid;grid-template-columns:180px 1fr;gap:9px;padding:0 10px 12px}.side{display:flex;flex-direction:column;gap:7px}.nav{padding:12px 10px;border-radius:12px;border:1px solid #44c5ff;background:linear-gradient(#073d78,#032451);color:#fff;font-weight:800;font-size:14px;text-align:left}.nav.active{background:linear-gradient(#09ad5b,#078b48);box-shadow:0 0 0 2px #73ffc0}.quote{margin-top:auto;color:#fff;text-align:center;padding:13px;border:1px solid #29b9ff;border-radius:12px;background:#062b61}
+.main{min-width:0}.quick{display:grid;grid-template-columns:1fr auto;gap:8px;background:#fff;padding:9px;border-radius:10px;margin-bottom:8px}.search{border:1px solid #c7d4e1;border-radius:8px;padding:10px;width:100%}.quickadd{background:linear-gradient(135deg,#00a955,#08c56d);color:#fff;border:0;border-radius:8px;padding:10px 18px;font-weight:900}
+.filter{display:grid;grid-template-columns:auto 1fr auto 1fr auto 1.3fr;gap:7px;align-items:center;background:#fff;padding:8px;border-radius:9px;margin-bottom:8px;font-weight:800}.filter input{min-width:0;padding:9px;border:1px solid #b9c5d5;border-radius:6px}.show{background:#08a85a;color:#fff;border:0;border-radius:7px;padding:10px 16px;font-weight:900}.total{background:#ffe46a;padding:9px 12px;border-radius:7px;text-align:center;font-weight:900}.total span{color:#d51e1e}
+.summaryline{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:8px}.sumcard{background:#fff;border-radius:10px;padding:8px;text-align:center;border:1px solid #c8dfef}.sumcard b{display:block;font-size:18px;margin-top:3px}.cash b{color:#07924b}.online b{color:#176ed5}.topexp b{color:#d62232}
+.sectiontitle{color:#fff;font-weight:900;font-size:16px;margin:10px 0 7px;padding:8px 11px;border-radius:8px;background:linear-gradient(90deg,#063d78,#0879e8)}.categories{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.cat{background:#fff;border-radius:10px;padding:7px;min-height:72px;display:grid;grid-template-columns:43px 1fr;align-items:center;gap:4px;box-shadow:0 2px 6px #0002}.cat .ico{font-size:31px;text-align:center}.cat .name{font-size:11px;font-weight:800}.cat .amt{display:block;background:#f8eaed;border-radius:5px;text-align:center;color:#e21e26;font-weight:900;padding:3px;font-size:11px;margin-top:4px}
+.reportbox{background:#fff;border-radius:11px;padding:10px;margin-top:8px}.reportbar{display:flex;justify-content:space-between;align-items:center;gap:8px}.reportbar h3{margin:0;color:#073d78}.baritem{display:grid;grid-template-columns:125px 1fr auto;align-items:center;gap:7px;font-size:12px;margin:6px 0}.bartrack{height:14px;background:#e4eef7;border-radius:10px;overflow:hidden}.barfill{height:100%;background:linear-gradient(90deg,#0879e8,#24b7ff);border-radius:10px}.empty{text-align:center;color:#668;padding:22px 5px}
+.modal{position:fixed;inset:0;background:#0009;display:none;place-items:center;z-index:100}.modal.show{display:grid}.modalcard{background:#fff;width:min(650px,94vw);max-height:92vh;overflow:auto;padding:16px;border-radius:16px;box-shadow:0 15px 50px #0008;color:var(--ink)}.close{float:right;width:32px;height:32px;border:0;border-radius:50%;background:#eef1f5;font-size:23px}.modalcard h2{margin:0 0 14px;color:#073d78}.modalgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.modalgrid input,.modalgrid select{width:100%;padding:10px;border:1px solid #ccd6e0;border-radius:8px;background:#fff;color:#10264d}.full{grid-column:1/-1}.datepickwrap.full{grid-column:1/-1}.save{background:#08a85a;color:#fff;border:0;padding:11px;border-radius:8px;width:100%;font-weight:900;margin-top:10px}.danger{background:#d82435}.secondary{background:#0756a0}.muted{background:#eef4f9;color:#073d78}
+.data-table-wrap{overflow:auto}.data-table{width:100%;border-collapse:collapse;font-size:12px}.data-table th{background:#075aa7;color:#fff;padding:8px}.data-table td{padding:7px;border-bottom:1px solid #dde6ee}.data-table tr:nth-child(even) td{background:#f5f9fd}.act{padding:5px 8px;border-radius:6px;border:0;margin:2px}.edit{background:#ffd735}.del{background:#ef4050;color:#fff}
+.report-head{background:linear-gradient(135deg,#063b78,#0879e8);color:#fff;padding:14px;border-radius:10px;text-align:center}.report-head h3{margin:0 0 4px}.report-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:9px 0}.rs{background:#e9f5ff;padding:8px;border-radius:8px;text-align:center;font-size:12px}.rs b{display:block;font-size:16px;margin-top:4px;color:#073d78}.report-table{width:100%;border-collapse:collapse;font-size:11px}.report-table th{background:#0b5fae;color:#fff;padding:7px;border:1px solid #7fb4dc}.report-table td{padding:6px;border:1px solid #c7d9e8}.report-table tbody tr:nth-child(even) td{background:#f3f8fd}.report-total td{background:#ffd83e!important;font-weight:900}
+.footer{background:#041b42;color:#fff;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px 18px;font-weight:800}.small{font-size:12px;color:#61748a}.pin-status{padding:9px;background:#edf7ff;border-radius:8px;margin-bottom:9px;font-weight:700}
+@media(max-width:1000px){.kpis{grid-template-columns:repeat(3,1fr)}.categories{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:700px){.headrow{flex-wrap:wrap}.credit{width:100%;text-align:center}.brand h1{font-size:23px}.body{grid-template-columns:1fr}.side{display:grid;grid-template-columns:repeat(2,1fr)}.quote{display:none}.categories{grid-template-columns:repeat(2,1fr)}.filter{grid-template-columns:1fr 1fr}.filter .total{grid-column:1/-1}.summaryline{grid-template-columns:1fr 1fr}.summaryline .topexp{grid-column:1/-1}.baritem{grid-template-columns:105px 1fr auto}}
+@media(max-width:430px){.kpis{grid-template-columns:repeat(2,1fr)}.quick{grid-template-columns:1fr}.modalgrid{grid-template-columns:1fr}.full{grid-column:auto}.footer{font-size:12px}}
+@media print{
+ @page{size:A4 portrait;margin:0}html,body{width:210mm!important;height:297mm!important;margin:0!important;padding:0!important;overflow:hidden!important;background:#fff!important}
+ body *{visibility:hidden!important}.app{display:none!important}#monthlyModal,#monthlyModal *{visibility:visible!important}#monthlyModal{display:block!important;position:fixed!important;left:0!important;top:0!important;width:210mm!important;height:297mm!important;background:#fff!important;overflow:hidden!important}
+ #monthlyModal .monthly-card{display:block!important;position:absolute!important;left:10mm!important;top:10mm!important;width:190mm!important;height:277mm!important;margin:0!important;padding:0!important;background:transparent!important;border:0!important;box-shadow:none!important;overflow:hidden!important}
+ #monthlyModal .monthly-card h2,#monthlyModal .monthly-controls,#monthlyModal .close,#monthlyModal .save{display:none!important}#monthlyModal .monthly-result{display:block!important;width:190mm!important;height:277mm!important;margin:0!important;padding:0!important;overflow:hidden!important}
+ .pdf-report{width:190mm!important;height:277mm!important;min-height:277mm!important;max-height:277mm!important;box-sizing:border-box!important;overflow:hidden!important;margin:0!important;padding:7mm!important;page-break-after:avoid!important;break-after:avoid-page!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+ .pdf-table tr{page-break-inside:avoid!important;break-inside:avoid!important}
+}
+
+input[type="date"]{
+  min-height:42px;
+  color:#10264d!important;
+  background:#fff!important;
+  color-scheme:light;
+}
+input[type="date"]::-webkit-calendar-picker-indicator{
+  opacity:1;
+  cursor:pointer;
+  width:22px;
+  height:22px;
+}
+.date-note{font-size:11px;color:#61748a;margin-top:3px}
+
+.datepickwrap{position:relative;min-width:0}
+.datepickwrap>input:first-child{width:100%;padding:10px 42px 10px 10px;border:1px solid #ccd6e0;border-radius:8px;background:#fff;color:#10264d!important;font-weight:600;min-height:42px}
+.datepickwrap>input:first-child::placeholder{color:#718096}
+.calendarBtn{position:absolute;right:4px;top:4px;width:35px;height:34px;border:0;border-radius:7px;background:#e8f4ff;color:#075aa7;font-size:18px}
+.hiddenPicker{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important;overflow:hidden!important}
+@media(max-width:700px){.datepickwrap{width:100%}}
+.cloudhint{font-size:12px;color:#47637f;margin:6px 2px 10px;line-height:1.35}</style>
+<link rel="manifest" href="./manifest.webmanifest">
+<meta name="theme-color" content="#063D78">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Expense Tracker">
+</head>
+<body>
+<div class="app">
+<header class="top"><div class="headrow"><div class="brand"><div class="logo">👛</div><div><h1>Daily Expense <span>Tracker</span></h1><div class="tag">हर खर्च का हिसाब, बेहतर कल की ओर...</div></div></div><div class="credit">🌿 Design By- Mukesh Kumar 🌿</div></div></header>
+<section class="kpis"><div class="kpi"><strong>Today Expense</strong><b id="today">₹ 0</b></div><div class="kpi"><strong>This Week Expense</strong><b id="week">₹ 0</b></div><div class="kpi"><strong>This Month Expense</strong><b id="month">₹ 0</b></div><div class="kpi"><strong>Last Month Expense</strong><b id="lastmonth">₹ 0</b></div><div class="kpi"><strong>Up to Date Expense</strong><b id="uptodate">₹ 0</b></div></section>
+<div class="body"><aside class="side">
+<button class="nav active" onclick="scrollTop()">🏠 Dashboard</button><button class="nav" onclick="openExpenseModal()">⊕ Add Expense</button><button class="nav" onclick="openViewExpenses()">☷ View Expenses</button><button class="nav" onclick="openExpenseReports()">📊 Expense Reports</button><button class="nav" onclick="openMonthlyReport()">📅 Monthly Report</button><button class="nav" onclick="openBackup()">☁️ Backup / Restore</button><button class="nav" onclick="openSettings()">⚙️ Settings</button>
+<div class="quote">🌿<br>“Small Expenses<br>Make a Big Difference”</div></aside>
+<main class="main">
+<div class="quick"><input class="search" id="quickSearch" placeholder="🔎 Search category, description or amount..." oninput="renderQuickSearch()"><button class="quickadd" onclick="openExpenseModal()">＋ Quick Add Expense</button></div><div id="quickResults" style="display:none" class="reportbox"></div>
+<div class="filter"><label>From</label><div class="datepickwrap "><input id="from" type="text" inputmode="none" readonly placeholder="DD/MM/YYYY" aria-label="From Date" onclick="openDatePicker('from')"><input id="fromPicker" class="hiddenPicker" type="date" tabindex="-1" aria-hidden="true" onchange="applyPickedDate('from',this.value)"><button type="button" class="calendarBtn" onclick="openDatePicker('from')">📅</button></div><label>To</label><div class="datepickwrap "><input id="to" type="text" inputmode="none" readonly placeholder="DD/MM/YYYY" aria-label="To Date" onclick="openDatePicker('to')"><input id="toPicker" class="hiddenPicker" type="date" tabindex="-1" aria-hidden="true" onchange="applyPickedDate('to',this.value)"><button type="button" class="calendarBtn" onclick="openDatePicker('to')">📅</button></div><button class="show" onclick="render()">Show</button><div class="total">Total Expense : <span id="rangeTotal">₹ 0</span></div></div>
+<div class="summaryline"><div class="sumcard cash">💵 Cash<b id="cashTotal">₹ 0</b></div><div class="sumcard online">📱 Online<b id="onlineTotal">₹ 0</b></div><div class="sumcard topexp">🏆 Top Expense<b id="topExpense">₹ 0</b></div></div>
+<div class="sectiontitle">📂 Expense Categories</div><section class="categories" id="categories"></section>
+<section class="reportbox"><div class="reportbar"><h3>📊 Category-wise Expense Report</h3><span class="small">Top categories</span></div><div id="catChart"></div></section>
+<section class="reportbox"><div class="reportbar"><h3>🏆 Top 5 Expenses</h3></div><div id="topList"></div></section>
+</main></div>
+<footer class="footer"><span>🌿 Design By - Mukesh Kumar</span><span>“बचत आज, सुरक्षित कल”</span><span>Track Smart | Spend Wise | Live Better</span></footer></div>
+
+<div class="modal" id="expenseModal"><div class="modalcard"><button class="close" onclick="closeExpenseModal()">×</button><h2>➕ Add Expense</h2><div class="date-note">📅 Date चुनने के लिए calendar पर tap करें</div><div class="modalgrid"><div class="datepickwrap full"><input id="edate" type="text" inputmode="none" readonly placeholder="DD/MM/YYYY" aria-label="Date" onclick="openDatePicker('edate')"><input id="edatePicker" class="hiddenPicker" type="date" tabindex="-1" aria-hidden="true" onchange="applyPickedDate('edate',this.value)"><button type="button" class="calendarBtn" onclick="openDatePicker('edate')">📅</button></div><select id="ecat"></select><input id="edesc" placeholder="Description"><input id="eamt" type="number" inputmode="decimal" min="0" step="0.01" placeholder="Amount ₹"><select id="emode"><option>Cash</option><option>Online</option></select><input id="eremark" placeholder="Remarks"></div><button class="save" onclick="addExpense()">💾 Save Expense</button></div></div>
+
+<div class="modal" id="viewModal"><div class="modalcard" style="width:min(900px,96vw)"><button class="close" onclick="closeViewExpenses()">×</button><h2>☷ View Expenses</h2><div class="modalgrid"><input id="viewSearch" placeholder="🔎 Search..." oninput="renderViewExpenses()"><select id="viewCat" onchange="renderViewExpenses()"><option value="">All Categories</option></select><div class="datepickwrap "><input id="viewFrom" type="text" inputmode="none" readonly placeholder="DD/MM/YYYY" aria-label="From Date" onclick="openDatePicker('viewFrom')"><input id="viewFromPicker" class="hiddenPicker" type="date" tabindex="-1" aria-hidden="true" onchange="applyPickedDate('viewFrom',this.value)"><button type="button" class="calendarBtn" onclick="openDatePicker('viewFrom')">📅</button></div><div class="datepickwrap "><input id="viewTo" type="text" inputmode="none" readonly placeholder="DD/MM/YYYY" aria-label="To Date" onclick="openDatePicker('viewTo')"><input id="viewToPicker" class="hiddenPicker" type="date" tabindex="-1" aria-hidden="true" onchange="applyPickedDate('viewTo',this.value)"><button type="button" class="calendarBtn" onclick="openDatePicker('viewTo')">📅</button></div></div><div id="viewSummary" class="pin-status" style="margin-top:10px"></div><div class="data-table-wrap"><table class="data-table"><thead><tr><th>Date</th><th>Category</th><th>Description</th><th>Mode</th><th>Amount</th><th>Action</th></tr></thead><tbody id="viewBody"></tbody></table></div></div></div>
+
+<div class="modal" id="reportsModal"><div class="modalcard"><button class="close" onclick="closeExpenseReports()">×</button><h2>📊 Expense Reports</h2><div class="summaryline"><div class="sumcard">Total<b id="rTotal">₹ 0</b></div><div class="sumcard cash">Cash<b id="rCash">₹ 0</b></div><div class="sumcard online">Online<b id="rOnline">₹ 0</b></div></div><div class="sectiontitle" style="margin-top:4px">Category-wise Analysis</div><div id="reportCats"></div><div class="sectiontitle">Top 5 Expenses</div><div id="reportTop"></div></div></div>
+
+<div class="modal" id="monthlyModal"><div class="modalcard monthly-card"><button class="close" onclick="closeMonthlyReport()">×</button><h2>📅 Monthly Expense Report</h2><div class="modalgrid monthly-controls"><div><label>Month</label><select id="reportMonth"><option value="0">January</option><option value="1">February</option><option value="2">March</option><option value="3">April</option><option value="4">May</option><option value="5">June</option><option value="6">July</option><option value="7">August</option><option value="8">September</option><option value="9">October</option><option value="10">November</option><option value="11">December</option></select></div><div><label>Year</label><input id="reportYear" type="number" min="2000" max="2100"></div></div><button class="save" onclick="generateMonthlyReport()">View Monthly Report</button><div id="monthlyResult" class="monthly-result"></div><button class="save" onclick="printMonthlyReport()">⬇️ Download / Save PDF</button></div></div>
+
+<div class="modal" id="backupModal"><div class="modalcard"><button class="close" onclick="closeBackup()">×</button><h2>☁️ Backup / Restore</h2>
+<div class="pin-status">💾 <b>Local Auto-Save:</b> ON<br><span class="small">आपका data इस browser/device में भी save रहता है।</span></div>
+<div class="pin-status" style="background:#eaf8ef">📊 <b>Google Sheets Cloud Backup</b><br><span class="small">Spreadsheet: <b>EXPENSE TRACKER</b><br>Account: <b>mukesh24g@gmail.com</b></span></div>
+<input id="sheetId" class="full" value="1jqLu2aczyjYJp5P-PBiGWPoOFmTA5vH5BkmPranB6Yg" readonly style="width:100%;padding:10px;border:1px solid #ccd6e0;border-radius:8px;margin-bottom:8px">
+<input id="appsScriptUrl" class="full" placeholder="Google Apps Script Web App URL (पहली बार एक बार भरें)" style="width:100%;padding:10px;border:1px solid #ccd6e0;border-radius:8px">
+<button class="save secondary" onclick="saveSheetConfig()">🔗 Save Google Sheet Connection</button>
+<button class="save" onclick="syncCurrentMonth()">🔄 Sync Current Month</button>
+<button class="save" onclick="syncAllData()">☁️ Sync All Data</button>
+<div id="syncStatus" class="pin-status" style="margin-top:9px">⚪ Google Sheet अभी connect नहीं है।</div>
+<button class="save secondary" onclick="downloadBackup()">⬇️ Export Local Backup</button>
+<input id="restoreFile" class="full" type="file" accept=".json,application/json" onchange="restoreBackup(event)" style="margin-top:10px">
+<button class="save muted" onclick="exportCSV()">📄 Export CSV</button>
+<button class="save danger" onclick="clearAllData()">⚠️ Delete All Expense Data</button></div></div>
+
+<div class="modal" id="settingsModal"><div class="modalcard"><button class="close" onclick="closeSettings()">×</button><h2>⚙️ Settings & Security</h2><div id="pinStatus" class="pin-status"></div><div class="modalgrid"><input id="pinInput" type="password" inputmode="numeric" maxlength="8" placeholder="New PIN (4–8 digits)"><input id="pinConfirm" type="password" inputmode="numeric" maxlength="8" placeholder="Confirm PIN"></div><button class="save" onclick="savePin()">🔐 Set / Change PIN</button><button class="save muted" onclick="removePin()">🔓 Remove PIN</button><button class="save secondary" onclick="closeSettings()">Done</button><p class="small">PIN is a convenience lock for this browser. Keep a backup file for important records.</p></div></div>
+
+<div class="modal" id="lockModal"><div class="modalcard" style="text-align:center;max-width:390px"><div style="font-size:50px">🔐</div><h2>Expense Tracker Locked</h2><p>Enter your PIN to continue.</p><input id="unlockPin" type="password" inputmode="numeric" maxlength="8" placeholder="Enter PIN" style="width:100%;padding:12px;border:1px solid #ccd6e0;border-radius:8px"><button class="save" onclick="unlockApp()">Unlock</button></div></div>
+
+<script>const cats=[
+['💊','Medicines'],['🏠','House Hold'],['🎁','Gift And Donation'],['✏️','Stationery'],['🧑‍✈️','Maid/Driver'],['🍴','Kitchen Things'],
+['🍔','Food And Dining'],['🛵','Bike'],['🛒','Groceries'],['🥦','Vegetables'],['📚','Education'],['🧾','Bills And Utilities'],
+['📱','Mobile/Internet'],['🚗','Car'],['🛠️','Maintenance'],['👨‍👩‍👧','Family'],['👕','Laundry'],['🛺','Auto And Transport'],
+['🧴','Personal Care'],['🪔','Festivals'],['🍎','Fruits'],['🥛','Milk'],['🎬','Entertainment'],['👧','Kids'],['👚','Clothes']
+];
+let data=JSON.parse(localStorage.getItem('dailyExpenseData')||'[]');
+const iso=()=>new Date().toISOString().slice(0,10),money=n=>'₹ '+Number(n||0).toLocaleString('en-IN',{maximumFractionDigits:2});
+function sum(a){return a.reduce((s,x)=>s+Number(x.amount||0),0)}
+function fmtDate(v){if(!v)return '';let p=v.split('-');return p.length===3?`${p[2]}/${p[1]}/${p[0]}`:v}
+function getISOValue(v){v=(v||'').trim();let m=v.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);if(!m)return '';let d=new Date(+m[3],+m[2]-1,+m[1]);if(d.getFullYear()!=+m[3]||d.getMonth()!=+m[2]-1||d.getDate()!=+m[1])return '';return `${m[3]}-${m[2]}-${m[1]}`}
+function getISO(id){return getISOValue(document.getElementById(id).value)}
+function formatDate(el){let v=el.value.replace(/\D/g,'').slice(0,8);if(v.length>4)v=v.slice(0,2)+'/'+v.slice(2,4)+'/'+v.slice(4);else if(v.length>2)v=v.slice(0,2)+'/'+v.slice(2);el.value=v}
+function persist(){localStorage.setItem('dailyExpenseData',JSON.stringify(data))}
+
+function setDateField(id, isoDate){
+  const v=document.getElementById(id), p=document.getElementById(id+'Picker');
+  if(!v||!p)return;
+  p.value=isoDate||'';
+  v.value=isoDate?fmtDate(isoDate):'';
+}
+function openDatePicker(id){
+  const p=document.getElementById(id+'Picker');
+  if(!p)return;
+  try{if(typeof p.showPicker==='function')p.showPicker();else p.click()}catch(e){p.click()}
+}
+function applyPickedDate(id,isoDate){
+  setDateField(id,isoDate);
+  if(id==='viewFrom'||id==='viewTo')renderViewExpenses();
+}
+function init(){categories.innerHTML=cats.map(([i,n])=>`<div class="cat"><div class="ico">${i}</div><div><div class="name">${n}</div><span class="amt" id="cat-${n}">₹ 0</span></div></div>`).join('');ecat.innerHTML=cats.map(x=>`<option>${x[1]}</option>`).join('');viewCat.innerHTML='<option value="">All Categories</option>'+cats.map(x=>`<option>${x[1]}</option>`).join('');let d=new Date(),first=new Date(d.getFullYear(),d.getMonth(),1);setDateField('from',first.toISOString().slice(0,10));setDateField('to',iso());setDateField('edate',iso());reportMonth.value=d.getMonth();reportYear.value=d.getFullYear();render();loadSheetConfig();updatePinStatus();if(localStorage.getItem('expenseTrackerPinHash'))lockModal.classList.add('show')}
+function render(){let a=getISO('from'),b=getISO('to'),arr=data.filter(x=>(!a||x.date>=a)&&(!b||x.date<=b));rangeTotal.textContent=money(sum(arr));cashTotal.textContent=money(sum(arr.filter(x=>x.mode==='Cash')));onlineTotal.textContent=money(sum(arr.filter(x=>x.mode==='Online')));topExpense.textContent=money(arr.slice().sort((x,y)=>y.amount-x.amount)[0]?.amount||0);cats.forEach(([i,n])=>document.getElementById('cat-'+n).textContent=money(sum(arr.filter(x=>x.cat===n))));let now=new Date(),t=iso();today.textContent=money(sum(data.filter(x=>x.date===t)));let day=now.getDay()||7,mon=new Date(now);mon.setHours(0,0,0,0);mon.setDate(now.getDate()-day+1);let sun=new Date(mon);sun.setDate(mon.getDate()+6);sun.setHours(23,59,59,999);week.textContent=money(sum(data.filter(x=>{let q=new Date(x.date);return q>=mon&&q<=sun})));month.textContent=money(sum(data.filter(x=>{let q=new Date(x.date);return q.getFullYear()===now.getFullYear()&&q.getMonth()===now.getMonth()})));let lm=new Date(now.getFullYear(),now.getMonth()-1,1),le=new Date(now.getFullYear(),now.getMonth(),0);lastmonth.textContent=money(sum(data.filter(x=>{let q=new Date(x.date);return q>=lm&&q<=le})));uptodate.textContent=money(sum(data));drawCategory(arr);drawTop(arr);renderQuickSearch()}
+function drawCategory(arr){let top=cats.map(([i,n])=>[n,sum(arr.filter(x=>x.cat===n))]).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]).slice(0,8),mx=Math.max(...top.map(x=>x[1]),1);catChart.innerHTML=top.length?top.map(x=>`<div class="baritem"><span>${x[0]}</span><div class="bartrack"><div class="barfill" style="width:${x[1]/mx*100}%"></div></div><b>${money(x[1])}</b></div>`).join(''):'<div class="empty">अभी कोई expense data नहीं है।</div>'}
+function drawTop(arr){let top=arr.slice().sort((a,b)=>b.amount-a.amount).slice(0,5);topList.innerHTML=top.length?top.map((x,i)=>`<div class="baritem"><span>${i+1}. ${x.cat}</span><div>${fmtDate(x.date)} · ${x.desc||'Expense'}</div><b>${money(x.amount)}</b></div>`).join(''):'<div class="empty">अभी कोई expense data नहीं है।</div>'}
+function renderQuickSearch(){let q=(quickSearch.value||'').toLowerCase().trim();if(!q){quickResults.style.display='none';return}let rows=data.filter(x=>`${x.date} ${x.cat} ${x.desc||''} ${x.amount} ${x.mode}`.toLowerCase().includes(q)).slice(0,8);quickResults.style.display='block';quickResults.innerHTML=rows.length?rows.map(x=>`<div style="display:flex;justify-content:space-between;padding:7px;border-bottom:1px solid #e2e8ef"><span>${fmtDate(x.date)} · ${x.cat} · ${x.desc||'-'}</span><b>${money(x.amount)}</b></div>`).join(''):'<div class="empty">No matching expense found.</div>'}
+function openExpenseModal(){expenseModal.classList.add('show');setDateField('edate',iso());setTimeout(()=>eamt.focus(),100)}function closeExpenseModal(){expenseModal.classList.remove('show')}
+function addExpense(){let d=getISO('edate'),amt=Number(eamt.value);if(!d){alert('Date DD/MM/YYYY में दर्ज करें');return}if(!amt||amt<=0){alert('Amount दर्ज करें');return}data.unshift({id:Date.now(),date:d,cat:ecat.value,desc:edesc.value.trim(),amount:amt,mode:emode.value,remark:eremark.value.trim()});persist();scheduleCloudSync(d.slice(0,7));eamt.value='';edesc.value='';eremark.value='';closeExpenseModal();render()}
+function openViewExpenses(){viewModal.classList.add('show');renderViewExpenses()}function closeViewExpenses(){viewModal.classList.remove('show')}
+function renderViewExpenses(){let q=(viewSearch.value||'').toLowerCase().trim(),c=viewCat.value,a=getISOValue(viewFrom.value),b=getISOValue(viewTo.value);let rows=data.filter(x=>(!q||`${x.date} ${x.cat} ${x.desc||''} ${x.amount} ${x.mode}`.toLowerCase().includes(q))&&(!c||x.cat===c)&&(!a||x.date>=a)&&(!b||x.date<=b)).sort((x,y)=>y.date.localeCompare(x.date));viewSummary.textContent=`${rows.length} entries · Total ${money(sum(rows))}`;viewBody.innerHTML=rows.length?rows.map(x=>`<tr><td>${fmtDate(x.date)}</td><td>${x.cat}</td><td>${x.desc||'-'}</td><td>${x.mode}</td><td>${money(x.amount)}</td><td><button class="act edit" onclick="editExpense(${x.id})">✏️</button><button class="act del" onclick="deleteExpense(${x.id})">🗑️</button></td></tr>`).join(''):'<tr><td colspan="6" class="empty">No expenses found.</td></tr>'}
+function editExpense(id){let x=data.find(z=>z.id===id);if(!x)return;setDateField('edate',x.date);ecat.value=x.cat;edesc.value=x.desc||'';eamt.value=x.amount;emode.value=x.mode||'Cash';eremark.value=x.remark||'';closeViewExpenses();openExpenseModal();let btn=document.querySelector('#expenseModal .save');btn.onclick=()=>{let oldMonth=x.date.slice(0,7),d=getISO('edate'),amt=Number(eamt.value);if(!d||!amt){alert('Valid date and amount required');return}Object.assign(x,{date:d,cat:ecat.value,desc:edesc.value.trim(),amount:amt,mode:emode.value,remark:eremark.value.trim()});persist();scheduleCloudSync(oldMonth);if(d.slice(0,7)!==oldMonth)scheduleCloudSync(d.slice(0,7));btn.onclick=addExpense;closeExpenseModal();render()}}
+function deleteExpense(id){if(!confirm('क्या आप यह expense delete करना चाहते हैं?'))return;let x=data.find(z=>z.id===id),m=x?x.date.slice(0,7):'';data=data.filter(x=>x.id!==id);persist();if(m)scheduleCloudSync(m);render();renderViewExpenses()}
+function openExpenseReports(){reportsModal.classList.add('show');let arr=data.slice(),total=sum(arr);rTotal.textContent=money(total);rCash.textContent=money(sum(arr.filter(x=>x.mode==='Cash')));rOnline.textContent=money(sum(arr.filter(x=>x.mode==='Online')));let cs=cats.map(([i,n])=>[n,sum(arr.filter(x=>x.cat===n))]).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]);reportCats.innerHTML=cs.length?cs.map(x=>`<div class="baritem"><span>${x[0]}</span><div class="bartrack"><div class="barfill" style="width:${total?x[1]/total*100:0}%"></div></div><b>${money(x[1])}</b></div>`).join(''):'<div class="empty">No data</div>';reportTop.innerHTML=arr.sort((a,b)=>b.amount-a.amount).slice(0,5).map((x,i)=>`<div class="baritem"><span>${i+1}. ${x.cat}</span><div>${fmtDate(x.date)} · ${x.desc||'-'}</div><b>${money(x.amount)}</b></div>`).join('')||'<div class="empty">No data</div>'}
+function closeExpenseReports(){reportsModal.classList.remove('show')}
+function openMonthlyReport(){monthlyModal.classList.add('show');generateMonthlyReport()}function closeMonthlyReport(){monthlyModal.classList.remove('show')}
+function generateMonthlyReport(){let m=Number(reportMonth.value),y=Number(reportYear.value),rows=data.filter(x=>{let d=new Date(x.date);return d.getFullYear()===y&&d.getMonth()===m}).sort((a,b)=>a.date.localeCompare(b.date)),total=sum(rows),cash=sum(rows.filter(x=>x.mode==='Cash')),online=sum(rows.filter(x=>x.mode==='Online')),monthName=new Date(y,m,1).toLocaleDateString('en-IN',{month:'long',year:'numeric'}),compact=rows.length>24?' compact':rows.length>14?' medium':'';monthlyResult.innerHTML=`<div class="pdf-report${compact}"><div class="report-head"><h3>💰 DAILY EXPENSE TRACKER</h3><div>MONTHLY EXPENSE REPORT — ${monthName}</div><small>Design By- Mukesh Kumar</small></div><div class="report-summary"><div class="rs">Total Expense<b>${money(total)}</b></div><div class="rs">Cash<b>${money(cash)}</b></div><div class="rs">Online<b>${money(online)}</b></div></div><div style="font-size:14px;font-weight:900;color:#073d78;padding:7px 9px;background:#d9edff;border-left:4px solid #0879e8;border-radius:5px;margin-bottom:7px">📋 Date-wise Expense Details</div><div style="flex:1;overflow:hidden"><table class="report-table"><thead><tr><th>#</th><th>Date</th><th>Category</th><th>Description</th><th>Payment Mode</th><th>Amount</th></tr></thead><tbody>${rows.length?rows.map((x,i)=>`<tr><td>${i+1}</td><td>${fmtDate(x.date)}</td><td>${x.cat}</td><td>${x.desc||'-'}</td><td>${x.mode}</td><td>${money(x.amount)}</td></tr>`).join(''):'<tr><td colspan="6" class="empty">इस महीने कोई खर्च दर्ज नहीं है।</td></tr>'}<tr class="report-total"><td colspan="5">GRAND TOTAL</td><td>${money(total)}</td></tr></tbody></table></div><div style="margin-top:7px;padding-top:6px;border-top:2px solid #0b5fae;display:flex;justify-content:space-between;font-size:9px;font-weight:800;color:#073d78"><span>Daily Expense Tracker</span><span>बचत आज, सुरक्षित कल</span><span>Design By- Mukesh Kumar</span></div></div>`}
+function printMonthlyReport(){generateMonthlyReport();setTimeout(()=>window.print(),250)}
+function openBackup(){backupModal.classList.add('show')}function closeBackup(){backupModal.classList.remove('show')}
+function downloadBackup(){let blob=new Blob([JSON.stringify({version:2,createdAt:new Date().toISOString(),expenses:data},null,2)],{type:'application/json'}),u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=`Daily_Expense_Backup_${iso()}.json`;a.click();URL.revokeObjectURL(u)}
+function restoreBackup(ev){let f=ev.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let o=JSON.parse(r.result),arr=Array.isArray(o)?o:o.expenses;if(!Array.isArray(arr))throw 0;if(!confirm(`Backup में ${arr.length} entries हैं। Current data replace करें?`))return;data=arr;persist();render();alert('Backup successfully restored.')}catch(e){alert('Invalid backup file.')}};r.readAsText(f)}
+function exportCSV(){let head='Date,Category,Description,Payment Mode,Amount,Remarks\n',body=data.map(x=>[x.date,x.cat,x.desc||'',x.mode,x.amount,x.remark||''].map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n'),blob=new Blob([head+body],{type:'text/csv;charset=utf-8'}),u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=`Daily_Expense_${iso()}.csv`;a.click();URL.revokeObjectURL(u)}
+
+function saveSheetConfig(){
+  const u=(appsScriptUrl.value||'').trim();
+  if(!u||!/^https:\/\/script\.google\.com\/macros\/s\/.+\/exec/.test(u)){
+    alert('Valid Google Apps Script Web App URL डालें। URL का अंत /exec से होना चाहिए।'); return;
+  }
+  localStorage.setItem('expenseTrackerAppsScriptUrl',u);
+  localStorage.setItem('expenseTrackerSheetId',sheetId.value.trim());
+  syncStatus.innerHTML='🟢 Google Sheet connection saved.';
+}
+function loadSheetConfig(){
+  const u=localStorage.getItem('expenseTrackerAppsScriptUrl')||'';
+  appsScriptUrl.value=u;
+  sheetId.value=localStorage.getItem('expenseTrackerSheetId')||sheetId.value;
+  if(u) syncStatus.innerHTML='🟢 Google Sheet connected · Ready to sync';
+}
+function currentMonthKey(){
+  const d=new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+}
+function monthKeyFor(x){ return String(x.date||'').slice(0,7); }
+
+function scheduleCloudSync(monthKey){
+  if(!localStorage.getItem('expenseTrackerAppsScriptUrl')) return;
+  clearTimeout(window._cloudSyncTimer);
+  window._cloudSyncTimer=setTimeout(()=>syncMonth(monthKey),1200);
+}
+async function postToSheet(payload){
+  const u=localStorage.getItem('expenseTrackerAppsScriptUrl')||appsScriptUrl.value.trim();
+  if(!u){return false;}
+  syncStatus.innerHTML='⏳ Google Sheet में syncing...';
+  try{
+    await fetch(u,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
+    syncStatus.innerHTML='🟢 Cloud sync request sent · '+new Date().toLocaleString('en-IN');
+    localStorage.setItem('lastGoogleSync',new Date().toISOString());
+    return true;
+  }catch(e){
+    syncStatus.innerHTML='🔴 Sync failed. Internet/Apps Script URL check करें।';
+    return false;
+  }
+}
+async function syncMonth(monthKey){
+  if(!monthKey)return;
+  const rows=data.filter(x=>monthKeyFor(x)===monthKey);
+  return postToSheet({action:'syncMonth',sheetId:localStorage.getItem('expenseTrackerSheetId')||sheet_id,month:monthKey,expenses:rows});
+}
+async function syncCurrentMonth(){ return syncMonth(currentMonthKey()); }
+async function syncAllData(){
+  return postToSheet({action:'syncAll',sheetId:localStorage.getItem('expenseTrackerSheetId')||sheet_id,expenses:data});
+}
+function clearAllData(){if(confirm('सभी expense data permanently delete करना है?')&&confirm('Final confirmation: सभी entries हट जाएँगी। Continue?')){data=[];persist();if(localStorage.getItem('expenseTrackerAppsScriptUrl'))syncAllData();render();closeBackup()}}
+async function hashPin(pin){let buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(pin));return [...new Uint8Array(buf)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+function openSettings(){settingsModal.classList.add('show');updatePinStatus()}function closeSettings(){settingsModal.classList.remove('show')}
+async function savePin(){let p=pinInput.value,c=pinConfirm.value;if(!/^\d{4,8}$/.test(p)||p!==c){alert('PIN 4–8 digits का होना चाहिए और दोनों PIN समान हों।');return}localStorage.setItem('expenseTrackerPinHash',await hashPin(p));pinInput.value='';pinConfirm.value='';updatePinStatus();alert('PIN set successfully.')}
+function removePin(){if(!localStorage.getItem('expenseTrackerPinHash'))return;if(confirm('PIN lock हटाना है?')){localStorage.removeItem('expenseTrackerPinHash');updatePinStatus()}}
+function updatePinStatus(){pinStatus.textContent=localStorage.getItem('expenseTrackerPinHash')?'🔐 PIN Lock: ON':'🔓 PIN Lock: OFF'}
+async function unlockApp(){if(await hashPin(unlockPin.value)===localStorage.getItem('expenseTrackerPinHash')){unlockPin.value='';lockModal.classList.remove('show')}else alert('गलत PIN।')}
+function scrollTop(){window.scrollTo({top:0,behavior:'smooth'})}
+init();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
+}
+let deferredInstallPrompt = null;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+  const b = document.getElementById('pwaInstall');
+  if (b) b.style.display = 'block';
+});
+async function installPWA(){
+  if(!deferredInstallPrompt) return;
+  deferredInstallPrompt.prompt();
+  await deferredInstallPrompt.userChoice;
+  deferredInstallPrompt = null;
+  const b=document.getElementById('pwaInstall'); if(b)b.style.display='none';
+}
+</script>
+<button id="pwaInstall" onclick="installPWA()" style="display:none;position:fixed;right:12px;bottom:18px;z-index:99999;border:0;border-radius:999px;padding:12px 16px;background:#0879E8;color:#fff;font-weight:800;box-shadow:0 5px 18px rgba(0,0,0,.25)">📲 Install App</button>
+</body></html>
