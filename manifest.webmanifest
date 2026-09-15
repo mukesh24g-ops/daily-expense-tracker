@@ -1,11 +1,11 @@
 {
   "name": "Daily Expense Tracker",
   "short_name": "Expense Tracker",
-  "start_url": "./",
+  "start_url": "./?v=6.2",
   "display": "standalone",
-  "background_color": "#061f4d",
-  "theme_color": "#062f67",
-  "description": "Professional daily expense tracker by Mukesh Kumar.",
+  "background_color": "#003b73",
+  "theme_color": "#0077cc",
+  "description": "Professional Daily Expense Tracker v6.2",
   "icons": [
     {"src":"./icon-192.svg","sizes":"192x192","type":"image/svg+xml","purpose":"any maskable"},
     {"src":"./icon-512.svg","sizes":"512x512","type":"image/svg+xml","purpose":"any maskable"}
