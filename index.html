@@ -1194,6 +1194,8 @@ body{background:#eaf6fb!important;color:var(--v10-ink)!important}
 let data=JSON.parse(localStorage.getItem('dailyExpenseData')||'[]');
 if(!Array.isArray(data)||data.length===0){data=CSV_BASELINE_EXPENSES.map(x=>({...x}));localStorage.setItem('dailyExpenseData',JSON.stringify(data));}
 const DEFAULT_GOOGLE_SHEET_ID='1jqLu2aczyjYJp5P-PBiGWPoOFmTA5vH5BkmPranB6Yg';
+const DEFAULT_APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbyASHG3qUbDvsL-wpop8RCOKW5zK-rkRaLyvpsOYWPIy21CoUvsE8-5cBNZRaWiSfTe6w/exec';
+const CLOUD_DATA_CONTRACT='MONTH_SHEET_TRUTH_V2';
 let lastEntryDate=localStorage.getItem('expenseTrackerLastEntryDate')||'';
 const iso=()=>new Date().toISOString().slice(0,10),money=n=>'₹ '+Number(n||0).toLocaleString('en-IN',{maximumFractionDigits:2});
 function sum(a){return (Array.isArray(a)?a:[]).reduce((s,x)=>s+(typeof x==='number'?Number(x||0):Number(x?.amount||0)),0)}
@@ -2368,7 +2370,7 @@ async function restoreFromGoogleSheet(){
     if(!res.ok)throw new Error('HTTP '+res.status);
     const payload=await res.json();
     if(!payload.ok||!Array.isArray(payload.expenses))throw new Error(payload.error||'Invalid cloud data');
-    if(payload.dataContract!=='MONTH_SHEET_TRUTH_V2')throw new Error('Google Apps Script backend पुराना है। पहले package वाला Code.gs deploy करें, फिर Restore करें।');
+    if(payload.dataContract!==CLOUD_DATA_CONTRACT)throw new Error('Google Apps Script backend पुराना है। पहले इस package का Code.gs deploy करें, फिर Restore करें।');
     const arr=payload.expenses.map(x=>({
       id:String(x.id||x.expenseId||('EXP-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7))),
       date:normalizeCloudDate(x.date,x.monthKey||x.sheetMonthKey||''),monthKey:String(normalizeCloudDate(x.date,x.monthKey||x.sheetMonthKey||'')).slice(0,7),cat:String(x.cat||x.category||'Miscellaneous').trim()||'Miscellaneous',
