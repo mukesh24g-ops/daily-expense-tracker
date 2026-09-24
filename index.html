@@ -1141,8 +1141,8 @@ body{background:#eaf6fb!important;color:var(--v10-ink)!important}
 </main></div>
 <footer class="footer"><span>🌿 Mukesh Kumar (Developer)</span><span>Track Smart | Spend Wise | Live Better</span></footer></div>
 <div class="modal" id="manageCategoriesModal"><div class="modalcard category-manager-modal"><button class="close" onclick="closeCategoryManager()">×</button><h2>🏷️ Manage Categories</h2><p class="small">Main Category और Sub-Category यहाँ से जोड़ें, बदलें या हटाएँ।</p><div class="managerAddMain"><input id="newCategoryName" placeholder="New Main Category"/><button onclick="addCategory()" type="button">＋ Add Category</button></div><div id="categoryManagerList"></div></div></div>
-<div class="modal" id="expenseModal"><div class="modalcard"><button class="close" onclick="closeExpenseModal()">×</button><h2 id="expenseModalTitle">➕ Add Expense</h2><div class="date-note">📅 Date चुनने के लिए calendar पर tap करें</div><div class="modalgrid"><div class="smartExpenseSearch"><input id="expenseSmartSearch" list="expenseSmartList" oninput="smartExpenseClassify(this.value)" placeholder="🔎 Quick Item / Category / Sub-Category (e.g. Milk, Petrol, Electricity)" autocomplete="off"/><datalist id="expenseSmartList"></datalist><small>नाम लिखते ही matching Category + Sub-Category अपने-आप चुनेंगे।</small></div><div class="datepickwrap full"><input aria-label="Date" id="edate" inputmode="none" onclick="openDatePicker('edate')" placeholder="DD/MM/YYYY" readonly="" type="text"/><input aria-hidden="true" class="hiddenPicker" id="edatePicker" onchange="applyPickedDate('edate',this.value)" tabindex="-1" type="date"/><button class="calendarBtn" onclick="openDatePicker('edate')" type="button">📅</button></div><select id="ecat" onchange="updateSubcategories()"></select><select id="esubcat" onchange="syncExpenseSmartSearch()"><option value="">Sub-Category (Optional)</option></select><select id="epaidfor" style="display:none"><option value="">👤 Paid For / किसके लिए?</option><option>Mukesh</option><option>Priti</option><option>Kids</option><option>Family</option><option>Household</option><option>Other</option></select><input id="edesc" placeholder="Description"/><input id="eamt" inputmode="decimal" min="0" placeholder="Amount ₹" step="0.01" type="number"/><select id="emode"><option>Cash</option><option>UPI</option><option>Credit Card</option></select></div><button class="save" id="expenseSaveBtn" onclick="addExpense()">💾 Save Expense</button></div></div>
-<div class="modal" id="viewModal"><div class="modalcard" style="width:min(1050px,97vw)"><button class="close" onclick="closeViewExpenses()">×</button><h2>☷ View Expenses</h2><div class="advancedFilters"><input id="viewSearch" oninput="renderViewExpenses()" placeholder="🔎 Search..."/><select id="viewCat" onchange="updateViewSubFilter();renderViewExpenses()"><option value="">All Categories</option></select><select id="viewSubcat" onchange="renderViewExpenses()"><option value="">All Sub-Categories</option></select><select id="viewMode" onchange="renderViewExpenses()"><option value="">All Payment Modes</option><option>Cash</option><option>UPI</option><option>Credit Card</option></select><select id="viewPaidFor" onchange="renderViewExpenses()"><option value="">All Paid For</option><option>Mukesh</option><option>Priti</option><option>Kids</option><option>Family</option><option>Household</option><option>Other</option></select><div class="datepickwrap"><input aria-label="From Date" id="viewFrom" inputmode="none" onclick="openDatePicker('viewFrom')" placeholder="DD/MM/YYYY" readonly="" type="text"/><input aria-hidden="true" class="hiddenPicker" id="viewFromPicker" onchange="applyPickedDate('viewFrom',this.value)" tabindex="-1" type="date"/><button class="calendarBtn" onclick="openDatePicker('viewFrom')" type="button">📅</button></div><div class="datepickwrap"><input aria-label="To Date" id="viewTo" inputmode="none" onclick="openDatePicker('viewTo')" placeholder="DD/MM/YYYY" readonly="" type="text"/><input aria-hidden="true" class="hiddenPicker" id="viewToPicker" onchange="applyPickedDate('viewTo',this.value)" tabindex="-1" type="date"/><button class="calendarBtn" onclick="openDatePicker('viewTo')" type="button">📅</button></div><input id="viewMinAmount" min="0" oninput="renderViewExpenses()" placeholder="Min Amount ₹" step="0.01" type="number"/><input id="viewMaxAmount" min="0" oninput="renderViewExpenses()" placeholder="Max Amount ₹" step="0.01" type="number"/><button class="filterClear" onclick="clearViewFilters()" type="button">✕ Clear All Filters</button></div><div class="pin-status" id="viewSummary" style="margin-top:10px"></div><div class="dateSummary" id="viewDateSummary" style="margin-top:8px"></div><div class="data-table-wrap"><table class="data-table"><thead><tr><th>Date</th><th>Category</th><th>Sub-Category</th><th>Paid For</th><th>Description</th><th>Mode</th><th>Amount</th><th>Action</th></tr></thead><tbody id="viewBody"></tbody></table></div></div></div><div class="modal" id="reportsModal"><div class="modalcard"><button class="close" onclick="closeExpenseReports()">×</button><h2>📊 Expense Reports</h2><div class="summaryline"><div class="sumcard">Total<b id="rTotal">₹ 0</b></div><div class="sumcard cash">Cash<b id="rCash">₹ 0</b></div><div class="sumcard online">UPI + Card<b id="rOnline">₹ 0</b></div></div><div class="sectiontitle" style="margin-top:4px">Category-wise Analysis — <span id="reportYearLabel">2026</span></div><div id="reportCats"></div></div></div>
+<div class="modal" id="expenseModal"><div class="modalcard"><button class="close" onclick="closeExpenseModal()">×</button><h2 id="expenseModalTitle">➕ Add Expense</h2><div class="date-note">📅 Date चुनने के लिए calendar पर tap करें</div><div class="modalgrid"><div class="smartExpenseSearch"><input id="expenseSmartSearch" list="expenseSmartList" oninput="smartExpenseClassify(this.value)" placeholder="🔎 Quick Item / Category / Sub-Category (e.g. Milk, Petrol, Electricity)" autocomplete="off"/><datalist id="expenseSmartList"></datalist><small>नाम लिखते ही matching Category + Sub-Category अपने-आप चुनेंगे।</small></div><div class="datepickwrap full"><input aria-label="Date" id="edate" inputmode="none" onclick="openDatePicker('edate')" placeholder="DD-MM-YYYY" readonly="" type="text"/><input aria-hidden="true" class="hiddenPicker" id="edatePicker" onchange="applyPickedDate('edate',this.value)" tabindex="-1" type="date"/><button class="calendarBtn" onclick="openDatePicker('edate')" type="button">📅</button></div><select id="ecat" onchange="updateSubcategories()"></select><select id="esubcat" onchange="syncExpenseSmartSearch()"><option value="">Sub-Category (Optional)</option></select><select id="epaidfor" style="display:none"><option value="">👤 Paid For / किसके लिए?</option><option>Mukesh</option><option>Priti</option><option>Kids</option><option>Family</option><option>Household</option><option>Other</option></select><input id="edesc" placeholder="Description"/><input id="eamt" inputmode="decimal" min="0" placeholder="Amount ₹" step="0.01" type="number"/><select id="emode"><option>Cash</option><option>UPI</option><option>Credit Card</option></select></div><button class="save" id="expenseSaveBtn" onclick="addExpense()">💾 Save Expense</button></div></div>
+<div class="modal" id="viewModal"><div class="modalcard" style="width:min(1050px,97vw)"><button class="close" onclick="closeViewExpenses()">×</button><h2>☷ View Expenses</h2><div class="advancedFilters"><input id="viewSearch" oninput="renderViewExpenses()" placeholder="🔎 Search..."/><select id="viewCat" onchange="updateViewSubFilter();renderViewExpenses()"><option value="">All Categories</option></select><select id="viewSubcat" onchange="renderViewExpenses()"><option value="">All Sub-Categories</option></select><select id="viewMode" onchange="renderViewExpenses()"><option value="">All Payment Modes</option><option>Cash</option><option>UPI</option><option>Credit Card</option></select><select id="viewPaidFor" onchange="renderViewExpenses()"><option value="">All Paid For</option><option>Mukesh</option><option>Priti</option><option>Kids</option><option>Family</option><option>Household</option><option>Other</option></select><div class="datepickwrap"><input aria-label="From Date" id="viewFrom" inputmode="none" onclick="openDatePicker('viewFrom')" placeholder="DD-MM-YYYY" readonly="" type="text"/><input aria-hidden="true" class="hiddenPicker" id="viewFromPicker" onchange="applyPickedDate('viewFrom',this.value)" tabindex="-1" type="date"/><button class="calendarBtn" onclick="openDatePicker('viewFrom')" type="button">📅</button></div><div class="datepickwrap"><input aria-label="To Date" id="viewTo" inputmode="none" onclick="openDatePicker('viewTo')" placeholder="DD-MM-YYYY" readonly="" type="text"/><input aria-hidden="true" class="hiddenPicker" id="viewToPicker" onchange="applyPickedDate('viewTo',this.value)" tabindex="-1" type="date"/><button class="calendarBtn" onclick="openDatePicker('viewTo')" type="button">📅</button></div><input id="viewMinAmount" min="0" oninput="renderViewExpenses()" placeholder="Min Amount ₹" step="0.01" type="number"/><input id="viewMaxAmount" min="0" oninput="renderViewExpenses()" placeholder="Max Amount ₹" step="0.01" type="number"/><button class="filterClear" onclick="clearViewFilters()" type="button">✕ Clear All Filters</button></div><div class="pin-status" id="viewSummary" style="margin-top:10px"></div><div class="dateSummary" id="viewDateSummary" style="margin-top:8px"></div><div class="data-table-wrap"><table class="data-table"><thead><tr><th>Date</th><th>Category</th><th>Sub-Category</th><th>Paid For</th><th>Description</th><th>Mode</th><th>Amount</th><th>Action</th></tr></thead><tbody id="viewBody"></tbody></table></div></div></div><div class="modal" id="reportsModal"><div class="modalcard"><button class="close" onclick="closeExpenseReports()">×</button><h2>📊 Expense Reports</h2><div class="summaryline"><div class="sumcard">Total<b id="rTotal">₹ 0</b></div><div class="sumcard cash">Cash<b id="rCash">₹ 0</b></div><div class="sumcard online">UPI + Card<b id="rOnline">₹ 0</b></div></div><div class="sectiontitle" style="margin-top:4px">Category-wise Analysis — <span id="reportYearLabel">2026</span></div><div id="reportCats"></div></div></div>
 <div class="modal" id="monthlyModal"><div class="modalcard monthly-card"><button class="close" onclick="closeMonthlyReport()">×</button><h2>📅 Monthly Expense Report</h2><div class="modalgrid monthly-controls"><div><label>Month</label><select id="reportMonth"><option value="0">January</option><option value="1">February</option><option value="2">March</option><option value="3">April</option><option value="4">May</option><option value="5">June</option><option value="6">July</option><option value="7">August</option><option value="8">September</option><option value="9">October</option><option value="10">November</option><option value="11">December</option></select></div><div><label>Year</label><input id="reportYear" max="2100" min="2000" type="number"/></div></div><button class="save" onclick="generateMonthlyReport()">View Monthly Report</button><div class="monthly-result" id="monthlyResult"></div><button class="save" onclick="printMonthlyReport()">⬇️ Download / Save PDF</button></div></div>
 
 
@@ -1165,7 +1165,7 @@ body{background:#eaf6fb!important;color:var(--v10-ink)!important}
 <div class="googleCloudTitle">📊 Google Sheets Cloud Backup</div>
 <div class="googleCloudMeta">Spreadsheet: <b>EXPENSE TRACKER</b><br/>Account: <b>mukesh24g@gmail.com</b></div>
 <input class="cloudInput" id="sheetId" placeholder="Google Sheet ID" type="text" value="1jqLu2aczyjYJp5P-PBiGWPoOFmTA5vH5BkmPranB6Yg"/>
-<input autocomplete="off" class="cloudInput" id="appsScriptUrl" placeholder="Google Apps Script Web App URL (https://script.google.com/macros/s/.../exec)" type="url"/>
+<input autocomplete="off" class="cloudInput" id="appsScriptUrl" placeholder="Google Apps Script Web App URL (https://script.google.com/macros/s/AKfycbyASHG3qUbDvsL-wpop8RCOKW5zK-rkRaLyvpsOYWPIy21CoUvsE8-5cBNZRaWiSfTe6w/exec)" type="url"/>
 <button class="save secondary" onclick="saveSheetConfig()" type="button">🔗 Save Google Sheet Connection</button>
 <a class="save secondary" href="https://docs.google.com/spreadsheets/d/1jqLu2aczyjYJp5P-PBiGWPoOFmTA5vH5BkmPranB6Yg/edit" rel="noopener" style="display:block;text-align:center;text-decoration:none" target="_blank">
     📊 Open EXPENSE TRACKER Google Sheet
@@ -1181,41 +1181,27 @@ body{background:#eaf6fb!important;color:var(--v10-ink)!important}
 </label>
 <div class="small" style="margin:5px 2px 10px">JSON Full Backup restore करें या पुराने Expense CSV को import करें।</div>
 <button class="save" onclick="restoreFromGoogleSheet()" type="button">☁️ Restore from Google Sheet</button>
+<button class="save secondary" onclick="repairGoogleSheet()" type="button">🛠️ Repair Google Sheet Structure & Dashboard</button>
 <div class="small" style="margin:5px 2px 10px">Google Sheet से सभी synced expenses वापस Tracker में restore करें।</div>
 <button class="save secondary" onclick="downloadCSV()" type="button">📄 Export CSV (Expenses Only)</button>
 <button class="save danger" onclick="clearAllData()" type="button">⚠️ Delete All Expense Data</button>
 </div></div>
 <div class="modal" id="settingsModal"><div class="modalcard"><button class="close" onclick="closeSettings()">×</button><h2>⚙️ Settings &amp; Security</h2><div class="pin-status" id="pinStatus"></div><div class="modalgrid"><input id="pinInput" inputmode="numeric" maxlength="8" placeholder="New PIN (4–8 digits)" type="password"/><input id="pinConfirm" inputmode="numeric" maxlength="8" placeholder="Confirm PIN" type="password"/></div><button class="save" onclick="savePin()">🔐 Set / Change PIN</button><button class="save muted" onclick="removePin()">🔓 Remove PIN</button><button class="save secondary" onclick="closeSettings()">Done</button><p class="small">PIN is a convenience lock for this browser. Keep a backup file for important records.</p></div></div>
-<div class="modal" id="recurringModal"><div class="modalcard feature-card premiumFeature"><button class="close" onclick="closeRecurringExpenses()">×</button><div class="featureHero"><div class="featureIcon">🔁</div><div><h2>Expense Reminder</h2><p>Recurring bills और expenses के लिए smart reminder सेट करें। Expense अपने-आप add नहीं होगा।</p></div></div><div class="featureForm premiumForm"><label>Expense / Bill<select id="recName"><option value="">Select related expense / bill</option></select></label><label>Due Date <span class="small">(calendar से date चुनें)</span><input aria-label="Due Date (calendar date picker)" id="recDueDate" required="" type="date"/></label><label>Expected Amount ₹<input id="recAmount" min="0" placeholder="Optional" step="0.01" type="number"/></label><button class="save" onclick="addRecurringExpense()" type="button">＋ Add Reminder</button></div><div class="smartHint">💡 Related options आपके existing expense categories और bill/payment sub-categories से automatically आती हैं।</div><div id="recurringList"></div></div></div>
+<div class="modal" id="recurringModal"><div class="modalcard feature-card premiumFeature"><button class="close" onclick="closeRecurringExpenses()">×</button><div class="featureHero"><div class="featureIcon">🔁</div><div><h2>Expense Reminder</h2><p>Recurring bills और expenses के लिए smart reminder सेट करें। Expense अपने-आप add नहीं होगा।</p></div></div><div class="featureForm premiumForm"><label>Expense / Bill<select id="recName"><option value="">Select related expense / bill</option></select></label><label>Due Date <span class="small">(calendar से date चुनें)</span><div class="datepickwrap"><input aria-label="Due Date" id="recDueDate" inputmode="none" onclick="openDatePicker('recDueDate')" placeholder="DD-MM-YYYY" readonly="" type="text"/><input aria-hidden="true" class="hiddenPicker" id="recDueDatePicker" onchange="applyPickedDate('recDueDate',this.value)" tabindex="-1" type="date"/><button class="calendarBtn" onclick="openDatePicker('recDueDate')" type="button">📅</button></div></label><label>Expected Amount ₹<input id="recAmount" min="0" placeholder="Optional" step="0.01" type="number"/></label><button class="save" onclick="addRecurringExpense()" type="button">＋ Add Reminder</button></div><div class="smartHint">💡 Related options आपके existing expense categories और bill/payment sub-categories से automatically आती हैं।</div><div id="recurringList"></div></div></div>
 <div class="modal" id="calendarModal"><div class="modalcard feature-card calendarPremium"><button class="close" onclick="closeExpenseCalendar()">×</button><div class="featureHero"><div class="featureIcon">🗓️</div><div><h2>Expense Calendar</h2><p>Daily spending को एक smart monthly view में देखें।</p></div></div><div class="calendarStats"><div><span>Month Total</span><b id="calMonthTotal">₹ 0</b></div><div><span>Expense Days</span><b id="calExpenseDays">0</b></div><div><span>Highest Day</span><b id="calHighestDay">—</b></div></div><div class="calendarToolbar"><button onclick="changeCalendarMonth(-1)" type="button">‹</button><b id="calendarTitle"></b><button class="todayBtn" onclick="goCalendarToday()" type="button">Today</button><button onclick="changeCalendarMonth(1)" type="button">›</button></div><div class="calendarLegend"><span><i class="legendDot low"></i>Expense</span><span><i class="legendDot high"></i>Highest</span><span><i class="legendDot today"></i>Today</span></div><div class="expenseCalendarGrid" id="expenseCalendarGrid"></div><div class="calendarDetails" id="calendarDayDetails">किसी दिन पर tap करें।</div></div></div>
-<div class="modal" id="billsModal"><div class="modalcard feature-card premiumFeature"><button class="close" onclick="closeBillsTracker()">×</button><div class="featureHero"><div class="featureIcon">🧾</div><div><h2>Payment Due / Bills Tracker</h2><p>Related bills की automatic list से select करें और due date के साथ track करें।</p></div></div><div class="featureForm premiumForm"><label>Bill / Payment<select id="billName"><option value="">Select bill / payment</option></select></label><label>Due Date <span class="small">(calendar से date चुनें)</span><input aria-label="Due Date (calendar date picker)" id="billDue" required="" type="date"/></label><label>Amount ₹<input id="billAmount" min="0" placeholder="Optional" step="0.01" type="number"/></label><button class="save" onclick="addBillDue()" type="button">＋ Add Bill</button></div><div class="smartHint">📌 Bills list में Electricity, Mobile, Internet, OTT, Insurance, FD, Vehicle Insurance आदि related options automatically उपलब्ध हैं।</div><div id="billsList"></div></div></div>
+<div class="modal" id="billsModal"><div class="modalcard feature-card premiumFeature"><button class="close" onclick="closeBillsTracker()">×</button><div class="featureHero"><div class="featureIcon">🧾</div><div><h2>Payment Due / Bills Tracker</h2><p>Related bills की automatic list से select करें और due date के साथ track करें।</p></div></div><div class="featureForm premiumForm"><label>Bill / Payment<select id="billName"><option value="">Select bill / payment</option></select></label><label>Due Date <span class="small">(calendar से date चुनें)</span><div class="datepickwrap"><input aria-label="Due Date" id="billDue" inputmode="none" onclick="openDatePicker('billDue')" placeholder="DD-MM-YYYY" readonly="" type="text"/><input aria-hidden="true" class="hiddenPicker" id="billDuePicker" onchange="applyPickedDate('billDue',this.value)" tabindex="-1" type="date"/><button class="calendarBtn" onclick="openDatePicker('billDue')" type="button">📅</button></div></label><label>Amount ₹<input id="billAmount" min="0" placeholder="Optional" step="0.01" type="number"/></label><button class="save" onclick="addBillDue()" type="button">＋ Add Bill</button></div><div class="smartHint">📌 Bills list में Electricity, Mobile, Internet, OTT, Insurance, FD, Vehicle Insurance आदि related options automatically उपलब्ध हैं।</div><div id="billsList"></div></div></div>
 <div class="modal" id="lockModal"><div class="modalcard" style="text-align:center;max-width:390px"><div style="font-size:50px">🔐</div><h2>Expense Tracker Locked</h2><p>Enter your PIN to continue.</p><input id="unlockPin" inputmode="numeric" maxlength="8" placeholder="Enter PIN" style="width:100%;padding:12px;border:1px solid #ccd6e0;border-radius:8px" type="password"/><button class="save" onclick="unlockApp()">Unlock</button></div></div>
 <script>const CSV_BASELINE_EXPENSES = [{"id":"CSV-0001","date":"2026-01-05","cat":"Food & Grocery","subcat":"Groceries / राशन","paidFor":"","desc":"","amount":1200.0,"mode":"Cash","remark":""},{"id":"CSV-0002","date":"2026-01-05","cat":"Gifts & Donations","subcat":"TSCT","paidFor":"","desc":"","amount":500.0,"mode":"UPI","remark":""},{"id":"CSV-0003","date":"2026-01-05","cat":"Food & Grocery","subcat":"Bakery","paidFor":"","desc":"","amount":950.0,"mode":"Cash","remark":""},{"id":"CSV-0004","date":"2026-01-05","cat":"Vehicle & Transportation","subcat":"Repair","paidFor":"","desc":"","amount":10500.0,"mode":"UPI","remark":""},{"id":"CSV-0005","date":"2026-01-07","cat":"Family & Kids","subcat":"Kids","paidFor":"Kids","desc":"","amount":550.0,"mode":"Credit Card","remark":""},{"id":"CSV-0006","date":"2026-01-07","cat":"Home & Household","subcat":"Home Appliances","paidFor":"","desc":"","amount":2477.0,"mode":"Credit Card","remark":""},{"id":"CSV-0007","date":"2026-01-15","cat":"Health & Medical","subcat":"Medicines","paidFor":"Family","desc":"","amount":5240.0,"mode":"Cash","remark":""},{"id":"CSV-0008","date":"2026-01-15","cat":"Maintenance & Repair","subcat":"Home Maintenance","paidFor":"","desc":"","amount":400.0,"mode":"Cash","remark":""},{"id":"CSV-0009","date":"2026-01-30","cat":"Food & Grocery","subcat":"Vegetables / सब्जियाँ","paidFor":"","desc":"","amount":600.0,"mode":"Cash","remark":""},{"id":"CSV-0010","date":"2026-01-30","cat":"Food & Grocery","subcat":"Milk / दूध","paidFor":"","desc":"","amount":5580.0,"mode":"Cash","remark":""},{"id":"CSV-0011","date":"2026-02-04","cat":"Vehicle & Transportation","subcat":"Diesel","paidFor":"","desc":"","amount":2250.0,"mode":"Credit Card","remark":""},{"id":"CSV-0012","date":"2026-02-04","cat":"Bills & Utilities","subcat":"Electricity Bill","paidFor":"","desc":"","amount":8500.0,"mode":"UPI","remark":""},{"id":"CSV-0013","date":"2026-02-04","cat":"Vehicle & Transportation","subcat":"Repair","paidFor":"","desc":"","amount":4328.0,"mode":"Cash","remark":""},{"id":"CSV-0014","date":"2026-02-06","cat":"Food & Grocery","subcat":"Online Food","paidFor":"","desc":"","amount":2530.0,"mode":"Cash","remark":""},{"id":"CSV-0015","date":"2026-02-06","cat":"Religious & Festivals","subcat":"Festival Shopping","paidFor":"","desc":"","amount":880.0,"mode":"Cash","remark":""},{"id":"CSV-0016","date":"2026-02-06","cat":"Entertainment & Events","subcat":"Party","paidFor":"","desc":"","amount":550.0,"mode":"Cash","remark":""},{"id":"CSV-0017","date":"2026-02-11","cat":"Food & Grocery","subcat":"Groceries / राशन","paidFor":"","desc":"","amount":600.0,"mode":"Cash","remark":""},{"id":"CSV-0018","date":"2026-02-11","cat":"Food & Grocery","subcat":"Fruits / फल","paidFor":"","desc":"","amount":1050.0,"mode":"Cash","remark":""},{"id":"CSV-0019","date":"2026-02-26","cat":"Bills & Utilities","subcat":"Internet / Wi-Fi","paidFor":"","desc":"","amount":3000.0,"mode":"UPI","remark":""},{"id":"CSV-0020","date":"2026-02-27","cat":"Food & Grocery","subcat":"Vegetables / सब्जियाँ","paidFor":"","desc":"","amount":550.0,"mode":"Cash","remark":""},{"id":"CSV-0021","date":"2026-02-27","cat":"Food & Grocery","subcat":"Milk / दूध","paidFor":"","desc":"","amount":5040.0,"mode":"Cash","remark":""},{"id":"CSV-0022","date":"2026-02-27","cat":"Maintenance & Repair","subcat":"Home Maintenance","paidFor":"","desc":"","amount":5000.0,"mode":"Cash","remark":""},{"id":"CSV-0023","date":"2026-02-27","cat":"Domestic Help & Services","subcat":"Maid","paidFor":"","desc":"","amount":4000.0,"mode":"Cash","remark":""},{"id":"CSV-0024","date":"2026-03-10","cat":"Gifts & Donations","subcat":"TSCT","paidFor":"","desc":"","amount":301.0,"mode":"UPI","remark":""},{"id":"CSV-0025","date":"2026-03-10","cat":"Bills & Utilities","subcat":"Mobile Bill","paidFor":"","desc":"","amount":985.0,"mode":"UPI","remark":""},{"id":"CSV-0026","date":"2026-03-10","cat":"Vehicle & Transportation","subcat":"Repair","paidFor":"","desc":"","amount":550.0,"mode":"UPI","remark":""},{"id":"CSV-0027","date":"2026-03-10","cat":"Food & Grocery","subcat":"Restaurant","paidFor":"","desc":"","amount":300.0,"mode":"Cash","remark":""},{"id":"CSV-0028","date":"2026-03-10","cat":"Food & Grocery","subcat":"Bakery","paidFor":"","desc":"","amount":300.0,"mode":"Cash","remark":""},{"id":"CSV-0029","date":"2026-03-10","cat":"Food & Grocery","subcat":"Fruits / फल","paidFor":"","desc":"","amount":400.0,"mode":"Cash","remark":""},{"id":"CSV-0030","date":"2026-03-12","cat":"Food & Grocery","subcat":"Online Food","paidFor":"","desc":"Multivitamin","amount":1280.0,"mode":"Credit Card","remark":""},{"id":"CSV-0031","date":"2026-03-12","cat":"Clothing & Fashion","subcat":"Kids","paidFor":"","desc":"","amount":5236.0,"mode":"Credit Card","remark":""},{"id":"CSV-0032","date":"2026-03-12","cat":"Food & Grocery","subcat":"Fruits / फल","paidFor":"","desc":"","amount":180.0,"mode":"Cash","remark":""},{"id":"CSV-0033","date":"2026-03-12","cat":"Food & Grocery","subcat":"Snacks / नाश्ता","paidFor":"","desc":"","amount":380.0,"mode":"Cash","remark":""},{"id":"CSV-0034","date":"2026-03-15","cat":"Family & Kids","subcat":"Kids","paidFor":"","desc":"","amount":477.0,"mode":"Credit Card","remark":""},{"id":"CSV-0035","date":"2026-03-15","cat":"Food & Grocery","subcat":"Bakery","paidFor":"","desc":"Dry Fruits","amount":1300.0,"mode":"Cash","remark":""},{"id":"CSV-0036","date":"2026-03-15","cat":"Vehicle & Transportation","subcat":"Repair","paidFor":"","desc":"","amount":20000.0,"mode":"UPI","remark":""},{"id":"CSV-0037","date":"2026-03-15","cat":"Food & Grocery","subcat":"Vegetables / सब्जियाँ","paidFor":"","desc":"","amount":300.0,"mode":"Cash","remark":""},{"id":"CSV-0038","date":"2026-03-15","cat":"Food & Grocery","subcat":"Snacks / नाश्ता","paidFor":"","desc":"","amount":200.0,"mode":"Cash","remark":""},{"id":"CSV-0039","date":"2026-03-15","cat":"Food & Grocery","subcat":"Bakery","paidFor":"","desc":"Ots","amount":530.0,"mode":"Credit Card","remark":""},{"id":"CSV-0040","date":"2026-03-15","cat":"Maintenance & Repair","subcat":"Electrical Repair","paidFor":"","desc":"Meter","amount":500.0,"mode":"Cash","remark":""},{"id":"CSV-0041","date":"2026-03-15","cat":"Vehicle & Transportation","subcat":"Diesel","paidFor":"","desc":"","amount":2500.0,"mode":"Credit Card","remark":""},{"id":"CSV-0042","date":"2026-03-18","cat":"Maintenance & Repair","subcat":"Appliance Repair","paidFor":"","desc":"AC","amount":1800.0,"mode":"Cash","remark":""},{"id":"CSV-0043","date":"2026-03-18","cat":"Home & Household","subcat":"Household Items","paidFor":"","desc":"Lock","amount":400.0,"mode":"Cash","remark":""},{"id":"CSV-0044","date":"2026-03-18","cat":"Maintenance & Repair","subcat":"Electrical Repair","paidFor":"","desc":"","amount":400.0,"mode":"Cash","remark":""},{"id":"CSV-0045","date":"2026-03-18","cat":"Bills & Utilities","subcat":"Electricity Bill","paidFor":"","desc":"","amount":2000.0,"mode":"UPI","remark":""},{"id":"CSV-0046","date":"2026-03-18","cat":"Food & Grocery","subcat":"Fruits / फल","paidFor":"","desc":"","amount":675.0,"mode":"Cash","remark":""},{"id":"CSV-0047","date":"2026-03-25","cat":"Vehicle & Transportation","subcat":"Repair","paidFor":"","desc":"Toll","amount":1500.0,"mode":"UPI","remark":""},{"id":"CSV-0048","date":"2026-03-25","cat":"Home & Household","subcat":"Gas Cylinder","paidFor":"","desc":"","amount":2010.0,"mode":"Cash","remark":""},{"id":"CSV-0049","date":"2026-03-25","cat":"Maintenance & Repair","subcat":"Appliance Repair","paidFor":"","desc":"RO","amount":600.0,"mode":"Cash","remark":""},{"id":"CSV-0050","date":"2026-03-25","cat":"Vehicle & Transportation","subcat":"Insurance","paidFor":"","desc":"Car","amount":18600.0,"mode":"UPI","remark":""},{"id":"CSV-0051","date":"2026-03-25","cat":"Shopping","subcat":"Amazon / Flipkart","paidFor":"","desc":"","amount":1100.0,"mode":"Credit Card","remark":""},{"id":"CSV-0052","date":"2026-03-25","cat":"Vehicle & Transportation","subcat":"Repair","paidFor":"","desc":"","amount":2050.0,"mode":"Cash","remark":""},{"id":"CSV-0053","date":"2026-04-02","cat":"Food & Grocery","subcat":"Vegetables / सब्जियाँ","paidFor":"","desc":"","amount":500.0,"mode":"Cash","remark":""},{"id":"CSV-0054","date":"2026-04-02","cat":"Food & Grocery","subcat":"Fruits / फल","paidFor":"","desc":"","amount":500.0,"mode":"Cash","remark":""},{"id":"CSV-0055","date":"2026-04-02","cat":"Religious & Festivals","subcat":"","paidFor":"","desc":"Hanuman jayanti","amount":2100.0,"mode":"Cash","remark":""},{"id":"CSV-0056","date":"2026-04-03","cat":"Shopping","subcat":"Amazon / Flipkart","paidFor":"","desc":"","amount":5226.0,"mode":"Credit Card","remark":""},{"id":"CSV-0057","date":"2026-04-03","cat":"Food & Grocery","subcat":"Snacks / नाश्ता","paidFor":"","desc":"","amount":120.0,"mode":"Cash","remark":""},{"id":"CSV-0058","date":"2026-04-03","cat":"Food & Grocery","subcat":"Bakery","paidFor":"","desc":"Dry Fruits","amount":600.0,"mode":"Cash","remark":""},{"id":"CSV-0059","date":"2026-04-03","cat":"Bills & Utilities","subcat":"Electricity Bill","paidFor":"","desc":"","amount":3000.0,"mode":"UPI","remark":""},{"id":"CSV-0060","date":"2026-04-03","cat":"Personal Care","subcat":"Other","paidFor":"","desc":"Nykaa","amount":1160.0,"mode":"Credit Card","remark":""},{"id":"CSV-0061","date":"2026-04-03","cat":"Food & Grocery","subcat":"Vegetables / सब्जियाँ","paidFor":"","desc":"","amount":230.0,"mode":"Cash","remark":""},{"id":"CSV-0062","date":"2026-04-03","cat":"Food & Grocery","subcat":"Vegetables / सब्जियाँ","paidFor":"","desc":"","amount":150.0,"mode":"Cash","remark":""},{"id":"CSV-0063","date":"2026-04-03","cat":"Food & Grocery","subcat":"Milk / दूध","paidFor":"","desc":"","amount":5430.0,"mode":"Cash","remark":""},{"id":"CSV-0064","date":"2026-04-05","cat":"Education & School","subcat":"School Fees","paidFor":"Kids","desc":"","amount":18500.0,"mode":"UPI","remark":""},{"id":"CSV-0065","date":"2026-04-11","cat":"Vehicle & Transportation","subcat":"Service","paidFor":"","desc":"","amount":4150.0,"mode":"UPI","remark":""},{"id":"CSV-0066","date":"2026-04-11","cat":"Food & Grocery","subcat":"Bakery","paidFor":"","desc":"Dry Fruits","amount":460.0,"mode":"Cash","remark":""},{"id":"CSV-0067","date":"2026-04-11","cat":"Food & Grocery","subcat":"Fruits / फल","paidFor":"","desc":"","amount":500.0,"mode":"Cash","remark":""},{"id":"CSV-0068","date":"2026-04-11","cat":"Food & Grocery","subcat":"Groceries / राशन","paidFor":"","desc":"","amount":500.0,"mode":"Cash","remark":""},{"id":"CSV-0069","date":"2026-04-11","cat":"Food & Grocery","subcat":"Vegetables / सब्जियाँ","paidFor":"","desc":"","amount":500.0,"mode":"Cash","remark":""},{"id":"CSV-0070","date":"2026-04-11","cat":"Health & Medical","subcat":"Medicines","paidFor":"","desc":"","amount":1100.0,"mode":"Cash","remark":""},{"id":"CSV-0071","date":"2026-04-15","cat":"Clothing & Fashion","subcat":"Other","paidFor":"","desc":"Towal","amount":1700.0,"mode":"Credit Card","remark":""},{"id":"CSV-0072","date":"2026-04-15","cat":"Food & Grocery","subcat":"Bakery","paidFor":"","desc":"Anjir","amount":500.0,"mode":"Cash","remark":""},{"id":"CSV-0073","date":"2026-04-15","cat":"Food & Grocery","subcat":"Groceries / राशन","paidFor":"","desc":"","amount":600.0,"mode":"Cash","remark":""},{"id":"CSV-0074","date":"2026-04-19","cat":"Food & Grocery","subcat":"Groceries / राशन","paidFor":"","desc":"","amount":300.0,"mode":"Cash","remark":""},{"id":"CSV-0075","date":"2026-04-19","cat":"Food & Grocery","subcat":"Vegetables / सब्जियाँ","paidFor":"","desc":"","amount":300.0,"mode":"Cash","remark":""},{"id":"CSV-0076","date":"2026-04-22","cat":"Health & Medical","subcat":"Medicines","paidFor":"Mukesh","desc":"Traya","amount":1450.0,"mode":"UPI","remark":""},{"id":"CSV-0077","date":"2026-04-25","cat":"Vehicle & Transportation","subcat":"Diesel","paidFor":"","desc":"","amount":3270.0,"mode":"Credit Card","remark":""},{"id":"CSV-0078","date":"2026-04-25","cat":"Bills & Utilities","subcat":"Electricity Bill","paidFor":"","desc":"","amount":1000.0,"mode":"UPI","remark":""},{"id":"CSV-0079","date":"2026-04-25","cat":"Food & Grocery","subcat":"Fruits / फल","paidFor":"","desc":"","amount":1000.0,"mode":"Cash","remark":""},{"id":"CSV-0080","date":"2026-04-25","cat":"Vehicle & Transportation","subcat":"Repair","paidFor":"","desc":"","amount":7000.0,"mode":"UPI","remark":""},{"id":"CSV-0081","date":"2026-04-27","cat":"Food & Grocery","subcat":"Groceries / राशन","paidFor":"","desc":"Glucose","amount":480.0,"mode":"Cash","remark":""},{"id":"CSV-0082","date":"2026-04-27","cat":"Food & Grocery","subcat":"Groceries / राशन","paidFor":"","desc":"","amount":300.0,"mode":"Cash","remark":""},{"id":"CSV-0083","date":"2026-04-27","cat":"Shopping","subcat":"Amazon / Flipkart","paidFor":"","desc":"","amount":1900.0,"mode":"Cash","remark":""},{"id":"CSV-0084","date":"2026-04-27","cat":"Food & Grocery","subcat":"Fruits / फल","paidFor":"","desc":"","amount":1000.0,"mode":"Cash","remark":""},{"id":"CSV-0085","date":"2026-05-01","cat":"Maintenance & Repair","subcat":"Appliance Repair","paidFor":"","desc":"AC","amount":6200.0,"mode":"Cash","remark":""},{"id":"CSV-0086","date":"2026-05-02","cat":"Gifts & Donations","subcat":"Social Donation","paidFor":"","desc":"Bhusa","amount":1100.0,"mode":"UPI","remark":""},{"id":"CSV-0087","date":"2026-05-02","cat":"Food & Grocery","subcat":"Milk / दूध","paidFor":"","desc":"","amount":4500.0,"mode":"Cash","remark":""},{"id":"CSV-0088","date":"2026-05-04","cat":"Bills & Utilities","subcat":"Mobile Bill","paidFor":"","desc":"","amount":984.0,"mode":"UPI","remark":""},{"id":"CSV-0089","date":"2026-05-07","cat":"Financial","subcat":"Investment","paidFor":"","desc":"","amount":1500.0,"mode":"UPI","remark":""},{"id":"CSV-0090","date":"2026-05-08","cat":"Bills & Utilities","subcat":"Electricity Bill","paidFor":"","desc":"","amount":1000.0,"mode":"UPI","remark":""},{"id":"CSV-0091","date":"2026-05-08","cat":"Food & Grocery","subcat":"Bakery","paidFor":"","desc":"","amount":760.0,"mode":"Cash","remark":""},{"id":"CSV-0092","date":"2026-05-10","cat":"Food & Grocery","subcat":"Groceries / राशन","paidFor":"","desc":"","amount":3250.0,"mode":"Cash","remark":""},{"id":"CSV-0093","date":"2026-05-10","cat":"Family & Kids","subcat":"Parents","paidFor":"Family","desc":"OLA","amount":2400.0,"mode":"UPI","remark":""},{"id":"CSV-0094","date":"2026-05-20","cat":"Food & Grocery","subcat":"Fruits / फल","paidFor":"","desc":"","amount":1000.0,"mode":"Cash","remark":""},{"id":"CSV-0095","date":"2026-05-20","cat":"Food & Grocery","subcat":"Vegetables / सब्जियाँ","paidFor":"","desc":"","amount":1000.0,"mode":"Cash","remark":""},{"id":"CSV-0096","date":"2026-05-21","cat":"Domestic Help & Services","subcat":"Maid","paidFor":"","desc":"","amount":2000.0,"mode":"Cash","remark":""},{"id":"CSV-0097","date":"2026-05-21","cat":"Vehicle & Transportation","subcat":"Petrol","paidFor":"","desc":"","amount":300.0,"mode":"Cash","remark":""},{"id":"CSV-0098","date":"2026-05-28","cat":"Vehicle & Transportation","subcat":"Repair","paidFor":"","desc":"Car","amount":5200.0,"mode":"UPI","remark":""},{"id":"CSV-0099","date":"2026-05-28","cat":"Food & Grocery","subcat":"Groceries / राशन","paidFor":"","desc":"","amount":1100.0,"mode":"Cash","remark":""},{"id":"CSV-0100","date":"2026-06-02","cat":"Food & Grocery","subcat":"Milk / दूध","paidFor":"","desc":"","amount":4650.0,"mode":"Cash","remark":""},{"id":"CSV-0101","date":"2026-06-02","cat":"Food & Grocery","subcat":"Vegetables / सब्जियाँ","paidFor":"","desc":"","amount":500.0,"mode":"Cash","remark":""},{"id":"CSV-0102","date":"2026-06-05","cat":"Financial","subcat":"Investment","paidFor":"","desc":"","amount":500.0,"mode":"UPI","remark":""},{"id":"CSV-0103","date":"2026-06-05","cat":"Bills & Utilities","subcat":"Mobile Bill","paidFor":"","desc":"Priti","amount":984.0,"mode":"UPI","remark":""},{"id":"CSV-0104","date":"2026-06-10","cat":"Food & Grocery","subcat":"Restaurant","paidFor":"","desc":"","amount":500.0,"mode":"UPI","remark":""},{"id":"CSV-0105","date":"2026-06-10","cat":"Clothing & Fashion","subcat":"Kids","paidFor":"","desc":"","amount":2800.0,"mode":"UPI","remark":""},{"id":"CSV-0106","date":"2026-06-10","cat":"Bills & Utilities","subcat":"Electricity Bill","paidFor":"","desc":"","amount":5400.0,"mode":"UPI","remark":""},{"id":"CSV-0107","date":"2026-06-10","cat":"Home & Household","subcat":"Other Household","paidFor":"","desc":"Solar panal","amount":2700.0,"mode":"Cash","remark":""},{"id":"CSV-0108","date":"2026-06-10","cat":"Clothing & Fashion","subcat":"Priti","paidFor":"","desc":"","amount":1900.0,"mode":"Credit Card","remark":""},{"id":"CSV-0109","date":"2026-06-10","cat":"Entertainment & Events","subcat":"Birthday","paidFor":"","desc":"Mishthi","amount":4100.0,"mode":"UPI","remark":""},{"id":"CSV-0110","date":"2026-06-20","cat":"Food & Grocery","subcat":"Groceries / राशन","paidFor":"","desc":"","amount":730.0,"mode":"Credit Card","remark":""},{"id":"CSV-0111","date":"2026-06-20","cat":"Clothing & Fashion","subcat":"Mukesh","paidFor":"","desc":"","amount":6000.0,"mode":"Credit Card","remark":""},{"id":"CSV-0112","date":"2026-06-20","cat":"Food & Grocery","subcat":"Restaurant","paidFor":"","desc":"","amount":590.0,"mode":"Cash","remark":""},{"id":"CSV-0113","date":"2026-06-20","cat":"Food & Grocery","subcat":"Sweets / मिठाई","paidFor":"","desc":"","amount":600.0,"mode":"Cash","remark":""},{"id":"CSV-0114","date":"2026-06-20","cat":"Vehicle & Transportation","subcat":"Diesel","paidFor":"","desc":"","amount":3650.0,"mode":"Cash","remark":""},{"id":"CSV-0115","date":"2026-06-20","cat":"Vehicle & Transportation","subcat":"Petrol","paidFor":"","desc":"","amount":1000.0,"mode":"Cash","remark":""},{"id":"CSV-0116","date":"2026-07-02","cat":"Food & Grocery","subcat":"Vegetables / सब्जियाँ","paidFor":"","desc":"","amount":400.0,"mode":"Cash","remark":""},{"id":"CSV-0117","date":"2026-07-02","cat":"Food & Grocery","subcat":"Fruits / फल","paidFor":"","desc":"","amount":500.0,"mode":"Cash","remark":""},{"id":"CSV-0118","date":"2026-07-02","cat":"Food & Grocery","subcat":"Milk / दूध","paidFor":"","desc":"","amount":4500.0,"mode":"Cash","remark":""},{"id":"CSV-0119","date":"2026-07-05","cat":"Financial","subcat":"Investment","paidFor":"","desc":"","amount":500.0,"mode":"UPI","remark":""},{"id":"CSV-0120","date":"2026-07-08","cat":"Food & Grocery","subcat":"Fruits / फल","paidFor":"","desc":"","amount":300.0,"mode":"Cash","remark":""},{"id":"CSV-0121","date":"2026-07-08","cat":"Home & Household","subcat":"Home Appliances","paidFor":"","desc":"Umbrella","amount":600.0,"mode":"Cash","remark":""},{"id":"CSV-0122","date":"2026-07-13","cat":"Food & Grocery","subcat":"Snacks / नाश्ता","paidFor":"","desc":"","amount":150.0,"mode":"Cash","remark":""},{"id":"CSV-0123","date":"2026-07-13","cat":"Food & Grocery","subcat":"Fruits / फल","paidFor":"","desc":"","amount":280.0,"mode":"Cash","remark":""},{"id":"CSV-0124","date":"2026-07-13","cat":"Food & Grocery","subcat":"Bakery","paidFor":"","desc":"","amount":520.0,"mode":"Cash","remark":""},{"id":"CSV-0125","date":"2026-07-13","cat":"Health & Medical","subcat":"Medicines","paidFor":"Kids","desc":"","amount":800.0,"mode":"Cash","remark":""},{"id":"CSV-0126","date":"2026-07-13","cat":"Food & Grocery","subcat":"Sweets / मिठाई","paidFor":"","desc":"","amount":670.0,"mode":"Cash","remark":""},{"id":"CSV-0127","date":"2026-07-13","cat":"Vehicle & Transportation","subcat":"Repair","paidFor":"","desc":"Car","amount":6100.0,"mode":"UPI","remark":""},{"id":"CSV-0128","date":"2026-07-13","cat":"Bills & Utilities","subcat":"Electricity Bill","paidFor":"","desc":"","amount":4128.0,"mode":"UPI","remark":""},{"id":"CSV-0129","date":"2026-07-13","cat":"Gifts & Donations","subcat":"TSCT","paidFor":"","desc":"","amount":310.0,"mode":"UPI","remark":""},{"id":"CSV-0130","date":"2026-07-13","cat":"Gifts & Donations","subcat":"Social Donation","paidFor":"","desc":"","amount":1100.0,"mode":"UPI","remark":""},{"id":"CSV-0131","date":"2026-07-13","cat":"Food & Grocery","subcat":"Restaurant","paidFor":"","desc":"","amount":1390.0,"mode":"UPI","remark":""},{"id":"CSV-0132","date":"2026-07-15","cat":"Miscellaneous","subcat":"Miscellaneous","paidFor":"","desc":"ITR","amount":600.0,"mode":"UPI","remark":""},{"id":"CSV-0133","date":"2026-07-17","cat":"Health & Medical","subcat":"Health Insurance","paidFor":"Family","desc":"","amount":10470.0,"mode":"Credit Card","remark":""},{"id":"CSV-0134","date":"2026-07-20","cat":"Food & Grocery","subcat":"Groceries / राशन","paidFor":"","desc":"Agra best price","amount":4370.0,"mode":"Credit Card","remark":""},{"id":"CSV-0135","date":"2026-07-20","cat":"Vehicle & Transportation","subcat":"Diesel","paidFor":"","desc":"","amount":4100.0,"mode":"Credit Card","remark":""},{"id":"CSV-0136","date":"2026-07-23","cat":"Food & Grocery","subcat":"Fruits / फल","paidFor":"","desc":"","amount":400.0,"mode":"Cash","remark":""},{"id":"CSV-0137","date":"2026-07-23","cat":"Food & Grocery","subcat":"Sweets / मिठाई","paidFor":"","desc":"Ghevar","amount":940.0,"mode":"UPI","remark":""},{"id":"CSV-0138","date":"2026-07-25","cat":"Bills & Utilities","subcat":"Mobile Bill","paidFor":"","desc":"","amount":985.0,"mode":"UPI","remark":""},{"id":"CSV-0139","date":"2026-07-29","cat":"Personal Care","subcat":"Other","paidFor":"","desc":"Nykaa","amount":957.0,"mode":"Credit Card","remark":""},{"id":"CSV-0140","date":"2026-07-29","cat":"Food & Grocery","subcat":"Restaurant","paidFor":"","desc":"","amount":740.0,"mode":"Cash","remark":""},{"id":"CSV-0141","date":"2026-07-29","cat":"Home & Household","subcat":"Cleaning Items","paidFor":"","desc":"Agra Best Price","amount":7400.0,"mode":"UPI","remark":""},{"id":"CSV-0142","date":"2026-08-02","cat":"Food & Grocery","subcat":"Milk / दूध","paidFor":"","desc":"","amount":3720.0,"mode":"Cash","remark":""},{"id":"CSV-0143","date":"2026-08-04","cat":"Vehicle & Transportation","subcat":"Diesel","paidFor":"","desc":"","amount":3700.0,"mode":"Credit Card","remark":""},{"id":"CSV-0144","date":"2026-08-04","cat":"Gold & Jewellery","subcat":"Gold Investment","paidFor":"","desc":"","amount":10000.0,"mode":"UPI","remark":""},{"id":"CSV-0145","date":"2026-08-04","cat":"Gold & Jewellery","subcat":"Gold Purchase","paidFor":"","desc":"","amount":38000.0,"mode":"UPI","remark":""},{"id":"CSV-0146","date":"2026-08-04","cat":"Family & Kids","subcat":"Kids","paidFor":"Kids","desc":"Games Agra","amount":1500.0,"mode":"UPI","remark":""},{"id":"CSV-0147","date":"2026-08-04","cat":"Clothing & Fashion","subcat":"Priti","paidFor":"","desc":"Sari","amount":15580.0,"mode":"UPI","remark":""},{"id":"CSV-0148","date":"2026-08-04","cat":"Food & Grocery","subcat":"Restaurant","paidFor":"","desc":"","amount":1000.0,"mode":"UPI","remark":""},{"id":"CSV-0149","date":"2026-08-05","cat":"Financial","subcat":"Investment","paidFor":"","desc":"","amount":500.0,"mode":"UPI","remark":""},{"id":"CSV-0150","date":"2026-08-06","cat":"Education & School","subcat":"UPS CHIDRAI Khas","paidFor":"Other","desc":"Lock, jhadu","amount":670.0,"mode":"Cash","remark":""},{"id":"CSV-0151","date":"2026-08-06","cat":"Health & Medical","subcat":"Medicines","paidFor":"Kids","desc":"","amount":230.0,"mode":"Cash","remark":""},{"id":"CSV-0152","date":"2026-08-06","cat":"Food & Grocery","subcat":"Online Food","paidFor":"","desc":"Pizza","amount":440.0,"mode":"UPI","remark":""},{"id":"CSV-0153","date":"2026-08-06","cat":"Bills & Utilities","subcat":"Electricity Bill","paidFor":"","desc":"","amount":3769.0,"mode":"UPI","remark":""},{"id":"CSV-0154","date":"2026-08-11","cat":"Food & Grocery","subcat":"Restaurant","paidFor":"","desc":"","amount":600.0,"mode":"Cash","remark":""},{"id":"CSV-0155","date":"2026-08-11","cat":"Food & Grocery","subcat":"Sweets / मिठाई","paidFor":"","desc":"Ghevar","amount":200.0,"mode":"Cash","remark":""},{"id":"CSV-0156","date":"2026-08-11","cat":"Home & Household","subcat":"Gas Cylinder","paidFor":"","desc":"","amount":1900.0,"mode":"Cash","remark":""},{"id":"CSV-0157","date":"2026-08-18","cat":"Food & Grocery","subcat":"Fruits / फल","paidFor":"","desc":"","amount":400.0,"mode":"Cash","remark":""},{"id":"CSV-0158","date":"2026-08-18","cat":"Food & Grocery","subcat":"Vegetables / सब्जियाँ","paidFor":"","desc":"","amount":200.0,"mode":"Cash","remark":""},{"id":"CSV-0159","date":"2026-08-18","cat":"Bills & Utilities","subcat":"Internet / Wi-Fi","paidFor":"","desc":"","amount":3000.0,"mode":"UPI","remark":""},{"id":"CSV-0160","date":"2026-08-24","cat":"Gifts & Donations","subcat":"Social Donation","paidFor":"","desc":"Kavad BRC","amount":1000.0,"mode":"Cash","remark":""},{"id":"CSV-0161","date":"2026-08-24","cat":"Food & Grocery","subcat":"Vegetables / सब्जियाँ","paidFor":"","desc":"","amount":200.0,"mode":"Cash","remark":""},{"id":"CSV-0162","date":"2026-08-24","cat":"Religious & Festivals","subcat":"Festival Shopping","paidFor":"","desc":"Raksha bandhan","amount":940.0,"mode":"Cash","remark":""},{"id":"CSV-0163","date":"2026-08-27","cat":"Bills & Utilities","subcat":"Mobile Bill","paidFor":"","desc":"Mukesh","amount":984.0,"mode":"UPI","remark":""},{"id":"CSV-0164","date":"2026-09-02","cat":"Food & Grocery","subcat":"Milk / दूध","paidFor":"","desc":"","amount":3700.0,"mode":"Cash","remark":""},{"id":"CSV-0165","date":"2026-09-05","cat":"Gold & Jewellery","subcat":"Gold Investment","paidFor":"","desc":"","amount":20000.0,"mode":"UPI","remark":""},{"id":"CSV-0166","date":"2026-09-08","cat":"Food & Grocery","subcat":"Groceries / राशन","paidFor":"","desc":"","amount":400.0,"mode":"Cash","remark":""},{"id":"CSV-0167","date":"2026-09-08","cat":"Religious & Festivals","subcat":"Festival Decoration","paidFor":"","desc":"Janmashtami","amount":500.0,"mode":"Cash","remark":""},{"id":"CSV-0168","date":"2026-09-08","cat":"Domestic Help & Services","subcat":"Maid","paidFor":"","desc":"","amount":8000.0,"mode":"Cash","remark":""},{"id":"CSV-0169","date":"2026-09-09","cat":"Vehicle & Transportation","subcat":"Repair","paidFor":"","desc":"GPS","amount":1600.0,"mode":"UPI","remark":""},{"id":"CSV-0170","date":"2026-09-10","cat":"Financial","subcat":"Investment","paidFor":"","desc":"","amount":500.0,"mode":"UPI","remark":""},{"id":"CSV-0171","date":"2026-09-13","cat":"Education & School","subcat":"UPS CHIDRAI Khas","paidFor":"Other","desc":"Vegetables","amount":180.0,"mode":"Cash","remark":""},{"id":"CSV-0172","date":"2026-09-13","cat":"Food & Grocery","subcat":"Snacks / नाश्ता","paidFor":"","desc":"","amount":200.0,"mode":"Cash","remark":""},{"id":"CSV-0173","date":"2026-09-13","cat":"Food & Grocery","subcat":"Online Food","paidFor":"","desc":"Pizza","amount":435.0,"mode":"UPI","remark":""},{"id":"CSV-0174","date":"2026-09-14","cat":"Health & Medical","subcat":"Medical Equipment","paidFor":"Family","desc":"","amount":3000.0,"mode":"Credit Card","remark":""},{"id":"CSV-0175","date":"2026-09-15","cat":"Vehicle & Transportation","subcat":"Service","paidFor":"","desc":"Wash","amount":200.0,"mode":"Cash","remark":""},{"id":"CSV-0176","date":"2026-09-15","cat":"Education & School","subcat":"UPS CHIDRAI Khas","paidFor":"Other","desc":"Cylinder","amount":970.0,"mode":"Cash","remark":""},{"id":"CSV-0177","date":"2026-09-16","cat":"Food & Grocery","subcat":"Vegetables / सब्जियाँ","paidFor":"","desc":"","amount":20.0,"mode":"Cash","remark":""},{"id":"CSV-0178","date":"2026-09-16","cat":"Food & Grocery","subcat":"Online Food","paidFor":"","desc":"Dhava","amount":300.0,"mode":"Cash","remark":""},{"id":"CSV-0179","date":"2026-09-18","cat":"Food & Grocery","subcat":"Bakery","paidFor":"","desc":"","amount":80.0,"mode":"Cash","remark":""},{"id":"CSV-0180","date":"2026-09-18","cat":"Food & Grocery","subcat":"Snacks / नाश्ता","paidFor":"","desc":"","amount":40.0,"mode":"Cash","remark":""}];
 let data=JSON.parse(localStorage.getItem('dailyExpenseData')||'[]');
-if(!Array.isArray(data))data=[];
+if(!Array.isArray(data)||data.length===0){data=CSV_BASELINE_EXPENSES.map(x=>({...x}));localStorage.setItem('dailyExpenseData',JSON.stringify(data));}
 const DEFAULT_GOOGLE_SHEET_ID='1jqLu2aczyjYJp5P-PBiGWPoOFmTA5vH5BkmPranB6Yg';
+const DEFAULT_APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbx6A1-V87NJw_vZj3fRKRU5SRPu4F8b6kSrGI0-augFdgVowWP3TaxPWCrEe37ZcZMrEQ/exec';
+const CLOUD_DATA_CONTRACT='MONTH_SHEET_TRUTH_V3';
 let lastEntryDate=localStorage.getItem('expenseTrackerLastEntryDate')||'';
 const iso=()=>new Date().toISOString().slice(0,10),money=n=>'₹ '+Number(n||0).toLocaleString('en-IN',{maximumFractionDigits:2});
 function sum(a){return (Array.isArray(a)?a:[]).reduce((s,x)=>s+(typeof x==='number'?Number(x||0):Number(x?.amount||0)),0)}
-function fmtDate(v){if(!v)return '';let p=String(v).split('-');return p.length===3&&/^\d{4}$/.test(p[0])?`${p[2]}-${p[1]}-${p[0]}`:String(v)}
-function parseExpenseDate(x){
-  const raw=String(x?.date||'').trim();
-  if(/^\d{4}-\d{2}-\d{2}$/.test(raw)){
-    const d=new Date(raw+'T00:00:00');
-    return isNaN(d)?null:d;
-  }
-  const m=raw.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})$/);
-  if(m){const d=new Date(Number(m[3]),Number(m[2])-1,Number(m[1]));return d.getFullYear()===Number(m[3])&&d.getMonth()===Number(m[2])-1&&d.getDate()===Number(m[1])?d:null}
-  return null;
-}
-function normalizeCloudDate(raw,monthKey){
-  const s=String(raw||'').trim(), mk=String(monthKey||'').match(/^(\d{4})-(\d{2})$/);
-  if(/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
-  let m=s.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})$/);
-  if(m){let day=Number(m[1]),month=Number(m[2]),year=Number(m[3]);if(mk){year=Number(mk[1]);month=Number(mk[2]);}const d=new Date(year,month-1,day);if(d.getFullYear()===year&&d.getMonth()===month-1&&d.getDate()===day)return `${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}`;}
-  return '';
-}
-function getISOValue(v){v=(v||'').trim();let m=v.match(/^(\d{2})-(\d{2})-(\d{4})$/);if(!m)return '';let d=new Date(+m[3],+m[2]-1,+m[1]);if(d.getFullYear()!=+m[3]||d.getMonth()!=+m[2]-1||d.getDate()!=+m[1])return '';return `${m[3]}-${m[2]}-${m[1]}`}
+function fmtDate(v){if(!v)return '';let p=String(v).split('-');return p.length===3?`${p[2]}-${p[1]}-${p[0]}`:String(v)}
+function getISOValue(v){v=(v||'').trim();let m=v.match(/^(\d{2})[-\/](\d{2})[-\/](\d{4})$/);if(!m)return '';let d=new Date(+m[3],+m[2]-1,+m[1]);if(d.getFullYear()!=+m[3]||d.getMonth()!=+m[2]-1||d.getDate()!=+m[1])return '';return `${m[3]}-${m[2]}-${m[1]}`}
 function getISO(id){return getISOValue(document.getElementById(id).value)}
 function formatDate(el){let v=el.value.replace(/\D/g,'').slice(0,8);if(v.length>4)v=v.slice(0,2)+'-'+v.slice(2,4)+'-'+v.slice(4);else if(v.length>2)v=v.slice(0,2)+'-'+v.slice(2);el.value=v}
 function pushSafetySnapshot(label='Auto Safety Backup'){const history=getFeatureStore('dailyExpenseSafetyHistory',[]);history.unshift({createdAt:new Date().toISOString(),label,expenses:JSON.parse(JSON.stringify(data)),categories:JSON.parse(JSON.stringify(EXPENSE_CATEGORY_META)),categoryOrder:getCategories()});localStorage.setItem('dailyExpenseSafetyHistory',JSON.stringify(history.slice(0,10)))}
@@ -1249,19 +1235,33 @@ function renderManagedCategoryCards(){
   const cats=rankedCategories();
   box.innerHTML=cats.map(n=>`<div class="cat"><div class="ico">${getCategoryIcon(n)}</div><div><div class="name">${escapeHtml(n)}</div><span class="amt" id="cat-${encodeURIComponent(n)}">₹ 0</span></div></div>`).join('');
 }
+function parseISODateParts(v){
+  const s=String(v||'').trim();
+  const m=s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if(!m)return null;
+  const y=Number(m[1]),mo=Number(m[2]),d=Number(m[3]);
+  if(y<1900||mo<1||mo>12||d<1||d>31)return null;
+  const chk=new Date(Date.UTC(y,mo-1,d));
+  if(chk.getUTCFullYear()!==y||chk.getUTCMonth()!==mo-1||chk.getUTCDate()!==d)return null;
+  return {year:y,month:mo-1,day:d,monthKey:`${y}-${String(mo).padStart(2,'0')}`};
+}
+function localDateFromISO(v){const p=parseISODateParts(v);return p?new Date(p.year,p.month,p.day):null}
+function dateYear(v){const p=parseISODateParts(v);return p?p.year:null}
+function dateMonthIndex(v){const p=parseISODateParts(v);return p?p.month:null}
+function dateMonthKey(v){const p=parseISODateParts(v);return p?p.monthKey:''}
+function isDateInMonth(v,year,monthIndex){const p=parseISODateParts(v);return !!p&&p.year===Number(year)&&p.month===Number(monthIndex)}
+
 function getCurrentYearRows(){
   const y=new Date().getFullYear();
   return data.filter(x=>{
-    const d=parseExpenseDate(x);
-    return d&&d.getFullYear()===y;
+    return dateYear(x.date)===y;
   });
 }
 function getCurrentMonthRows(){
   const now=new Date();
   const y=now.getFullYear(), m=now.getMonth();
   return data.filter(x=>{
-    const d=parseExpenseDate(x);
-    return d&&d.getFullYear()===y && d.getMonth()===m;
+    return isDateInMonth(x.date,y,m);
   });
 }
 function updateCurrentMonthHeader(){
@@ -1281,8 +1281,7 @@ function renderYearMonthlyExpense(){
   if(label)label.textContent=year;
   const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
   const totals=months.map((_,m)=>sum(data.filter(x=>{
-    const d=parseExpenseDate(x);
-    return d&&d.getFullYear()===year && d.getMonth()===m;
+    return isDateInMonth(x.date,year,m);
   })));
   const max=Math.max(...totals,1);
   const cell=(month,total,isCurrent)=>`<td class="month monthPair ${isCurrent?'currentMonthCell':''}" colspan="2"><div class="monthCell"><div class="monthTop"><span class="monthName">${month}</span><b class="monthAmount">${money(total)}</b></div><div class="monthBar"><i style="width:${Math.max(0,(total/max)*100)}%"></i></div></div></td>`;
@@ -1323,8 +1322,8 @@ function render(){
   sun.setHours(23,59,59,999);
 
   week.textContent=money(sum(data.filter(x=>{
-    let q=parseExpenseDate(x);
-    return q>=mon&&q<=sun;
+    let q=localDateFromISO(x.date);
+    return !!q&&q>=mon&&q<=sun;
   })));
 
   // This Month Expense = only the current calendar month, not the whole current year
@@ -1334,8 +1333,8 @@ function render(){
   let lm=new Date(now.getFullYear(),now.getMonth()-1,1);
   let le=new Date(now.getFullYear(),now.getMonth(),0);
   lastmonth.textContent=money(sum(data.filter(x=>{
-    let q=parseExpenseDate(x);
-    return q>=lm&&q<=le;
+    let q=localDateFromISO(x.date);
+    return !!q&&q>=lm&&q<=le;
   })));
 
   const yearRows=getCurrentYearRows();
@@ -1389,9 +1388,9 @@ function renderPaidForOverview(){
 function updateMonthlyComparison(){
   const box=document.getElementById('monthCompare'); if(!box)return;
   const now=new Date(), y=now.getFullYear(), m=now.getMonth();
-  const cur=sum(data.filter(x=>{const d=parseExpenseDate(x);return d&&d.getFullYear()===y&&d.getMonth()===m;}));
+  const cur=sum(data.filter(x=>{return isDateInMonth(x.date,y,m);}));
   const pm=new Date(y,m-1,1), py=pm.getFullYear(), pmo=pm.getMonth();
-  const prev=sum(data.filter(x=>{const d=parseExpenseDate(x);return d.getFullYear()===py&&d.getMonth()===pmo;}));
+  const prev=sum(data.filter(x=>isDateInMonth(x.date,py,pmo)));
   const diff=cur-prev, pct=prev?Math.round((diff/prev)*100):null;
   const cls=diff>0?'compareup':diff<0?'comparedown':'';
   box.innerHTML=`<div class="comparecard"><span>${now.toLocaleDateString('en-IN',{month:'long',year:'numeric'})}</span><b>${money(cur)}</b></div><div class="comparecard"><span>${pm.toLocaleDateString('en-IN',{month:'long',year:'numeric'})}</span><b>${money(prev)}</b><small class="${cls}">${pct===null?'No previous data':(diff>0?'↑ ':'↓ ')+Math.abs(pct)+'%'}</small></div>`;
@@ -1795,16 +1794,7 @@ function addExpense(){let d=getISO('edate'),amt=Number(eamt.value);if(!d){alert(
 function openViewExpenses(){viewModal.classList.add('show');renderCategoryOptions();updateViewSubFilter();renderViewExpenses()}function closeViewExpenses(){viewModal.classList.remove('show')}
 function updateViewSubFilter(){const c=document.getElementById('viewCat'),s=document.getElementById('viewSubcat');if(!c||!s)return;const cur=s.value,meta=EXPENSE_CATEGORY_META[c.value];s.innerHTML='<option value="">All Sub-Categories</option>'+(meta?meta.subs.map(v=>`<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join(''):'');if(meta&&meta.subs.includes(cur))s.value=cur}
 function clearViewFilters(){['viewSearch','viewMinAmount','viewMaxAmount','viewFrom','viewTo'].forEach(id=>{const e=document.getElementById(id);if(e)e.value=''});['viewCat','viewSubcat','viewMode','viewPaidFor'].forEach(id=>{const e=document.getElementById(id);if(e)e.value=''});renderViewExpenses()}
-function renderViewExpenses(){
-  const q=(viewSearch.value||'').toLowerCase().trim(),c=viewCat.value,sc=document.getElementById('viewSubcat')?.value||'',mode=document.getElementById('viewMode')?.value||'',pf=document.getElementById('viewPaidFor')?.value||'',a=getISOValue(viewFrom.value),b=getISOValue(viewTo.value),mn=Number(document.getElementById('viewMinAmount')?.value),mx=Number(document.getElementById('viewMaxAmount')?.value);
-  const rows=data.filter(x=>(!q||`${x.date} ${x.cat} ${x.subcat||''} ${x.paidFor||''} ${x.desc||''} ${x.amount} ${x.mode}`.toLowerCase().includes(q))&&(!c||x.cat===c)&&(!sc||x.subcat===sc)&&(!mode||x.mode===mode)&&(!pf||x.paidFor===pf)&&(!a||x.date>=a)&&(!b||x.date<=b)&&(!Number.isFinite(mn)||mn<=0||Number(x.amount)>=mn)&&(!Number.isFinite(mx)||mx<=0||Number(x.amount)<=mx)).sort((x,y)=>y.date.localeCompare(x.date)||Number(y.id)-Number(x.id));
-  viewSummary.innerHTML=`<b>${rows.length} entries</b> · Filtered Total <b>${money(sum(rows))}</b>`;
-  const byDate={}; rows.forEach(x=>byDate[x.date]=(byDate[x.date]||0)+Number(x.amount||0));
-  const ds=document.getElementById('viewDateSummary');
-  if(ds){const dates=Object.keys(byDate).sort((a,b)=>b.localeCompare(a)).slice(0,12);ds.innerHTML=dates.length?dates.map(d=>`<div class="daysum"><span>📅 ${fmtDate(d)}</span><b>${money(byDate[d])}</b></div>`).join(''):'<div class="empty">No date-wise summary.</div>'}
-  viewBody.innerHTML=rows.length?rows.map(x=>`<tr data-expense-row="${escapeHtml(String(x.id))}"><td>${fmtDate(x.date)}</td><td>${escapeHtml(x.cat)}</td><td>${escapeHtml(x.subcat||'-')}</td><td>${escapeHtml(x.paidFor||'-')}</td><td>${escapeHtml(x.desc||'-')}</td><td>${escapeHtml(x.mode)}</td><td>${money(x.amount)}</td><td class="actionCell"><button type="button" class="act edit js-expense-action" data-action="edit" data-id="${escapeHtml(String(x.id))}" aria-label="Edit expense">✏️</button><button type="button" class="act js-expense-action" data-action="duplicate" data-id="${escapeHtml(String(x.id))}" aria-label="Duplicate expense">📋</button><button type="button" class="act del js-expense-action" data-action="delete" data-id="${escapeHtml(String(x.id))}" aria-label="Delete expense">🗑️</button></td></tr>`).join(''):'<tr><td colspan="8" class="empty">No expenses found.</td></tr>';
-}
-
+function renderViewExpenses(){let q=(viewSearch.value||'').toLowerCase().trim(),c=viewCat.value,sc=document.getElementById('viewSubcat')?.value||'',mode=document.getElementById('viewMode')?.value||'',pf=document.getElementById('viewPaidFor')?.value||'',a=getISOValue(viewFrom.value),b=getISOValue(viewTo.value),mn=Number(document.getElementById('viewMinAmount')?.value),mx=Number(document.getElementById('viewMaxAmount')?.value);let rows=data.filter(x=>(!q||`${x.date} ${x.cat} ${x.subcat||''} ${x.paidFor||''} ${x.desc||''} ${x.amount} ${x.mode}`.toLowerCase().includes(q))&&(!c||x.cat===c)&&(!sc||x.subcat===sc)&&(!mode||x.mode===mode)&&(!pf||x.paidFor===pf)&&(!a||x.date>=a)&&(!b||x.date<=b)&&(!Number.isFinite(mn)||mn<=0||Number(x.amount)>=mn)&&(!Number.isFinite(mx)||mx<=0||Number(x.amount)<=mx)).sort((x,y)=>y.date.localeCompare(x.date)||Number(y.id)-Number(x.id));viewSummary.innerHTML=`<b>${rows.length} entries</b> · Filtered Total <b>${money(sum(rows))}</b>`;const byDate={};rows.forEach(x=>byDate[x.date]=(byDate[x.date]||0)+Number(x.amount||0));const ds=document.getElementById('viewDateSummary');if(ds){const dates=Object.keys(byDate).sort((a,b)=>b.localeCompare(a)).slice(0,12);ds.innerHTML=dates.length?dates.map(d=>`<div class="daysum"><span>📅 ${fmtDate(d)}</span><b>${money(byDate[d])}</b></div>`).join(''):'<div class="empty">No date-wise summary.</div>'}viewBody.innerHTML=rows.length?rows.map(x=>`<tr><td>${fmtDate(x.date)}</td><td>${escapeHtml(x.cat)}</td><td>${escapeHtml(x.subcat||'-')}</td><td>${escapeHtml(x.paidFor||'-')}</td><td>${escapeHtml(x.desc||'-')}</td><td>${escapeHtml(x.mode)}</td><td>${money(x.amount)}</td><td><button class="act edit" onclick="editExpense(${JSON.stringify(x.id)})">✏️</button><button class="act" onclick="duplicateExpense(${JSON.stringify(x.id)})">📋</button><button class="act del" onclick="deleteExpense(${JSON.stringify(x.id)})">🗑️</button></td></tr>`).join(''):'<tr><td colspan="8" class="empty">No expenses found.</td></tr>'}
 function editExpense(id){const x=data.find(z=>String(z.id)===String(id));if(!x)return;editingExpenseId=x.id;duplicateIntent=false;setDateField('edate',x.date);ecat.value=x.cat;updateSubcategories();esubcat.value=x.subcat||'';epaidfor.value=x.paidFor||'';edesc.value=x.desc||'';eamt.value=x.amount;emode.value=x.mode||'Cash';const t=document.getElementById('expenseModalTitle'),b=document.getElementById('expenseSaveBtn');if(t)t.textContent='✏️ Edit Expense';if(b){b.textContent='💾 Update Expense';b.onclick=saveEditedExpense}closeViewExpenses();expenseModal.classList.add('show');setTimeout(()=>eamt.focus(),100)}
 function saveEditedExpense(){const x=data.find(z=>String(z.id)===String(editingExpenseId));if(!x)return;const oldMonth=x.date.slice(0,7),d=getISO('edate'),amt=Number(eamt.value);if(!d||!amt||amt<=0){alert('Valid date and amount required');return}const candidate={date:d,cat:ecat.value,subcat:esubcat.value,paidFor:epaidfor.value,desc:edesc.value.trim(),amount:amt,mode:emode.value};const similar=findSimilarExpense(candidate,x.id);if(similar&&!confirm('⚠️ Similar expense already exists\n\nAnother record has same Date + Amount + Category + Description.\n\nUpdate Anyway?'))return;Object.assign(x,candidate);persist();scheduleCloudSync(oldMonth);if(d.slice(0,7)!==oldMonth)scheduleCloudSync(d.slice(0,7));lastEntryDate=localStorage.getItem('expenseTrackerLastEntryDate')||x.date;closeExpenseModal();render()}
 function duplicateExpense(id){const x=data.find(z=>String(z.id)===String(id));if(!x)return;duplicateIntent=true;editingExpenseId=null;setDateField('edate',x.date);ecat.value=x.cat;updateSubcategories();esubcat.value=x.subcat||'';epaidfor.value=x.paidFor||'';edesc.value=x.desc||'';eamt.value=x.amount;emode.value=x.mode||'Cash';const t=document.getElementById('expenseModalTitle'),b=document.getElementById('expenseSaveBtn');if(t)t.textContent='📋 Duplicate Expense';if(b){b.textContent='💾 Save Duplicate';b.onclick=addExpense}closeViewExpenses();expenseModal.classList.add('show');setTimeout(()=>eamt.focus(),100)}
@@ -1832,8 +1822,7 @@ function openMonthlyReport(){monthlyModal.classList.add('show');generateMonthlyR
 function generateMonthlyReport(){
   const m=Number(reportMonth.value), y=Number(reportYear.value);
   const rows=data.filter(x=>{
-    const d=parseExpenseDate(x);
-    return d&&d.getFullYear()===y&&d.getMonth()===m;
+    return isDateInMonth(x.date,y,m);
   }).sort((a,b)=>a.date.localeCompare(b.date)||String(a.id).localeCompare(String(b.id)));
   const total=sum(rows), cash=sum(rows.filter(x=>x.mode==='Cash')),
         online=sum(rows.filter(x=>x.mode==='UPI'||x.mode==='Credit Card'));
@@ -1879,7 +1868,7 @@ function printMonthlyReport(){
 function openBackup(){backupModal.classList.add('show');const el=document.getElementById('autoBackupStatus');if(el){const s=localStorage.getItem('dailyExpenseAutoBackup');el.textContent=s?'Last auto-backup: '+new Date(JSON.parse(s).createdAt).toLocaleString('en-IN'):'No auto-backup yet';}}function closeBackup(){backupModal.classList.remove('show')}
 function downloadBackup(){
   const backup={
-    version:7.1,
+    version:8,
     createdAt:new Date().toISOString(),
     expenses:data,
     categories:getCategories(),
@@ -1990,8 +1979,7 @@ function restoreBackup(ev){
       pushSafetySnapshot('Before Restore');
       data=arr.map(x=>({
         id:x.id||('EXP-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7)),
-        date:normalizeCloudDate(x.date,x.monthKey||x.sheetMonthKey||''),
-      monthKey:String(x.monthKey||x.sheetMonthKey||'').slice(0,7),
+        date:String(x.date||'').slice(0,10),
         cat:String(x.cat||x.category||'Miscellaneous').trim()||'Miscellaneous',
         subcat:String(x.subcat||x.subCategory||x.subcategory||'').trim(),
         paidFor:String(x.paidFor||x.paid_for||'').trim(),
@@ -2045,13 +2033,32 @@ function currentMonthKey(){
   const d=new Date();
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
 }
-function monthKeyFor(x){ return String(x.date||'').slice(0,7); }
+function monthKeyFor(x){ return dateMonthKey(x.date); }
 
 function scheduleCloudSync(monthKey){if(!localStorage.getItem('expenseTrackerAppsScriptUrl'))return;clearTimeout(window._cloudSyncTimer);window._cloudSyncTimer=setTimeout(()=>syncMonth(monthKey),1200)}
 async function postToSheet(payload){const u=localStorage.getItem('expenseTrackerAppsScriptUrl')||(document.getElementById('appsScriptUrl')?.value||'').trim();if(!u){syncStatus.innerHTML='🟡 पहले Google Sheet connection save करें';return false}syncStatus.innerHTML='⏳ Google Sheet में syncing...';try{const r=await fetch(u,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});const j=await r.json();if(!j||!j.ok)throw new Error(j?.error||'Server confirmation failed');const count=payload.expenses?.length||0;syncStatus.innerHTML=`🟢 ${count} records successfully synced · Server confirmed`;localStorage.setItem('lastGoogleSync',new Date().toISOString());return true}catch(e){try{await fetch(u,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});const count=payload.expenses?.length||0;syncStatus.innerHTML=`🟠 ${count} records sync request sent — server confirmation उपलब्ध नहीं हो सकी`;return false}catch(_){syncStatus.innerHTML='🔴 Sync failed. Internet/Apps Script URL check करें।';return false}}}
 async function syncMonth(monthKey){if(!monthKey)return false;const rows=data.filter(x=>monthKeyFor(x)===monthKey);return postToSheet({action:'syncMonth',sheetId:localStorage.getItem('expenseTrackerSheetId')||DEFAULT_GOOGLE_SHEET_ID,month:monthKey,expenses:rows,categories:EXPENSE_CATEGORY_META,categoryOrder:getCategories(),paidFor:['Mukesh','Priti','Kids','Family','Household','Other'],paymentModes:['Cash','UPI','Credit Card']})}
 async function syncCurrentMonth(){return syncMonth(currentMonthKey())}
 async function syncAllData(){return postToSheet({action:'syncAll',sheetId:localStorage.getItem('expenseTrackerSheetId')||DEFAULT_GOOGLE_SHEET_ID,expenses:data,categories:EXPENSE_CATEGORY_META,categoryOrder:getCategories(),paidFor:['Mukesh','Priti','Kids','Family','Household','Other'],paymentModes:['Cash','UPI','Credit Card']})}
+async function repairGoogleSheet(){
+  const u=(localStorage.getItem('expenseTrackerAppsScriptUrl')||DEFAULT_APPS_SCRIPT_URL||'').trim();
+  const sid=(localStorage.getItem('expenseTrackerSheetId')||DEFAULT_GOOGLE_SHEET_ID).trim();
+  if(!u){alert('पहले Google Sheet connection Save करें।');return false;}
+  if(!confirm('Google Sheet की monthly sheets और Dashboard को safe तरीके से repair/normalize करना है? Existing valid expense rows को delete या invent नहीं किया जाएगा.')) return false;
+  syncStatus.innerHTML='⏳ Google Sheet structure repair हो रहा है...';
+  try{
+    const r=await fetch(u,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'repairAll',sheetId:sid})});
+    const j=await r.json();
+    if(!j||!j.ok)throw new Error(j?.error||'Repair failed');
+    syncStatus.innerHTML='🟢 Google Sheet structure + Dashboard repaired';
+    alert('Google Sheet repair पूरा हो गया।\n\nअब Dashboard और monthly sheets canonical format में हैं.');
+    return true;
+  }catch(e){
+    syncStatus.innerHTML='🔴 Google Sheet repair failed';
+    alert('Repair नहीं हो सका.\n\n'+String(e.message||e));
+    return false;
+  }
+}
 
 function escapeHtml(v){return String(v??'').replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]))}
 const DEFAULT_EXPENSE_CATEGORY_META = {
@@ -2343,12 +2350,37 @@ function deleteCategory(name){
   data.forEach(x=>{if(x.cat===name){x.cat=fallback;x.subcat=EXPENSE_CATEGORY_META[fallback].subs[0]||''}});
   delete EXPENSE_CATEGORY_META[name]; saveCategoryStructure(); persist(); render(); renderCategoryOptions(); renderCategoryManager();
 }
+function normalizeCloudDate(v,monthKey){
+  // The monthly sheet is the source of truth. When the backend supplies
+  // monthKey, always keep that month and take only the day from the date.
+  const mk=String(monthKey||'').trim().match(/^(\d{4})-(\d{2})$/);
+  const s=String(v||'').trim();
+  let day=0,year=0,month=0;
+  let m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+  if(m){year=+m[1];month=+m[2];day=+m[3];}
+  else {
+    m=s.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})$/);
+    if(m){day=+m[1];month=+m[2];year=+m[3];}
+  }
+  if(mk && day>=1 && day<=31){
+    const yy=+mk[1],mm=+mk[2];
+    const chk=new Date(Date.UTC(yy,mm-1,day));
+    if(mm>=1&&mm<=12&&chk.getUTCFullYear()===yy&&chk.getUTCMonth()===mm-1&&chk.getUTCDate()===day)
+      return `${yy}-${String(mm).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+  }
+  if(year>=2000&&month>=1&&month<=12&&day>=1&&day<=31){
+    const chk=new Date(Date.UTC(year,month-1,day));
+    if(chk.getUTCFullYear()===year&&chk.getUTCMonth()===month-1&&chk.getUTCDate()===day)
+      return `${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+  }
+  return '';
+}
+function cloudMonthTotals(rows){const out={};rows.forEach(x=>{const k=String(x.date||'').slice(0,7);if(/^\d{4}-\d{2}$/.test(k))out[k]=(out[k]||0)+Number(x.amount||0)});return out}
 async function restoreFromGoogleSheet(){
-  const u=(localStorage.getItem('expenseTrackerAppsScriptUrl')||appsScriptUrl.value||'').trim();
+  const u=(localStorage.getItem('expenseTrackerAppsScriptUrl')||DEFAULT_APPS_SCRIPT_URL||appsScriptUrl.value||'').trim();
   const sid=(localStorage.getItem('expenseTrackerSheetId')||DEFAULT_GOOGLE_SHEET_ID).trim();
   if(!u){alert('पहले Google Apps Script Web App URL Save करें।');return;}
   if(!confirm('Google Sheet से पूरा backup (Expenses + Categories + Master Lists) लेकर current Tracker data replace करना है?'))return;
-  // Safety snapshot before cloud restore
   const safety={version:8,createdAt:new Date().toISOString(),expenses:data,categories:JSON.parse(JSON.stringify(EXPENSE_CATEGORY_META)),categoryOrder:getCategories()};
   localStorage.setItem('dailyExpensePreCloudRestoreBackup',JSON.stringify(safety));
   syncStatus.innerHTML='⏳ Google Sheet से पूरा backup restore हो रहा है...';
@@ -2358,30 +2390,36 @@ async function restoreFromGoogleSheet(){
     if(!res.ok)throw new Error('HTTP '+res.status);
     const payload=await res.json();
     if(!payload.ok||!Array.isArray(payload.expenses))throw new Error(payload.error||'Invalid cloud data');
+    if(payload.dataContract!==CLOUD_DATA_CONTRACT)throw new Error('Google Apps Script backend पुराना है। पहले इस package का Code.gs deploy करें, फिर Restore करें।');
     const arr=payload.expenses.map(x=>({
       id:String(x.id||x.expenseId||('EXP-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7))),
-      date:normalizeCloudDate(x.date,x.monthKey||x.sheetMonthKey||''),
-      monthKey:String(x.monthKey||x.sheetMonthKey||'').slice(0,7),
-      cat:String(x.cat||x.category||'Miscellaneous').trim()||'Miscellaneous',
-      subcat:String(x.subcat||x.subCategory||'').trim(),
-      paidFor:String(x.paidFor||'').trim(),
-      desc:String(x.desc||x.description||'').trim(),
+      date:normalizeCloudDate(x.date,x.monthKey||x.sheetMonthKey||''),monthKey:String(normalizeCloudDate(x.date,x.monthKey||x.sheetMonthKey||'')).slice(0,7),cat:String(x.cat||x.category||'Miscellaneous').trim()||'Miscellaneous',
+      subcat:String(x.subcat||x.subCategory||'').trim(),paidFor:String(x.paidFor||'').trim(),desc:String(x.desc||x.description||'').trim(),
       mode:(()=>{const m=String(x.mode||x.paymentMode||'Cash').trim().toLowerCase();return m==='upi'?'UPI':m.includes('credit')?'Credit Card':'Cash'})(),
       amount:Number(x.amount)||0,remark:String(x.remark||x.remarks||'').trim()
     })).filter(x=>x.date&&Number.isFinite(x.amount)&&x.amount>=0);
-    if(payload.categories && typeof payload.categories==='object'){
-      const clean={}; Object.keys(payload.categories).forEach(k=>{const v=payload.categories[k]||{};const subs=Array.isArray(v.subs)?v.subs.map(z=>String(z).trim()).filter(Boolean):[];if(String(k).trim())clean[String(k).trim()]={icon:String(v.icon||'🏷️'),subs:[...new Set(subs)]};});
+    const total=sum(arr),expectedTotal=Number(payload.grandTotal);
+    if(Number.isFinite(expectedTotal)&&Math.abs(total-expectedTotal)>0.01)throw new Error(`Cloud total mismatch: ${total} vs ${expectedTotal}`);
+    if(!arr.length&&payload.expenses.length)throw new Error('Cloud dates could not be normalized. No data was restored.');
+    const mt=cloudMonthTotals(arr), expectedMonths=(payload.monthlyTotals&&typeof payload.monthlyTotals==='object')?payload.monthlyTotals:{};
+    const mismatches=[];
+    Object.keys(expectedMonths).forEach(k=>{const a=Number(mt[k]||0),e=Number(expectedMonths[k]||0);if(Math.abs(a-e)>0.01)mismatches.push(`${k}: app ₹${a.toLocaleString('en-IN')} / sheet ₹${e.toLocaleString('en-IN')}`)});
+    if(mismatches.length)throw new Error('Monthly total integrity check failed.\n'+mismatches.join('\n'));
+    const expectedCounts=(payload.monthlyCounts&&typeof payload.monthlyCounts==='object')?payload.monthlyCounts:{};
+    const countMismatches=[];
+    Object.keys(expectedCounts).forEach(k=>{const a=Number(arr.filter(x=>String(x.date||'').slice(0,7)===k).length),e=Number(expectedCounts[k]||0);if(a!==e)countMismatches.push(`${k}: app ${a} / sheet ${e}`)});
+    if(countMismatches.length)throw new Error('Monthly entry-count integrity check failed.\n'+countMismatches.join('\n'));
+    if(mismatches.length===0 && Number.isFinite(expectedTotal) && Math.abs(total-expectedTotal)<=0.01 && arr.length!==Number(payload.expenses.length))throw new Error(`Cloud duplicate/row integrity check failed: backup rows ${arr.length} / source rows ${payload.expenses.length}`);
+    if(payload.categories&&typeof payload.categories==='object'){
+      const clean={};Object.keys(payload.categories).forEach(k=>{const v=payload.categories[k]||{};const subs=Array.isArray(v.subs)?v.subs.map(z=>String(z).trim()).filter(Boolean):[];if(String(k).trim())clean[String(k).trim()]={icon:String(v.icon||'🏷️'),subs:[...new Set(subs)]};});
       if(Object.keys(clean).length){EXPENSE_CATEGORY_META=clean;EXPENSE_CATEGORY_ORDER=Array.isArray(payload.categoryOrder)?payload.categoryOrder.filter(x=>clean[x]):Object.keys(clean);saveCategoryStructure();}
     }
-    data=arr;
-    migrateLegacyCategories();
-    persist(); renderManagedCategoryCards(); renderCategoryOptions(); render();
+    data=arr;migrateLegacyCategories();persist();renderManagedCategoryCards();renderCategoryOptions();render();
     syncStatus.innerHTML='🟢 Google Sheet backup restored · '+new Date().toLocaleString('en-IN');
-    alert(arr.length+' expenses + Categories Google Sheet से restore हो गए।\nआपका पुराना data safety backup में भी रखा गया है।');
-  }catch(e){
-    syncStatus.innerHTML='🔴 Google Sheet restore failed';
-    alert('Google Sheet से restore नहीं हो सका।\n\nApps Script Web App URL / deployment / permissions check करें।\n\nआपका पुराना data सुरक्षित local safety backup में रखा गया है।');
-  }
+    const currentYear=new Date().getFullYear();
+    const monthLines=Array.from({length:12},(_,i)=>{const k=`${currentYear}-${String(i+1).padStart(2,'0')}`;return `${['January','February','March','April','May','June','July','August','September','October','November','December'][i]}: ${money(mt[k]||0)}`;}).join('\n');
+    alert(`${arr.length} expenses + Categories Google Sheet से restore हो गए।\n\nGrand Total: ${money(total)}\n\n${monthLines}\n\nआपका पुराना data safety backup भी सुरक्षित है।`);
+  }catch(e){syncStatus.innerHTML='🔴 Google Sheet restore failed';alert('Google Sheet से restore नहीं हो सका।\n\n'+String(e.message||e)+'\n\nआपका पुराना data सुरक्षित local safety backup में रखा गया है।');}
 }
 function getFeatureStore(key,fallback){try{const v=JSON.parse(localStorage.getItem(key)||'null');return v??fallback}catch(_){return fallback}}
 let recurringExpenses=getFeatureStore('dailyExpenseRecurring',[]),billsDue=getFeatureStore('dailyExpenseBills',[]),calendarCursor=new Date();
@@ -2432,14 +2470,14 @@ function fillBillSelect(current=''){
   el.innerHTML=html;
   if(current && [...el.options].some(o=>o.value===current))el.value=current;
 }
-function openRecurringExpenses(){fillFeatureSelect('recName');const d=document.getElementById('recDueDate');if(d&&!d.value)d.value=iso();renderRecurringList();document.getElementById('recurringModal').classList.add('show')}
+function openRecurringExpenses(){fillFeatureSelect('recName');const d=document.getElementById('recDueDate');if(d&&!d.value)setDateField('recDueDate',iso());renderRecurringList();document.getElementById('recurringModal').classList.add('show')}
 function closeRecurringExpenses(){document.getElementById('recurringModal').classList.remove('show')}
 function addRecurringExpense(){
   let name=document.getElementById('recName').value;
   if(name==='__custom__'){name=prompt('Expense / Bill name लिखें:','');}
-  name=String(name||'').trim(); const due=document.getElementById('recDueDate').value; const amount=Number(document.getElementById('recAmount').value)||0;
-  if(!name||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(due)){alert('Expense/Bill select करें और valid Due Date चुनें।');return}
-  recurringExpenses.push({id:Date.now(),name,due,amount});saveFeatureData();document.getElementById('recName').value='';document.getElementById('recDueDate').value=iso();document.getElementById('recAmount').value='';renderRecurringList();renderDashboardReminders();
+  name=String(name||'').trim(); const due=getISO('recDueDate'); const amount=Number(document.getElementById('recAmount').value)||0;
+  if(!name||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(due)){alert('Expense/Bill select करें और valid Due Date (DD-MM-YYYY) चुनें।');return}
+  recurringExpenses.push({id:Date.now(),name,due,amount});saveFeatureData();document.getElementById('recName').value='';setDateField('recDueDate',iso());document.getElementById('recAmount').value='';renderRecurringList();renderDashboardReminders();
 }
 function recurringState(due){const t=new Date();t.setHours(0,0,0,0);const d=new Date(due+'T00:00:00');const diff=Math.round((d-t)/86400000);return diff<0?'overdue':diff<=7?'soon':''}
 function renderRecurringList(){const box=document.getElementById('recurringList');if(!box)return;const arr=[...recurringExpenses].sort((a,b)=>a.due.localeCompare(b.due));box.innerHTML=arr.length?arr.map(x=>`<div class="featureItem ${recurringState(x.due)}"><div><b>🔁 ${escapeHtml(x.name)}</b><div class="small">Due: ${fmtDate(x.due)} ${x.amount?`• ${money(x.amount)}`:''}</div></div><div class="featureActions"><button type="button" onclick="removeRecurringExpense(${x.id})">🗑️</button></div></div>`).join(''):'<div class="empty">अभी कोई expense reminder नहीं है।</div>'}
@@ -2464,9 +2502,9 @@ function getBillOptions(){
   const out=[]; Object.entries(EXPENSE_CATEGORY_META||{}).forEach(([cat,meta])=>{if(billCats.has(cat))(meta.subs||[]).forEach(s=>out.push(s));});
   return [...new Set([...out,'Electricity Bill','Mobile Bill','Internet / Wi-Fi','OTT Subscription','Insurance','FD','Car Insurance','Bike Insurance','AI Subscription'])].sort((a,b)=>a.localeCompare(b));
 }
-function openBillsTracker(){fillBillSelect();const d=document.getElementById('billDue');if(d&&!d.value)d.value=iso();renderBillsList();document.getElementById('billsModal').classList.add('show')}
+function openBillsTracker(){fillBillSelect();const d=document.getElementById('billDue');if(d&&!d.value)setDateField('billDue',iso());renderBillsList();document.getElementById('billsModal').classList.add('show')}
 function closeBillsTracker(){document.getElementById('billsModal').classList.remove('show')}
-function addBillDue(){let name=document.getElementById('billName').value;if(name==='__custom__')name=prompt('Bill / Payment name लिखें:','');name=String(name||'').trim();const due=document.getElementById('billDue').value,amount=Number(document.getElementById('billAmount').value)||0;if(!name||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(due)){alert('Bill select करें और valid Due Date चुनें।');return}billsDue.push({id:Date.now(),name,due,amount,status:'Due'});saveFeatureData();document.getElementById('billName').value='';document.getElementById('billDue').value=iso();document.getElementById('billAmount').value='';renderBillsList();renderDashboardReminders()}
+function addBillDue(){let name=document.getElementById('billName').value;if(name==='__custom__')name=prompt('Bill / Payment name लिखें:','');name=String(name||'').trim();const due=getISO('billDue'),amount=Number(document.getElementById('billAmount').value)||0;if(!name||!due){alert('Bill select करें और valid Due Date (DD-MM-YYYY) चुनें।');return}billsDue.push({id:Date.now(),name,due,amount,status:'Due'});saveFeatureData();document.getElementById('billName').value='';setDateField('billDue',iso());document.getElementById('billAmount').value='';renderBillsList();renderDashboardReminders()}
 function billClass(due,status){if(status==='Paid')return '';return recurringState(due)}
 function renderBillsList(){const box=document.getElementById('billsList');if(!box)return;const arr=[...billsDue].sort((a,b)=>a.due.localeCompare(b.due));box.innerHTML=arr.length?arr.map(x=>`<div class="billItem ${billClass(x.due,x.status)}"><div><b>🧾 ${escapeHtml(x.name)}</b><div class="small">Due: ${fmtDate(x.due)} ${x.amount?`• <span class="dueAmount">${money(x.amount)}</span>`:''} • <span class="billStatus">${x.status}</span></div></div><div class="featureActions"><button type="button" onclick="toggleBillStatus(${x.id})">${x.status==='Paid'?'↩️ Due':'✅ Paid'}</button><button type="button" onclick="removeBill(${x.id})">🗑️</button></div></div>`).join(''):'<div class="empty">अभी कोई bill/payment due नहीं है।</div>'}
 function toggleBillStatus(id){const x=billsDue.find(z=>z.id===id);if(!x)return;x.status=x.status==='Paid'?'Due':'Paid';saveFeatureData();renderBillsList();renderDashboardReminders()}
@@ -2494,8 +2532,7 @@ function sendMonthlyStatement(){
   const now=new Date();
   const y=now.getFullYear(), m=now.getMonth();
   const rows=(Array.isArray(data)?data:[]).filter(x=>{
-    const d=parseExpenseDate(x);
-    return d&&d.getFullYear()===y&&d.getMonth()===m;
+    return isDateInMonth(x.date,y,m);
   });
   const groups={};
   rows.forEach(x=>{
@@ -2519,39 +2556,20 @@ function sendMonthlyStatement(){
   window.location.href='mailto:'+encodeURIComponent(to)+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
 }
 function openEmailStatement(){sendMonthlyStatement()}
-function closeWhatsAppMonthModal(){
-  const m=document.getElementById('whatsappMonthModal');
-  if(m)m.classList.remove('show');
-}
-function shareWhatsAppSelected(monthIndex){
-  const m=Number(monthIndex);
-  if(!Number.isInteger(m)||m<0||m>11)return;
+function shareWhatsApp(){
   const now=new Date();
-  const y=now.getFullYear();
-  const rows=(Array.isArray(data)?data:[]).filter(x=>{
-    const d=parseExpenseDate(x);
-    return d&&d.getFullYear()===y&&d.getMonth()===m;
-  });
+  const y=now.getFullYear(), m=now.getMonth();
+  const rows=(Array.isArray(data)?data:[]).filter(x=>{return isDateInMonth(x.date,y,m);});
   const groups={};
-  rows.forEach(x=>{
-    const cat=String(x.cat||x.category||'Miscellaneous').trim()||'Miscellaneous';
-    groups[cat]=(groups[cat]||0)+Number(x.amount||0);
-  });
-  const monthLabel=new Date(y,m,1).toLocaleDateString('en-IN',{month:'long',year:'numeric'});
+  rows.forEach(x=>{const cat=String(x.cat||x.category||'Miscellaneous').trim()||'Miscellaneous';groups[cat]=(groups[cat]||0)+Number(x.amount||0)});
+  const monthLabel=now.toLocaleDateString('en-IN',{month:'long',year:'numeric'});
   const entries=Object.entries(groups).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]);
   const total=sum(rows);
   let msg='📊 *Daily Expense Tracker*\n\n📅 '+monthLabel+'\n\n*Category-wise Expense*';
-  if(entries.length){
-    entries.forEach(([cat,amt])=>{msg+='\n• '+cat+': ₹ '+Number(amt).toLocaleString('en-IN',{maximumFractionDigits:2});});
-  }else msg+='\n• No expense recorded';
-  msg+='\n\n💰 *TOTAL EXPENSE: ₹ '+Number(total).toLocaleString('en-IN',{maximumFractionDigits:2})+'*\n📌 Entries: '+rows.length;
+  if(entries.length){entries.forEach(([cat,amt])=>{msg+='\n• '+cat+': ₹ '+Number(amt).toLocaleString('en-IN',{maximumFractionDigits:2});});}else{msg+='\n• No expense recorded';}
+  msg+='\n\n💰 *TOTAL EXPENSE: ₹ '+Number(total).toLocaleString('en-IN',{maximumFractionDigits:2})+'*\n\nTrack Smart | Spend Wise';
   const url='https://wa.me/?text='+encodeURIComponent(msg);
-  closeWhatsAppMonthModal();
-  try{window.open(url,'_blank','noopener,noreferrer');}catch(e){window.location.href=url;}
-}
-function shareWhatsApp(){
-  const modal=document.getElementById('whatsappMonthModal');
-  if(modal)modal.classList.add('show');
+  window.open(url,'_blank','noopener');
 }
 
 init();
@@ -2566,69 +2584,84 @@ document.addEventListener('click',function(e){
   const value=item.getAttribute('data-picker-value')||'';
   selectAnnualPickerItem(value,type);
 });
-</script>
-
-<script id="v8-view-expense-actions">
+</script> <script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}</script>
+<script id="v85-final-patch">
 (function(){
-  function install(){
-    var host=document.getElementById('viewBody');
-    if(!host || host.__v8ActionInstalled) return;
-    host.__v8ActionInstalled=true;
-    var lastKey='',lastAt=0;
-    function run(e){
-      var target=e.target;
-      var btn=target && target.closest ? target.closest('.js-expense-action') : null;
-      if(!btn || !host.contains(btn)) return;
-      if(e.cancelable) e.preventDefault();
-      e.stopPropagation();
-      var action=btn.getAttribute('data-action')||'';
-      var id=btn.getAttribute('data-id')||'';
-      if(!action || !id) return;
-      var key=action+'|'+id, now=Date.now();
-      if(key===lastKey && now-lastAt<600) return;
-      lastKey=key; lastAt=now;
-      if(action==='edit') window.editExpense(id);
-      else if(action==='duplicate') window.duplicateExpense(id);
-      else if(action==='delete') window.deleteExpense(id);
-    }
-    host.addEventListener('click',run,false);
-    host.addEventListener('touchend',run,{passive:false});
+  // V8.5 BASELINE RESET:
+  // On the first V8.5 launch only, remove all old/local expense records and
+  // restore exactly the 180 records from the user's uploaded CSV baseline.
+  // Future versions keep dailyExpenseData untouched unless a future migration
+  // explicitly changes it.
+  // SAFE MIGRATION: never delete or replace existing local expenses on launch.
+  // Old CSV-baseline reset logic has intentionally been removed.
+  function installCsvBaselineOnce(){ return false; }
+
+  function updateMobileTodayLabel(){
+    const el=document.getElementById('mobileTodayLabel'); if(!el)return;
+    const d=new Date();
+    el.textContent=d.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric',weekday:'long'});
   }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',install); else install();
-  window.installViewExpenseActions=install;
-})();
-</script>
 
-<style id="v8-final-mobile-fix">
-html,body{height:auto!important;min-height:100%!important;overflow-x:hidden!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important}
-body{touch-action:pan-y!important}.app{height:auto!important;min-height:100dvh!important;overflow:visible!important;padding-bottom:100px!important}
-@media(max-width:700px){
-.mobileBottomNav{z-index:9999!important;pointer-events:auto!important;touch-action:manipulation!important}
-.mobileBottomNav button,.mobileActionGrid .ma{pointer-events:auto!important;touch-action:manipulation!important;-webkit-tap-highlight-color:transparent!important}
-}
+  // Premium WhatsApp month picker.
+  window.openWhatsAppMonthModal=function(){
+    const el=document.getElementById('whatsappMonthModal'); if(!el)return;
+    el.classList.add('show');
+    document.body.classList.add('modal-open');
+    const current=new Date().getMonth();
+    document.querySelectorAll('.whatsappMonthBtn').forEach(b=>{
+      b.classList.toggle('current',Number(b.dataset.month)===current);
+    });
+  };
+  window.closeWhatsAppMonthModal=function(){
+    const el=document.getElementById('whatsappMonthModal');
+    if(el)el.classList.remove('show');
+    document.body.classList.remove('modal-open');
+  };
+  window.shareWhatsApp=function(){openWhatsAppMonthModal();};
+  window.shareWhatsAppSelected=function(monthIndex){
+    const year=new Date().getFullYear();
+    const rows=(Array.isArray(data)?data:[]).filter(x=>{
+      return isDateInMonth(x.date,year,monthIndex);
+    });
+    const groups={};
+    rows.forEach(x=>{
+      const cat=String(x.cat||x.category||'Miscellaneous').trim()||'Miscellaneous';
+      groups[cat]=(groups[cat]||0)+Number(x.amount||0);
+    });
+    const entries=Object.entries(groups).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]);
+    const total=sum(rows);
+    const monthLabel=new Date(year,monthIndex,1).toLocaleDateString('en-IN',{month:'long',year:'numeric'});
+    let msg='📊 *Daily Expense Tracker*\n\n📅 '+monthLabel+'\n\n*Category-wise Expense*';
+    if(entries.length){
+      entries.forEach(([cat,amt])=>{
+        msg+='\n• '+cat+': ₹ '+Number(amt).toLocaleString('en-IN',{maximumFractionDigits:2});
+      });
+    }else{
+      msg+='\n• No expense recorded';
+    }
+    msg+='\n\n💰 *TOTAL EXPENSE: ₹ '+Number(total).toLocaleString('en-IN',{maximumFractionDigits:2})+'*';
+    msg+='\n\n📌 Total Entries: '+rows.length+'\n\nTrack Smart | Spend Wise';
+    closeWhatsAppMonthModal();
+    const url='https://wa.me/?text='+encodeURIComponent(msg);
+    window.open(url,'_blank','noopener');
+  };
 
-/* V8.13 FINAL: reliable Android View Expenses action buttons */
-.data-table .actionCell{white-space:nowrap!important;min-width:160px!important;text-align:center!important;position:sticky!important;right:0!important;z-index:20!important;background:#fff!important;box-shadow:-7px 0 14px rgba(10,50,80,.10)!important}
-.data-table tbody tr:nth-child(even) .actionCell{background:#f8fbfe!important}
-.data-table .js-expense-action{position:relative!important;z-index:30!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;width:46px!important;height:46px!important;min-width:46px!important;min-height:46px!important;margin:2px!important;padding:0!important;border:0!important;border-radius:10px!important;cursor:pointer!important;pointer-events:auto!important;touch-action:manipulation!important;-webkit-user-select:none!important;user-select:none!important;-webkit-tap-highlight-color:transparent!important}
-.data-table .js-expense-action.edit{background:#fff1b8!important}.data-table .js-expense-action.del{background:#ffe1e4!important}
-@media(max-width:700px){.data-table-wrap{overflow-x:auto!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;touch-action:pan-x pan-y!important}.data-table{min-width:820px!important}.data-table .actionCell{position:sticky!important;right:0!important}.data-table .js-expense-action{width:48px!important;height:48px!important;font-size:22px!important}}
-</style>
+  function setupSmartBottomNav(){
+    const nav=document.querySelector('.mobileBottomNav'); if(!nav)return;
+    const buttons=[...nav.querySelectorAll('button')];
+    const activate=i=>buttons.forEach((b,n)=>b.classList.toggle('active',n===i));
+    window.setMobileNavActive=activate;
+    buttons.forEach((b,i)=>b.addEventListener('click',()=>activate(i),{passive:true}));
+    activate(0);
+  }
 
+  const didReset=false;
+  updateMobileTodayLabel();
+  setupSmartBottomNav();
 
-<script id="v8-final-button-bridge">
-(function(){
-  'use strict';
-  var names=["addBillDue", "addCategory", "addExpense", "addRecurringExpense", "addSubcategory", "applyPickedDate", "billClass", "buildAnnualPickerList", "buildAnnualSearchList", "buildExpenseSmartList", "categoryHasSingleSub", "categoryIcon", "categoryPaidForApplies", "categoryUsageCount", "changeCalendarMonth", "chartRows", "clearAllData", "clearViewFilters", "closeAnnualCategoryReport", "closeAnnualPicker", "closeBackup", "closeBillsTracker", "closeCategoryManager", "closeExpenseCalendar", "closeExpenseModal", "closeExpenseReports", "closeMonthlyReport", "closeRecurringExpenses", "closeSettings", "closeViewExpenses", "closeWhatsAppMonthModal", "csvCell", "currentMonthKey", "deleteCategory", "deleteExpense", "deleteSubcategory", "downloadBackup", "downloadCSV", "drawCategory", "duplicateExpense", "editExpense", "effectiveCategoryLabel", "escapeHtml", "fillBillSelect", "fillFeatureSelect", "filterAnnualPicker", "findSimilarExpense", "fmtDate", "formatDate", "generateMonthlyReport", "getBillOptions", "getCategories", "getCategoryIcon", "getCurrentMonthRows", "getCurrentYearRows", "getDefaultCategories", "getFeatureStore", "getISO", "getISOValue", "getRelatedExpenseOptions", "getRelatedFeatureGroups", "getSubcategoryIcon", "goCalendarToday", "hashPin", "inferNewCategory", "init", "initFeatureData", "isInvestmentExpense", "loadCategoryStructure", "loadSheetConfig", "migrateLegacyCategories", "monthKeyFor", "normalizeCloudDate", "normalizeCsvHeader", "normalizeDesc", "normalizeSingleSubcategories", "openAnnualCategoryReport", "openAnnualPicker", "openBackup", "openBillsTracker", "openCategoryManager", "openDatePicker", "openEmailStatement", "openExpenseCalendar", "openExpenseCharts", "openExpenseModal", "openExpenseReports", "openMonthlyReport", "openRecurringExpenses", "openSettings", "openViewExpenses", "parseCSV", "parseCSVLine", "parseExpenseDate", "persist", "populateAnnualCategorySearch", "postToSheet", "printAnnualCategoryReport", "printMonthlyReport", "pushSafetySnapshot", "rankedCategories", "recurringState", "removeBill", "removePin", "removeRecurringExpense", "render", "renderAnnualCategoryReport", "renderBillsList", "renderCategoryManager", "renderCategoryOptions", "renderCharts", "renderDashboardReminders", "renderExpenseCalendar", "renderManagedCategoryCards", "renderMoneyFlowOverview", "renderPaidForOverview", "renderRecurringList", "renderSafetyHistory", "renderViewExpenses", "renderYearMonthlyExpense", "resetExpenseForm", "resolveAnnualCategory", "restoreBackup", "restoreFromGoogleSheet", "restoreSafetySnapshot", "saveCategories", "saveCategoryEdit", "saveCategoryStructure", "saveEditedExpense", "saveFeatureData", "savePin", "saveSheetConfig", "saveSubcategoryEdit", "scheduleCloudSync", "scrollTop", "selectAnnualPickerItem", "sendMonthlyStatement", "setDateField", "shareWhatsApp", "shareWhatsAppSelected", "showCalendarDay", "smartAnnualSearch", "smartExpenseClassify", "startCategoryEdit", "startSubcategoryEdit", "sum", "syncAllData", "syncAnnualPickerUI", "syncAnnualSmartSearch", "syncCurrentMonth", "syncExpenseSmartSearch", "syncMonth", "toggleBillStatus", "toggleMobileNav", "unlockApp", "updateAnnualSubcategoryOptions", "updateCurrentMonthHeader", "updateMonthlyComparison", "updatePinStatus", "updateSubcategories", "updateViewSubFilter"];
-  names.forEach(function(name){
-    try{ if(typeof window[name] !== 'function' && typeof globalThis[name] === 'function') window[name]=globalThis[name]; }catch(e){}
+  document.addEventListener('click',e=>{
+    const m=document.getElementById('whatsappMonthModal');
+    if(m && e.target===m) closeWhatsAppMonthModal();
   });
-  document.addEventListener('pointerup',function(e){
-    var b=e.target.closest && e.target.closest('button');
-    if(b) b.style.webkitTapHighlightColor='transparent';
-  },{passive:true});
-  window.__V8_BUTTON_BRIDGE_READY=true;
 })();
-</script>
-<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}</script>
-</body></html>
+</script></body></html>
