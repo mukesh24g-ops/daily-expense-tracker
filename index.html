@@ -1165,7 +1165,7 @@ body{background:#eaf6fb!important;color:var(--v10-ink)!important}
 <div class="googleCloudTitle">📊 Google Sheets Cloud Backup</div>
 <div class="googleCloudMeta">Spreadsheet: <b>EXPENSE TRACKER</b><br/>Account: <b>mukesh24g@gmail.com</b></div>
 <input class="cloudInput" id="sheetId" placeholder="Google Sheet ID" type="text" value="1jqLu2aczyjYJp5P-PBiGWPoOFmTA5vH5BkmPranB6Yg"/>
-<input autocomplete="off" class="cloudInput" id="appsScriptUrl" placeholder="Google Apps Script Web App URL (https://script.google.com/macros/s/.../exec)" type="url"/>
+<input autocomplete="off" class="cloudInput" id="appsScriptUrl" placeholder="Google Apps Script Web App URL (https://script.google.com/macros/s/AKfycbyASHG3qUbDvsL-wpop8RCOKW5zK-rkRaLyvpsOYWPIy21CoUvsE8-5cBNZRaWiSfTe6w/exec)" type="url"/>
 <button class="save secondary" onclick="saveSheetConfig()" type="button">🔗 Save Google Sheet Connection</button>
 <a class="save secondary" href="https://docs.google.com/spreadsheets/d/1jqLu2aczyjYJp5P-PBiGWPoOFmTA5vH5BkmPranB6Yg/edit" rel="noopener" style="display:block;text-align:center;text-decoration:none" target="_blank">
     📊 Open EXPENSE TRACKER Google Sheet
@@ -2317,9 +2317,9 @@ function deleteCategory(name){
   delete EXPENSE_CATEGORY_META[name]; saveCategoryStructure(); persist(); render(); renderCategoryOptions(); renderCategoryManager();
 }
 function normalizeCloudDate(v,monthKey){
+  // IMPORTANT: A valid date returned by Google Sheet is the primary source.
+  // monthKey is used only when the returned date itself is incomplete/invalid.
   const s=String(v||'').trim();
-  const mk=String(monthKey||'').match(/^(\d{4})-(\d{2})$/);
-  if(!s)return '';
   let day=0,year=0,month=0;
   let m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
   if(m){year=+m[1];month=+m[2];day=+m[3];}
@@ -2327,17 +2327,16 @@ function normalizeCloudDate(v,monthKey){
     m=s.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})$/);
     if(m){day=+m[1];month=+m[2];year=+m[3];}
   }
-  if(mk){
-    // Google Sheet monthly tab is authoritative for year/month.
-    if(day>=1&&day<=31)return `${mk[1]}-${mk[2]}-${String(day).padStart(2,'0')}`;
-    return '';
+  if(year>=2000&&month>=1&&month<=12&&day>=1&&day<=31){
+    return `${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
   }
-  if(year>=1&&month>=1&&month<=12&&day>=1&&day<=31)return `${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+  const mk=String(monthKey||'').match(/^(\d{4})-(\d{2})$/);
+  if(mk&&day>=1&&day<=31)return `${mk[1]}-${mk[2]}-${String(day).padStart(2,'0')}`;
   return '';
 }
 function cloudMonthTotals(rows){const out={};rows.forEach(x=>{const k=String(x.date||'').slice(0,7);if(/^\d{4}-\d{2}$/.test(k))out[k]=(out[k]||0)+Number(x.amount||0)});return out}
 async function restoreFromGoogleSheet(){
-  const u=(localStorage.getItem('expenseTrackerAppsScriptUrl')||appsScriptUrl.value||'').trim();
+  const u=('https://script.google.com/macros/s/AKfycbyASHG3qUbDvsL-wpop8RCOKW5zK-rkRaLyvpsOYWPIy21CoUvsE8-5cBNZRaWiSfTe6w/exec'||(localStorage.getItem('expenseTrackerAppsScriptUrl')||appsScriptUrl.value||'')).trim();
   const sid=(localStorage.getItem('expenseTrackerSheetId')||DEFAULT_GOOGLE_SHEET_ID).trim();
   if(!u){alert('पहले Google Apps Script Web App URL Save करें।');return;}
   if(!confirm('Google Sheet से पूरा backup (Expenses + Categories + Master Lists) लेकर current Tracker data replace करना है?'))return;
@@ -2352,7 +2351,7 @@ async function restoreFromGoogleSheet(){
     if(!payload.ok||!Array.isArray(payload.expenses))throw new Error(payload.error||'Invalid cloud data');
     const arr=payload.expenses.map(x=>({
       id:String(x.id||x.expenseId||('EXP-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7))),
-      date:normalizeCloudDate(x.date,x.monthKey||x.sheetMonthKey||''),monthKey:String(x.monthKey||x.sheetMonthKey||'').slice(0,7),cat:String(x.cat||x.category||'Miscellaneous').trim()||'Miscellaneous',
+      date:normalizeCloudDate(x.date,x.monthKey||x.sheetMonthKey||''),monthKey:String(normalizeCloudDate(x.date,x.monthKey||x.sheetMonthKey||'')).slice(0,7),cat:String(x.cat||x.category||'Miscellaneous').trim()||'Miscellaneous',
       subcat:String(x.subcat||x.subCategory||'').trim(),paidFor:String(x.paidFor||'').trim(),desc:String(x.desc||x.description||'').trim(),
       mode:(()=>{const m=String(x.mode||x.paymentMode||'Cash').trim().toLowerCase();return m==='upi'?'UPI':m.includes('credit')?'Credit Card':'Cash'})(),
       amount:Number(x.amount)||0,remark:String(x.remark||x.remarks||'').trim()
