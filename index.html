@@ -1232,19 +1232,33 @@ function renderManagedCategoryCards(){
   const cats=rankedCategories();
   box.innerHTML=cats.map(n=>`<div class="cat"><div class="ico">${getCategoryIcon(n)}</div><div><div class="name">${escapeHtml(n)}</div><span class="amt" id="cat-${encodeURIComponent(n)}">₹ 0</span></div></div>`).join('');
 }
+function parseISODateParts(v){
+  const s=String(v||'').trim();
+  const m=s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if(!m)return null;
+  const y=Number(m[1]),mo=Number(m[2]),d=Number(m[3]);
+  if(y<1900||mo<1||mo>12||d<1||d>31)return null;
+  const chk=new Date(Date.UTC(y,mo-1,d));
+  if(chk.getUTCFullYear()!==y||chk.getUTCMonth()!==mo-1||chk.getUTCDate()!==d)return null;
+  return {year:y,month:mo-1,day:d,monthKey:`${y}-${String(mo).padStart(2,'0')}`};
+}
+function localDateFromISO(v){const p=parseISODateParts(v);return p?new Date(p.year,p.month,p.day):null}
+function dateYear(v){const p=parseISODateParts(v);return p?p.year:null}
+function dateMonthIndex(v){const p=parseISODateParts(v);return p?p.month:null}
+function dateMonthKey(v){const p=parseISODateParts(v);return p?p.monthKey:''}
+function isDateInMonth(v,year,monthIndex){const p=parseISODateParts(v);return !!p&&p.year===Number(year)&&p.month===Number(monthIndex)}
+
 function getCurrentYearRows(){
   const y=new Date().getFullYear();
   return data.filter(x=>{
-    const d=new Date(x.date+'T00:00:00');
-    return d.getFullYear()===y;
+    return dateYear(x.date)===y;
   });
 }
 function getCurrentMonthRows(){
   const now=new Date();
   const y=now.getFullYear(), m=now.getMonth();
   return data.filter(x=>{
-    const d=new Date(x.date+'T00:00:00');
-    return d.getFullYear()===y && d.getMonth()===m;
+    return isDateInMonth(x.date,y,m);
   });
 }
 function updateCurrentMonthHeader(){
@@ -1264,8 +1278,7 @@ function renderYearMonthlyExpense(){
   if(label)label.textContent=year;
   const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
   const totals=months.map((_,m)=>sum(data.filter(x=>{
-    const d=new Date(x.date+'T00:00:00');
-    return d.getFullYear()===year && d.getMonth()===m;
+    return isDateInMonth(x.date,year,m);
   })));
   const max=Math.max(...totals,1);
   const cell=(month,total,isCurrent)=>`<td class="month monthPair ${isCurrent?'currentMonthCell':''}" colspan="2"><div class="monthCell"><div class="monthTop"><span class="monthName">${month}</span><b class="monthAmount">${money(total)}</b></div><div class="monthBar"><i style="width:${Math.max(0,(total/max)*100)}%"></i></div></div></td>`;
@@ -1306,8 +1319,8 @@ function render(){
   sun.setHours(23,59,59,999);
 
   week.textContent=money(sum(data.filter(x=>{
-    let q=new Date(x.date+'T00:00:00');
-    return q>=mon&&q<=sun;
+    let q=localDateFromISO(x.date);
+    return !!q&&q>=mon&&q<=sun;
   })));
 
   // This Month Expense = only the current calendar month, not the whole current year
@@ -1317,8 +1330,8 @@ function render(){
   let lm=new Date(now.getFullYear(),now.getMonth()-1,1);
   let le=new Date(now.getFullYear(),now.getMonth(),0);
   lastmonth.textContent=money(sum(data.filter(x=>{
-    let q=new Date(x.date+'T00:00:00');
-    return q>=lm&&q<=le;
+    let q=localDateFromISO(x.date);
+    return !!q&&q>=lm&&q<=le;
   })));
 
   const yearRows=getCurrentYearRows();
@@ -1372,9 +1385,9 @@ function renderPaidForOverview(){
 function updateMonthlyComparison(){
   const box=document.getElementById('monthCompare'); if(!box)return;
   const now=new Date(), y=now.getFullYear(), m=now.getMonth();
-  const cur=sum(data.filter(x=>{const d=new Date(x.date+'T00:00:00');return d.getFullYear()===y&&d.getMonth()===m;}));
+  const cur=sum(data.filter(x=>{return isDateInMonth(x.date,y,m);}));
   const pm=new Date(y,m-1,1), py=pm.getFullYear(), pmo=pm.getMonth();
-  const prev=sum(data.filter(x=>{const d=new Date(x.date+'T00:00:00');return d.getFullYear()===py&&d.getMonth()===pmo;}));
+  const prev=sum(data.filter(x=>isDateInMonth(x.date,py,pmo)));
   const diff=cur-prev, pct=prev?Math.round((diff/prev)*100):null;
   const cls=diff>0?'compareup':diff<0?'comparedown':'';
   box.innerHTML=`<div class="comparecard"><span>${now.toLocaleDateString('en-IN',{month:'long',year:'numeric'})}</span><b>${money(cur)}</b></div><div class="comparecard"><span>${pm.toLocaleDateString('en-IN',{month:'long',year:'numeric'})}</span><b>${money(prev)}</b><small class="${cls}">${pct===null?'No previous data':(diff>0?'↑ ':'↓ ')+Math.abs(pct)+'%'}</small></div>`;
@@ -1806,8 +1819,7 @@ function openMonthlyReport(){monthlyModal.classList.add('show');generateMonthlyR
 function generateMonthlyReport(){
   const m=Number(reportMonth.value), y=Number(reportYear.value);
   const rows=data.filter(x=>{
-    const d=new Date(String(x.date||'')+'T00:00:00');
-    return d.getFullYear()===y&&d.getMonth()===m;
+    return isDateInMonth(x.date,y,m);
   }).sort((a,b)=>a.date.localeCompare(b.date)||String(a.id).localeCompare(String(b.id)));
   const total=sum(rows), cash=sum(rows.filter(x=>x.mode==='Cash')),
         online=sum(rows.filter(x=>x.mode==='UPI'||x.mode==='Credit Card'));
@@ -1853,7 +1865,7 @@ function printMonthlyReport(){
 function openBackup(){backupModal.classList.add('show');const el=document.getElementById('autoBackupStatus');if(el){const s=localStorage.getItem('dailyExpenseAutoBackup');el.textContent=s?'Last auto-backup: '+new Date(JSON.parse(s).createdAt).toLocaleString('en-IN'):'No auto-backup yet';}}function closeBackup(){backupModal.classList.remove('show')}
 function downloadBackup(){
   const backup={
-    version:7.1,
+    version:8,
     createdAt:new Date().toISOString(),
     expenses:data,
     categories:getCategories(),
@@ -2018,7 +2030,7 @@ function currentMonthKey(){
   const d=new Date();
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
 }
-function monthKeyFor(x){ return String(x.date||'').slice(0,7); }
+function monthKeyFor(x){ return dateMonthKey(x.date); }
 
 function scheduleCloudSync(monthKey){if(!localStorage.getItem('expenseTrackerAppsScriptUrl'))return;clearTimeout(window._cloudSyncTimer);window._cloudSyncTimer=setTimeout(()=>syncMonth(monthKey),1200)}
 async function postToSheet(payload){const u=localStorage.getItem('expenseTrackerAppsScriptUrl')||(document.getElementById('appsScriptUrl')?.value||'').trim();if(!u){syncStatus.innerHTML='🟡 पहले Google Sheet connection save करें';return false}syncStatus.innerHTML='⏳ Google Sheet में syncing...';try{const r=await fetch(u,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});const j=await r.json();if(!j||!j.ok)throw new Error(j?.error||'Server confirmation failed');const count=payload.expenses?.length||0;syncStatus.innerHTML=`🟢 ${count} records successfully synced · Server confirmed`;localStorage.setItem('lastGoogleSync',new Date().toISOString());return true}catch(e){try{await fetch(u,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});const count=payload.expenses?.length||0;syncStatus.innerHTML=`🟠 ${count} records sync request sent — server confirmation उपलब्ध नहीं हो सकी`;return false}catch(_){syncStatus.innerHTML='🔴 Sync failed. Internet/Apps Script URL check करें।';return false}}}
@@ -2317,8 +2329,9 @@ function deleteCategory(name){
   delete EXPENSE_CATEGORY_META[name]; saveCategoryStructure(); persist(); render(); renderCategoryOptions(); renderCategoryManager();
 }
 function normalizeCloudDate(v,monthKey){
-  // IMPORTANT: A valid date returned by Google Sheet is the primary source.
-  // monthKey is used only when the returned date itself is incomplete/invalid.
+  // The monthly sheet is the source of truth. When the backend supplies
+  // monthKey, always keep that month and take only the day from the date.
+  const mk=String(monthKey||'').trim().match(/^(\d{4})-(\d{2})$/);
   const s=String(v||'').trim();
   let day=0,year=0,month=0;
   let m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
@@ -2327,16 +2340,22 @@ function normalizeCloudDate(v,monthKey){
     m=s.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})$/);
     if(m){day=+m[1];month=+m[2];year=+m[3];}
   }
-  if(year>=2000&&month>=1&&month<=12&&day>=1&&day<=31){
-    return `${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+  if(mk && day>=1 && day<=31){
+    const yy=+mk[1],mm=+mk[2];
+    const chk=new Date(Date.UTC(yy,mm-1,day));
+    if(mm>=1&&mm<=12&&chk.getUTCFullYear()===yy&&chk.getUTCMonth()===mm-1&&chk.getUTCDate()===day)
+      return `${yy}-${String(mm).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
   }
-  const mk=String(monthKey||'').match(/^(\d{4})-(\d{2})$/);
-  if(mk&&day>=1&&day<=31)return `${mk[1]}-${mk[2]}-${String(day).padStart(2,'0')}`;
+  if(year>=2000&&month>=1&&month<=12&&day>=1&&day<=31){
+    const chk=new Date(Date.UTC(year,month-1,day));
+    if(chk.getUTCFullYear()===year&&chk.getUTCMonth()===month-1&&chk.getUTCDate()===day)
+      return `${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+  }
   return '';
 }
 function cloudMonthTotals(rows){const out={};rows.forEach(x=>{const k=String(x.date||'').slice(0,7);if(/^\d{4}-\d{2}$/.test(k))out[k]=(out[k]||0)+Number(x.amount||0)});return out}
 async function restoreFromGoogleSheet(){
-  const u=('https://script.google.com/macros/s/AKfycbyASHG3qUbDvsL-wpop8RCOKW5zK-rkRaLyvpsOYWPIy21CoUvsE8-5cBNZRaWiSfTe6w/exec'||(localStorage.getItem('expenseTrackerAppsScriptUrl')||appsScriptUrl.value||'')).trim();
+  const u=(localStorage.getItem('expenseTrackerAppsScriptUrl')||DEFAULT_APPS_SCRIPT_URL||appsScriptUrl.value||'').trim();
   const sid=(localStorage.getItem('expenseTrackerSheetId')||DEFAULT_GOOGLE_SHEET_ID).trim();
   if(!u){alert('पहले Google Apps Script Web App URL Save करें।');return;}
   if(!confirm('Google Sheet से पूरा backup (Expenses + Categories + Master Lists) लेकर current Tracker data replace करना है?'))return;
@@ -2349,6 +2368,7 @@ async function restoreFromGoogleSheet(){
     if(!res.ok)throw new Error('HTTP '+res.status);
     const payload=await res.json();
     if(!payload.ok||!Array.isArray(payload.expenses))throw new Error(payload.error||'Invalid cloud data');
+    if(payload.dataContract!=='MONTH_SHEET_TRUTH_V2')throw new Error('Google Apps Script backend पुराना है। पहले package वाला Code.gs deploy करें, फिर Restore करें।');
     const arr=payload.expenses.map(x=>({
       id:String(x.id||x.expenseId||('EXP-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7))),
       date:normalizeCloudDate(x.date,x.monthKey||x.sheetMonthKey||''),monthKey:String(normalizeCloudDate(x.date,x.monthKey||x.sheetMonthKey||'')).slice(0,7),cat:String(x.cat||x.category||'Miscellaneous').trim()||'Miscellaneous',
@@ -2359,14 +2379,19 @@ async function restoreFromGoogleSheet(){
     const total=sum(arr),expectedTotal=Number(payload.grandTotal);
     if(Number.isFinite(expectedTotal)&&Math.abs(total-expectedTotal)>0.01)throw new Error(`Cloud total mismatch: ${total} vs ${expectedTotal}`);
     if(!arr.length&&payload.expenses.length)throw new Error('Cloud dates could not be normalized. No data was restored.');
+    const mt=cloudMonthTotals(arr), expectedMonths=(payload.monthlyTotals&&typeof payload.monthlyTotals==='object')?payload.monthlyTotals:{};
+    const mismatches=[];
+    Object.keys(expectedMonths).forEach(k=>{const a=Number(mt[k]||0),e=Number(expectedMonths[k]||0);if(Math.abs(a-e)>0.01)mismatches.push(`${k}: app ₹${a.toLocaleString('en-IN')} / sheet ₹${e.toLocaleString('en-IN')}`)});
+    if(mismatches.length)throw new Error('Monthly total integrity check failed.\n'+mismatches.join('\n'));
     if(payload.categories&&typeof payload.categories==='object'){
       const clean={};Object.keys(payload.categories).forEach(k=>{const v=payload.categories[k]||{};const subs=Array.isArray(v.subs)?v.subs.map(z=>String(z).trim()).filter(Boolean):[];if(String(k).trim())clean[String(k).trim()]={icon:String(v.icon||'🏷️'),subs:[...new Set(subs)]};});
       if(Object.keys(clean).length){EXPENSE_CATEGORY_META=clean;EXPENSE_CATEGORY_ORDER=Array.isArray(payload.categoryOrder)?payload.categoryOrder.filter(x=>clean[x]):Object.keys(clean);saveCategoryStructure();}
     }
     data=arr;migrateLegacyCategories();persist();renderManagedCategoryCards();renderCategoryOptions();render();
-    const mt=cloudMonthTotals(arr),aug=mt['2026-08']||0;
     syncStatus.innerHTML='🟢 Google Sheet backup restored · '+new Date().toLocaleString('en-IN');
-    alert(`${arr.length} expenses + Categories Google Sheet से restore हो गए।\n\nGrand Total: ${money(total)}\nAugust 2026: ${money(aug)}\n\nआपका पुराना data safety backup में भी रखा गया है।`);
+    const currentYear=new Date().getFullYear();
+    const monthLines=Array.from({length:12},(_,i)=>{const k=`${currentYear}-${String(i+1).padStart(2,'0')}`;return `${['January','February','March','April','May','June','July','August','September','October','November','December'][i]}: ${money(mt[k]||0)}`;}).join('\n');
+    alert(`${arr.length} expenses + Categories Google Sheet से restore हो गए।\n\nGrand Total: ${money(total)}\n\n${monthLines}\n\nआपका पुराना data safety backup भी सुरक्षित है।`);
   }catch(e){syncStatus.innerHTML='🔴 Google Sheet restore failed';alert('Google Sheet से restore नहीं हो सका।\n\n'+String(e.message||e)+'\n\nआपका पुराना data सुरक्षित local safety backup में रखा गया है।');}
 }
 function getFeatureStore(key,fallback){try{const v=JSON.parse(localStorage.getItem(key)||'null');return v??fallback}catch(_){return fallback}}
@@ -2480,8 +2505,7 @@ function sendMonthlyStatement(){
   const now=new Date();
   const y=now.getFullYear(), m=now.getMonth();
   const rows=(Array.isArray(data)?data:[]).filter(x=>{
-    const d=new Date(String(x.date||'')+'T00:00:00');
-    return d.getFullYear()===y&&d.getMonth()===m;
+    return isDateInMonth(x.date,y,m);
   });
   const groups={};
   rows.forEach(x=>{
@@ -2508,7 +2532,7 @@ function openEmailStatement(){sendMonthlyStatement()}
 function shareWhatsApp(){
   const now=new Date();
   const y=now.getFullYear(), m=now.getMonth();
-  const rows=(Array.isArray(data)?data:[]).filter(x=>{const d=new Date(String(x.date||'')+'T00:00:00');return d.getFullYear()===y&&d.getMonth()===m;});
+  const rows=(Array.isArray(data)?data:[]).filter(x=>{return isDateInMonth(x.date,y,m);});
   const groups={};
   rows.forEach(x=>{const cat=String(x.cat||x.category||'Miscellaneous').trim()||'Miscellaneous';groups[cat]=(groups[cat]||0)+Number(x.amount||0)});
   const monthLabel=now.toLocaleDateString('en-IN',{month:'long',year:'numeric'});
@@ -2599,8 +2623,7 @@ document.addEventListener('click',function(e){
   window.shareWhatsAppSelected=function(monthIndex){
     const year=new Date().getFullYear();
     const rows=(Array.isArray(data)?data:[]).filter(x=>{
-      const d=new Date(String(x.date||'')+'T00:00:00');
-      return d.getFullYear()===year && d.getMonth()===monthIndex;
+      return isDateInMonth(x.date,year,monthIndex);
     });
     const groups={};
     rows.forEach(x=>{
