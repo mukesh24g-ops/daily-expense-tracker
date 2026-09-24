@@ -2316,12 +2316,23 @@ function deleteCategory(name){
   data.forEach(x=>{if(x.cat===name){x.cat=fallback;x.subcat=EXPENSE_CATEGORY_META[fallback].subs[0]||''}});
   delete EXPENSE_CATEGORY_META[name]; saveCategoryStructure(); persist(); render(); renderCategoryOptions(); renderCategoryManager();
 }
-function normalizeCloudDate(v){
-  const s=String(v||'').trim(); if(!s)return '';
+function normalizeCloudDate(v,monthKey){
+  const s=String(v||'').trim();
+  const mk=String(monthKey||'').match(/^(\d{4})-(\d{2})$/);
+  if(!s)return '';
+  let day=0,year=0,month=0;
   let m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
-  if(m){const y=+m[1],mo=+m[2],d=+m[3];if(mo>=1&&mo<=12&&d>=1&&d<=31)return `${y}-${String(mo).padStart(2,'0')}-${String(d).padStart(2,'0')}`;}
-  m=s.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})$/);
-  if(m){const d=+m[1],mo=+m[2],y=+m[3];if(d>=1&&d<=31&&mo>=1&&mo<=12)return `${y}-${String(mo).padStart(2,'0')}-${String(d).padStart(2,'0')}`;}
+  if(m){year=+m[1];month=+m[2];day=+m[3];}
+  else {
+    m=s.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})$/);
+    if(m){day=+m[1];month=+m[2];year=+m[3];}
+  }
+  if(mk){
+    // Google Sheet monthly tab is authoritative for year/month.
+    if(day>=1&&day<=31)return `${mk[1]}-${mk[2]}-${String(day).padStart(2,'0')}`;
+    return '';
+  }
+  if(year>=1&&month>=1&&month<=12&&day>=1&&day<=31)return `${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
   return '';
 }
 function cloudMonthTotals(rows){const out={};rows.forEach(x=>{const k=String(x.date||'').slice(0,7);if(/^\d{4}-\d{2}$/.test(k))out[k]=(out[k]||0)+Number(x.amount||0)});return out}
@@ -2341,7 +2352,7 @@ async function restoreFromGoogleSheet(){
     if(!payload.ok||!Array.isArray(payload.expenses))throw new Error(payload.error||'Invalid cloud data');
     const arr=payload.expenses.map(x=>({
       id:String(x.id||x.expenseId||('EXP-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7))),
-      date:normalizeCloudDate(x.date),cat:String(x.cat||x.category||'Miscellaneous').trim()||'Miscellaneous',
+      date:normalizeCloudDate(x.date,x.monthKey||x.sheetMonthKey||''),monthKey:String(x.monthKey||x.sheetMonthKey||'').slice(0,7),cat:String(x.cat||x.category||'Miscellaneous').trim()||'Miscellaneous',
       subcat:String(x.subcat||x.subCategory||'').trim(),paidFor:String(x.paidFor||'').trim(),desc:String(x.desc||x.description||'').trim(),
       mode:(()=>{const m=String(x.mode||x.paymentMode||'Cash').trim().toLowerCase();return m==='upi'?'UPI':m.includes('credit')?'Credit Card':'Cash'})(),
       amount:Number(x.amount)||0,remark:String(x.remark||x.remarks||'').trim()
