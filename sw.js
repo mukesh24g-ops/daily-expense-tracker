@@ -1,4 +1,4 @@
-const CACHE_NAME = 'daily-expense-tracker-v8-final-2026-09-24-8';
+const CACHE_NAME = 'daily-expense-tracker-v8-final-2026-09-25-8';
 const CORE = ['./', './index.html'];
 
 self.addEventListener('install', event => {
