@@ -1141,8 +1141,8 @@ body{background:#eaf6fb!important;color:var(--v10-ink)!important}
 </main></div>
 <footer class="footer"><span>🌿 Mukesh Kumar (Developer)</span><span>Track Smart | Spend Wise | Live Better</span></footer></div>
 <div class="modal" id="manageCategoriesModal"><div class="modalcard category-manager-modal"><button class="close" onclick="closeCategoryManager()">×</button><h2>🏷️ Manage Categories</h2><p class="small">Main Category और Sub-Category यहाँ से जोड़ें, बदलें या हटाएँ।</p><div class="managerAddMain"><input id="newCategoryName" placeholder="New Main Category"/><button onclick="addCategory()" type="button">＋ Add Category</button></div><div id="categoryManagerList"></div></div></div>
-<div class="modal" id="expenseModal"><div class="modalcard"><button class="close" onclick="closeExpenseModal()">×</button><h2 id="expenseModalTitle">➕ Add Expense</h2><div class="date-note">📅 Date चुनने के लिए calendar पर tap करें</div><div class="modalgrid"><div class="smartExpenseSearch"><input id="expenseSmartSearch" list="expenseSmartList" oninput="smartExpenseClassify(this.value)" placeholder="🔎 Quick Item / Category / Sub-Category (e.g. Milk, Petrol, Electricity)" autocomplete="off"/><datalist id="expenseSmartList"></datalist><small>नाम लिखते ही matching Category + Sub-Category अपने-आप चुनेंगे।</small></div><div class="datepickwrap full"><input aria-label="Date" id="edate" inputmode="none" onclick="openDatePicker('edate')" placeholder="DD/MM/YYYY" readonly="" type="text"/><input aria-hidden="true" class="hiddenPicker" id="edatePicker" onchange="applyPickedDate('edate',this.value)" tabindex="-1" type="date"/><button class="calendarBtn" onclick="openDatePicker('edate')" type="button">📅</button></div><select id="ecat" onchange="updateSubcategories()"></select><select id="esubcat" onchange="syncExpenseSmartSearch()"><option value="">Sub-Category (Optional)</option></select><select id="epaidfor" style="display:none"><option value="">👤 Paid For / किसके लिए?</option><option>Mukesh</option><option>Priti</option><option>Kids</option><option>Family</option><option>Household</option><option>Other</option></select><input id="edesc" placeholder="Description"/><input id="eamt" inputmode="decimal" min="0" placeholder="Amount ₹" step="0.01" type="number"/><select id="emode"><option>Cash</option><option>UPI</option><option>Credit Card</option></select></div><button class="save" id="expenseSaveBtn" onclick="addExpense()">💾 Save Expense</button></div></div>
-<div class="modal" id="viewModal"><div class="modalcard" style="width:min(1050px,97vw)"><button class="close" onclick="closeViewExpenses()">×</button><h2>☷ View Expenses</h2><div class="advancedFilters"><input id="viewSearch" oninput="renderViewExpenses()" placeholder="🔎 Search..."/><select id="viewCat" onchange="updateViewSubFilter();renderViewExpenses()"><option value="">All Categories</option></select><select id="viewSubcat" onchange="renderViewExpenses()"><option value="">All Sub-Categories</option></select><select id="viewMode" onchange="renderViewExpenses()"><option value="">All Payment Modes</option><option>Cash</option><option>UPI</option><option>Credit Card</option></select><select id="viewPaidFor" onchange="renderViewExpenses()"><option value="">All Paid For</option><option>Mukesh</option><option>Priti</option><option>Kids</option><option>Family</option><option>Household</option><option>Other</option></select><div class="datepickwrap"><input aria-label="From Date" id="viewFrom" inputmode="none" onclick="openDatePicker('viewFrom')" placeholder="DD/MM/YYYY" readonly="" type="text"/><input aria-hidden="true" class="hiddenPicker" id="viewFromPicker" onchange="applyPickedDate('viewFrom',this.value)" tabindex="-1" type="date"/><button class="calendarBtn" onclick="openDatePicker('viewFrom')" type="button">📅</button></div><div class="datepickwrap"><input aria-label="To Date" id="viewTo" inputmode="none" onclick="openDatePicker('viewTo')" placeholder="DD/MM/YYYY" readonly="" type="text"/><input aria-hidden="true" class="hiddenPicker" id="viewToPicker" onchange="applyPickedDate('viewTo',this.value)" tabindex="-1" type="date"/><button class="calendarBtn" onclick="openDatePicker('viewTo')" type="button">📅</button></div><input id="viewMinAmount" min="0" oninput="renderViewExpenses()" placeholder="Min Amount ₹" step="0.01" type="number"/><input id="viewMaxAmount" min="0" oninput="renderViewExpenses()" placeholder="Max Amount ₹" step="0.01" type="number"/><button class="filterClear" onclick="clearViewFilters()" type="button">✕ Clear All Filters</button></div><div class="pin-status" id="viewSummary" style="margin-top:10px"></div><div class="dateSummary" id="viewDateSummary" style="margin-top:8px"></div><div class="data-table-wrap"><table class="data-table"><thead><tr><th>Date</th><th>Category</th><th>Sub-Category</th><th>Paid For</th><th>Description</th><th>Mode</th><th>Amount</th><th>Action</th></tr></thead><tbody id="viewBody"></tbody></table></div></div></div><div class="modal" id="reportsModal"><div class="modalcard"><button class="close" onclick="closeExpenseReports()">×</button><h2>📊 Expense Reports</h2><div class="summaryline"><div class="sumcard">Total<b id="rTotal">₹ 0</b></div><div class="sumcard cash">Cash<b id="rCash">₹ 0</b></div><div class="sumcard online">UPI + Card<b id="rOnline">₹ 0</b></div></div><div class="sectiontitle" style="margin-top:4px">Category-wise Analysis — <span id="reportYearLabel">2026</span></div><div id="reportCats"></div></div></div>
+<div class="modal" id="expenseModal"><div class="modalcard"><button class="close" onclick="closeExpenseModal()">×</button><h2 id="expenseModalTitle">➕ Add Expense</h2><div class="date-note">📅 Date चुनने के लिए calendar पर tap करें</div><div class="modalgrid"><div class="smartExpenseSearch"><input id="expenseSmartSearch" list="expenseSmartList" oninput="smartExpenseClassify(this.value)" placeholder="🔎 Quick Item / Category / Sub-Category (e.g. Milk, Petrol, Electricity)" autocomplete="off"/><datalist id="expenseSmartList"></datalist><small>नाम लिखते ही matching Category + Sub-Category अपने-आप चुनेंगे।</small></div><div class="datepickwrap full"><input aria-label="Date" id="edate" inputmode="none" onclick="openDatePicker('edate')" placeholder="DD-MM-YYYY" readonly="" type="text"/><input aria-hidden="true" class="hiddenPicker" id="edatePicker" onchange="applyPickedDate('edate',this.value)" tabindex="-1" type="date"/><button class="calendarBtn" onclick="openDatePicker('edate')" type="button">📅</button></div><select id="ecat" onchange="updateSubcategories()"></select><select id="esubcat" onchange="syncExpenseSmartSearch()"><option value="">Sub-Category (Optional)</option></select><select id="epaidfor" style="display:none"><option value="">👤 Paid For / किसके लिए?</option><option>Mukesh</option><option>Priti</option><option>Kids</option><option>Family</option><option>Household</option><option>Other</option></select><input id="edesc" placeholder="Description"/><input id="eamt" inputmode="decimal" min="0" placeholder="Amount ₹" step="0.01" type="number"/><select id="emode"><option>Cash</option><option>UPI</option><option>Credit Card</option></select></div><button class="save" id="expenseSaveBtn" onclick="addExpense()">💾 Save Expense</button></div></div>
+<div class="modal" id="viewModal"><div class="modalcard" style="width:min(1050px,97vw)"><button class="close" onclick="closeViewExpenses()">×</button><h2>☷ View Expenses</h2><div class="advancedFilters"><input id="viewSearch" oninput="renderViewExpenses()" placeholder="🔎 Search..."/><select id="viewCat" onchange="updateViewSubFilter();renderViewExpenses()"><option value="">All Categories</option></select><select id="viewSubcat" onchange="renderViewExpenses()"><option value="">All Sub-Categories</option></select><select id="viewMode" onchange="renderViewExpenses()"><option value="">All Payment Modes</option><option>Cash</option><option>UPI</option><option>Credit Card</option></select><select id="viewPaidFor" onchange="renderViewExpenses()"><option value="">All Paid For</option><option>Mukesh</option><option>Priti</option><option>Kids</option><option>Family</option><option>Household</option><option>Other</option></select><div class="datepickwrap"><input aria-label="From Date" id="viewFrom" inputmode="none" onclick="openDatePicker('viewFrom')" placeholder="DD-MM-YYYY" readonly="" type="text"/><input aria-hidden="true" class="hiddenPicker" id="viewFromPicker" onchange="applyPickedDate('viewFrom',this.value)" tabindex="-1" type="date"/><button class="calendarBtn" onclick="openDatePicker('viewFrom')" type="button">📅</button></div><div class="datepickwrap"><input aria-label="To Date" id="viewTo" inputmode="none" onclick="openDatePicker('viewTo')" placeholder="DD-MM-YYYY" readonly="" type="text"/><input aria-hidden="true" class="hiddenPicker" id="viewToPicker" onchange="applyPickedDate('viewTo',this.value)" tabindex="-1" type="date"/><button class="calendarBtn" onclick="openDatePicker('viewTo')" type="button">📅</button></div><input id="viewMinAmount" min="0" oninput="renderViewExpenses()" placeholder="Min Amount ₹" step="0.01" type="number"/><input id="viewMaxAmount" min="0" oninput="renderViewExpenses()" placeholder="Max Amount ₹" step="0.01" type="number"/><button class="filterClear" onclick="clearViewFilters()" type="button">✕ Clear All Filters</button></div><div class="pin-status" id="viewSummary" style="margin-top:10px"></div><div class="dateSummary" id="viewDateSummary" style="margin-top:8px"></div><div class="data-table-wrap"><table class="data-table"><thead><tr><th>Date</th><th>Category</th><th>Sub-Category</th><th>Paid For</th><th>Description</th><th>Mode</th><th>Amount</th><th>Action</th></tr></thead><tbody id="viewBody"></tbody></table></div></div></div><div class="modal" id="reportsModal"><div class="modalcard"><button class="close" onclick="closeExpenseReports()">×</button><h2>📊 Expense Reports</h2><div class="summaryline"><div class="sumcard">Total<b id="rTotal">₹ 0</b></div><div class="sumcard cash">Cash<b id="rCash">₹ 0</b></div><div class="sumcard online">UPI + Card<b id="rOnline">₹ 0</b></div></div><div class="sectiontitle" style="margin-top:4px">Category-wise Analysis — <span id="reportYearLabel">2026</span></div><div id="reportCats"></div></div></div>
 <div class="modal" id="monthlyModal"><div class="modalcard monthly-card"><button class="close" onclick="closeMonthlyReport()">×</button><h2>📅 Monthly Expense Report</h2><div class="modalgrid monthly-controls"><div><label>Month</label><select id="reportMonth"><option value="0">January</option><option value="1">February</option><option value="2">March</option><option value="3">April</option><option value="4">May</option><option value="5">June</option><option value="6">July</option><option value="7">August</option><option value="8">September</option><option value="9">October</option><option value="10">November</option><option value="11">December</option></select></div><div><label>Year</label><input id="reportYear" max="2100" min="2000" type="number"/></div></div><button class="save" onclick="generateMonthlyReport()">View Monthly Report</button><div class="monthly-result" id="monthlyResult"></div><button class="save" onclick="printMonthlyReport()">⬇️ Download / Save PDF</button></div></div>
 
 
@@ -1165,7 +1165,7 @@ body{background:#eaf6fb!important;color:var(--v10-ink)!important}
 <div class="googleCloudTitle">📊 Google Sheets Cloud Backup</div>
 <div class="googleCloudMeta">Spreadsheet: <b>EXPENSE TRACKER</b><br/>Account: <b>mukesh24g@gmail.com</b></div>
 <input class="cloudInput" id="sheetId" placeholder="Google Sheet ID" type="text" value="1jqLu2aczyjYJp5P-PBiGWPoOFmTA5vH5BkmPranB6Yg"/>
-<input autocomplete="off" class="cloudInput" id="appsScriptUrl" placeholder="Google Apps Script Web App URL (https://script.google.com/macros/s/.../exec)" type="url"/>
+<input autocomplete="off" class="cloudInput" id="appsScriptUrl" placeholder="Google Apps Script Web App URL (https://script.google.com/macros/s/AKfycbyASHG3qUbDvsL-wpop8RCOKW5zK-rkRaLyvpsOYWPIy21CoUvsE8-5cBNZRaWiSfTe6w/exec)" type="url"/>
 <button class="save secondary" onclick="saveSheetConfig()" type="button">🔗 Save Google Sheet Connection</button>
 <a class="save secondary" href="https://docs.google.com/spreadsheets/d/1jqLu2aczyjYJp5P-PBiGWPoOFmTA5vH5BkmPranB6Yg/edit" rel="noopener" style="display:block;text-align:center;text-decoration:none" target="_blank">
     📊 Open EXPENSE TRACKER Google Sheet
@@ -1186,41 +1186,24 @@ body{background:#eaf6fb!important;color:var(--v10-ink)!important}
 <button class="save danger" onclick="clearAllData()" type="button">⚠️ Delete All Expense Data</button>
 </div></div>
 <div class="modal" id="settingsModal"><div class="modalcard"><button class="close" onclick="closeSettings()">×</button><h2>⚙️ Settings &amp; Security</h2><div class="pin-status" id="pinStatus"></div><div class="modalgrid"><input id="pinInput" inputmode="numeric" maxlength="8" placeholder="New PIN (4–8 digits)" type="password"/><input id="pinConfirm" inputmode="numeric" maxlength="8" placeholder="Confirm PIN" type="password"/></div><button class="save" onclick="savePin()">🔐 Set / Change PIN</button><button class="save muted" onclick="removePin()">🔓 Remove PIN</button><button class="save secondary" onclick="closeSettings()">Done</button><p class="small">PIN is a convenience lock for this browser. Keep a backup file for important records.</p></div></div>
-<div class="modal" id="recurringModal"><div class="modalcard feature-card premiumFeature"><button class="close" onclick="closeRecurringExpenses()">×</button><div class="featureHero"><div class="featureIcon">🔁</div><div><h2>Expense Reminder</h2><p>Recurring bills और expenses के लिए smart reminder सेट करें। Expense अपने-आप add नहीं होगा।</p></div></div><div class="featureForm premiumForm"><label>Expense / Bill<select id="recName"><option value="">Select related expense / bill</option></select></label><label>Due Date <span class="small">(calendar से date चुनें)</span><input aria-label="Due Date (calendar date picker)" id="recDueDate" required="" type="date"/></label><label>Expected Amount ₹<input id="recAmount" min="0" placeholder="Optional" step="0.01" type="number"/></label><button class="save" onclick="addRecurringExpense()" type="button">＋ Add Reminder</button></div><div class="smartHint">💡 Related options आपके existing expense categories और bill/payment sub-categories से automatically आती हैं।</div><div id="recurringList"></div></div></div>
+<div class="modal" id="recurringModal"><div class="modalcard feature-card premiumFeature"><button class="close" onclick="closeRecurringExpenses()">×</button><div class="featureHero"><div class="featureIcon">🔁</div><div><h2>Expense Reminder</h2><p>Recurring bills और expenses के लिए smart reminder सेट करें। Expense अपने-आप add नहीं होगा।</p></div></div><div class="featureForm premiumForm"><label>Expense / Bill<select id="recName"><option value="">Select related expense / bill</option></select></label><label>Due Date <span class="small">(calendar से date चुनें)</span><div class="datepickwrap"><input aria-label="Due Date" id="recDueDate" inputmode="none" onclick="openDatePicker('recDueDate')" placeholder="DD-MM-YYYY" readonly="" type="text"/><input aria-hidden="true" class="hiddenPicker" id="recDueDatePicker" onchange="applyPickedDate('recDueDate',this.value)" tabindex="-1" type="date"/><button class="calendarBtn" onclick="openDatePicker('recDueDate')" type="button">📅</button></div></label><label>Expected Amount ₹<input id="recAmount" min="0" placeholder="Optional" step="0.01" type="number"/></label><button class="save" onclick="addRecurringExpense()" type="button">＋ Add Reminder</button></div><div class="smartHint">💡 Related options आपके existing expense categories और bill/payment sub-categories से automatically आती हैं।</div><div id="recurringList"></div></div></div>
 <div class="modal" id="calendarModal"><div class="modalcard feature-card calendarPremium"><button class="close" onclick="closeExpenseCalendar()">×</button><div class="featureHero"><div class="featureIcon">🗓️</div><div><h2>Expense Calendar</h2><p>Daily spending को एक smart monthly view में देखें।</p></div></div><div class="calendarStats"><div><span>Month Total</span><b id="calMonthTotal">₹ 0</b></div><div><span>Expense Days</span><b id="calExpenseDays">0</b></div><div><span>Highest Day</span><b id="calHighestDay">—</b></div></div><div class="calendarToolbar"><button onclick="changeCalendarMonth(-1)" type="button">‹</button><b id="calendarTitle"></b><button class="todayBtn" onclick="goCalendarToday()" type="button">Today</button><button onclick="changeCalendarMonth(1)" type="button">›</button></div><div class="calendarLegend"><span><i class="legendDot low"></i>Expense</span><span><i class="legendDot high"></i>Highest</span><span><i class="legendDot today"></i>Today</span></div><div class="expenseCalendarGrid" id="expenseCalendarGrid"></div><div class="calendarDetails" id="calendarDayDetails">किसी दिन पर tap करें।</div></div></div>
-<div class="modal" id="billsModal"><div class="modalcard feature-card premiumFeature"><button class="close" onclick="closeBillsTracker()">×</button><div class="featureHero"><div class="featureIcon">🧾</div><div><h2>Payment Due / Bills Tracker</h2><p>Related bills की automatic list से select करें और due date के साथ track करें।</p></div></div><div class="featureForm premiumForm"><label>Bill / Payment<select id="billName"><option value="">Select bill / payment</option></select></label><label>Due Date <span class="small">(calendar से date चुनें)</span><input aria-label="Due Date (calendar date picker)" id="billDue" required="" type="date"/></label><label>Amount ₹<input id="billAmount" min="0" placeholder="Optional" step="0.01" type="number"/></label><button class="save" onclick="addBillDue()" type="button">＋ Add Bill</button></div><div class="smartHint">📌 Bills list में Electricity, Mobile, Internet, OTT, Insurance, FD, Vehicle Insurance आदि related options automatically उपलब्ध हैं।</div><div id="billsList"></div></div></div>
+<div class="modal" id="billsModal"><div class="modalcard feature-card premiumFeature"><button class="close" onclick="closeBillsTracker()">×</button><div class="featureHero"><div class="featureIcon">🧾</div><div><h2>Payment Due / Bills Tracker</h2><p>Related bills की automatic list से select करें और due date के साथ track करें।</p></div></div><div class="featureForm premiumForm"><label>Bill / Payment<select id="billName"><option value="">Select bill / payment</option></select></label><label>Due Date <span class="small">(calendar से date चुनें)</span><div class="datepickwrap"><input aria-label="Due Date" id="billDue" inputmode="none" onclick="openDatePicker('billDue')" placeholder="DD-MM-YYYY" readonly="" type="text"/><input aria-hidden="true" class="hiddenPicker" id="billDuePicker" onchange="applyPickedDate('billDue',this.value)" tabindex="-1" type="date"/><button class="calendarBtn" onclick="openDatePicker('billDue')" type="button">📅</button></div></label><label>Amount ₹<input id="billAmount" min="0" placeholder="Optional" step="0.01" type="number"/></label><button class="save" onclick="addBillDue()" type="button">＋ Add Bill</button></div><div class="smartHint">📌 Bills list में Electricity, Mobile, Internet, OTT, Insurance, FD, Vehicle Insurance आदि related options automatically उपलब्ध हैं।</div><div id="billsList"></div></div></div>
 <div class="modal" id="lockModal"><div class="modalcard" style="text-align:center;max-width:390px"><div style="font-size:50px">🔐</div><h2>Expense Tracker Locked</h2><p>Enter your PIN to continue.</p><input id="unlockPin" inputmode="numeric" maxlength="8" placeholder="Enter PIN" style="width:100%;padding:12px;border:1px solid #ccd6e0;border-radius:8px" type="password"/><button class="save" onclick="unlockApp()">Unlock</button></div></div>
 <script>let data=JSON.parse(localStorage.getItem('dailyExpenseData')||'[]');
 if(!Array.isArray(data)) data=[];
 const DEFAULT_GOOGLE_SHEET_ID='1jqLu2aczyjYJp5P-PBiGWPoOFmTA5vH5BkmPranB6Yg';
 const DEFAULT_APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbx6A1-V87NJw_vZj3fRKRU5SRPu4F8b6kSrGI0-augFdgVowWP3TaxPWCrEe37ZcZMrEQ/exec';
+const CLOUD_DATA_CONTRACT='MONTH_SHEET_TRUTH_V2';
 let lastEntryDate=localStorage.getItem('expenseTrackerLastEntryDate')||'';
 const iso=()=>new Date().toISOString().slice(0,10),money=n=>'₹ '+Number(n||0).toLocaleString('en-IN',{maximumFractionDigits:2});
 function sum(a){return (Array.isArray(a)?a:[]).reduce((s,x)=>s+(typeof x==='number'?Number(x||0):Number(x?.amount||0)),0)}
-function fmtDate(v){if(!v)return '';let p=String(v).split('-');return p.length===3&&/^\d{4}$/.test(p[0])?`${p[2]}-${p[1]}-${p[0]}`:String(v)}
-function parseExpenseDate(x){
-  const raw=String(x?.date||'').trim();
-  let m=raw.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  if(m){const y=Number(m[1]),mo=Number(m[2]),d=Number(m[3]);if(mo<1||mo>12||d<1||d>31)return null;const q=new Date(y,mo-1,d);return q.getFullYear()===y&&q.getMonth()===mo-1&&q.getDate()===d?q:null;}
-  m=raw.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})$/);
-  if(m){const d=Number(m[1]),mo=Number(m[2]),y=Number(m[3]);if(mo<1||mo>12||d<1||d>31)return null;const q=new Date(y,mo-1,d);return q.getFullYear()===y&&q.getMonth()===mo-1&&q.getDate()===d?q:null;}
-  return null;
-}
-function normalizeCloudDate(raw,monthKey){
-  const s=String(raw||'').trim();
-  const mk=String(monthKey||'').match(/^(\d{4})-(\d{2})$/);
-  const valid=(y,mo,d)=>{const q=new Date(y,mo-1,d);return mo>=1&&mo<=12&&d>=1&&d<=31&&q.getFullYear()===y&&q.getMonth()===mo-1&&q.getDate()===d;};
-  let m=s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  if(m){let y=Number(m[1]),mo=Number(m[2]),d=Number(m[3]);if(mk){const my=Number(mk[1]),mm=Number(mk[2]);if(y!==my||mo!==mm){y=my;mo=mm;}}return valid(y,mo,d)?`${y}-${String(mo).padStart(2,'0')}-${String(d).padStart(2,'0')}`:'';}
-  m=s.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})$/);
-  if(m){let d=Number(m[1]),mo=Number(m[2]),y=Number(m[3]);if(mk){y=Number(mk[1]);mo=Number(mk[2]);}return valid(y,mo,d)?`${y}-${String(mo).padStart(2,'0')}-${String(d).padStart(2,'0')}`:'';}
-  return '';
-}
-function getISOValue(v){v=(v||'').trim();let m=v.match(/^(\d{2})-(\d{2})-(\d{4})$/);if(!m)return '';let d=new Date(+m[3],+m[2]-1,+m[1]);if(d.getFullYear()!=+m[3]||d.getMonth()!=+m[2]-1||d.getDate()!=+m[1])return '';return `${m[3]}-${m[2]}-${m[1]}`}
+function fmtDate(v){if(!v)return '';let p=String(v).split('-');return p.length===3?`${p[2]}-${p[1]}-${p[0]}`:String(v)}
+function getISOValue(v){v=(v||'').trim();let m=v.match(/^(\d{2})[-\/](\d{2})[-\/](\d{4})$/);if(!m)return '';let d=new Date(+m[3],+m[2]-1,+m[1]);if(d.getFullYear()!=+m[3]||d.getMonth()!=+m[2]-1||d.getDate()!=+m[1])return '';return `${m[3]}-${m[2]}-${m[1]}`}
 function getISO(id){return getISOValue(document.getElementById(id).value)}
 function formatDate(el){let v=el.value.replace(/\D/g,'').slice(0,8);if(v.length>4)v=v.slice(0,2)+'-'+v.slice(2,4)+'-'+v.slice(4);else if(v.length>2)v=v.slice(0,2)+'-'+v.slice(2);el.value=v}
 function pushSafetySnapshot(label='Auto Safety Backup'){const history=getFeatureStore('dailyExpenseSafetyHistory',[]);history.unshift({createdAt:new Date().toISOString(),label,expenses:JSON.parse(JSON.stringify(data)),categories:JSON.parse(JSON.stringify(EXPENSE_CATEGORY_META)),categoryOrder:getCategories()});localStorage.setItem('dailyExpenseSafetyHistory',JSON.stringify(history.slice(0,10)))}
-function persist(){localStorage.setItem('dailyExpenseData',JSON.stringify(data));pushSafetySnapshot();const snap={version:8,createdAt:new Date().toISOString(),expenses:data,categories:JSON.parse(JSON.stringify(EXPENSE_CATEGORY_META)),categoryOrder:getCategories(),paidFor:['Mukesh','Priti','Kids','Family','Household','Other'],paymentModes:['Cash','UPI','Credit Card'],settings:{appsScriptUrl:localStorage.getItem('expenseTrackerAppsScriptUrl')||DEFAULT_APPS_SCRIPT_URL,sheetId:localStorage.getItem('expenseTrackerSheetId')||DEFAULT_GOOGLE_SHEET_ID,pinHash:localStorage.getItem('expenseTrackerPinHash')||''}};localStorage.setItem('dailyExpenseAutoBackup',JSON.stringify(snap));const el=document.getElementById('autoBackupStatus');if(el)el.textContent='Last auto-backup: '+new Date().toLocaleString('en-IN');renderSafetyHistory()}
+function persist(){localStorage.setItem('dailyExpenseData',JSON.stringify(data));pushSafetySnapshot();const snap={version:8,createdAt:new Date().toISOString(),expenses:data,categories:JSON.parse(JSON.stringify(EXPENSE_CATEGORY_META)),categoryOrder:getCategories(),paidFor:['Mukesh','Priti','Kids','Family','Household','Other'],paymentModes:['Cash','UPI','Credit Card'],settings:{appsScriptUrl:localStorage.getItem('expenseTrackerAppsScriptUrl')||'',sheetId:localStorage.getItem('expenseTrackerSheetId')||DEFAULT_GOOGLE_SHEET_ID,pinHash:localStorage.getItem('expenseTrackerPinHash')||''}};localStorage.setItem('dailyExpenseAutoBackup',JSON.stringify(snap));const el=document.getElementById('autoBackupStatus');if(el)el.textContent='Last auto-backup: '+new Date().toLocaleString('en-IN');renderSafetyHistory()}
 
 function setDateField(id, isoDate){
   const v=document.getElementById(id), p=document.getElementById(id+'Picker');
@@ -1250,19 +1233,33 @@ function renderManagedCategoryCards(){
   const cats=rankedCategories();
   box.innerHTML=cats.map(n=>`<div class="cat"><div class="ico">${getCategoryIcon(n)}</div><div><div class="name">${escapeHtml(n)}</div><span class="amt" id="cat-${encodeURIComponent(n)}">₹ 0</span></div></div>`).join('');
 }
+function parseISODateParts(v){
+  const s=String(v||'').trim();
+  const m=s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if(!m)return null;
+  const y=Number(m[1]),mo=Number(m[2]),d=Number(m[3]);
+  if(y<1900||mo<1||mo>12||d<1||d>31)return null;
+  const chk=new Date(Date.UTC(y,mo-1,d));
+  if(chk.getUTCFullYear()!==y||chk.getUTCMonth()!==mo-1||chk.getUTCDate()!==d)return null;
+  return {year:y,month:mo-1,day:d,monthKey:`${y}-${String(mo).padStart(2,'0')}`};
+}
+function localDateFromISO(v){const p=parseISODateParts(v);return p?new Date(p.year,p.month,p.day):null}
+function dateYear(v){const p=parseISODateParts(v);return p?p.year:null}
+function dateMonthIndex(v){const p=parseISODateParts(v);return p?p.month:null}
+function dateMonthKey(v){const p=parseISODateParts(v);return p?p.monthKey:''}
+function isDateInMonth(v,year,monthIndex){const p=parseISODateParts(v);return !!p&&p.year===Number(year)&&p.month===Number(monthIndex)}
+
 function getCurrentYearRows(){
   const y=new Date().getFullYear();
   return data.filter(x=>{
-    const d=parseExpenseDate(x);
-    return d&&d.getFullYear()===y;
+    return dateYear(x.date)===y;
   });
 }
 function getCurrentMonthRows(){
   const now=new Date();
   const y=now.getFullYear(), m=now.getMonth();
   return data.filter(x=>{
-    const d=parseExpenseDate(x);
-    return d&&d.getFullYear()===y && d.getMonth()===m;
+    return isDateInMonth(x.date,y,m);
   });
 }
 function updateCurrentMonthHeader(){
@@ -1281,7 +1278,9 @@ function renderYearMonthlyExpense(){
   const now=new Date(), year=now.getFullYear(), currentMonth=now.getMonth();
   if(label)label.textContent=year;
   const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
-  const totals=months.map((_,m)=>{const key=`${year}-${String(m+1).padStart(2,'0')}`;return sum(data.filter(x=>String(x.date||'').slice(0,7)===key));});
+  const totals=months.map((_,m)=>sum(data.filter(x=>{
+    return isDateInMonth(x.date,year,m);
+  })));
   const max=Math.max(...totals,1);
   const cell=(month,total,isCurrent)=>`<td class="month monthPair ${isCurrent?'currentMonthCell':''}" colspan="2"><div class="monthCell"><div class="monthTop"><span class="monthName">${month}</span><b class="monthAmount">${money(total)}</b></div><div class="monthBar"><i style="width:${Math.max(0,(total/max)*100)}%"></i></div></div></td>`;
   let html='';
@@ -1321,8 +1320,8 @@ function render(){
   sun.setHours(23,59,59,999);
 
   week.textContent=money(sum(data.filter(x=>{
-    let q=parseExpenseDate(x);
-    return q>=mon&&q<=sun;
+    let q=localDateFromISO(x.date);
+    return !!q&&q>=mon&&q<=sun;
   })));
 
   // This Month Expense = only the current calendar month, not the whole current year
@@ -1332,8 +1331,8 @@ function render(){
   let lm=new Date(now.getFullYear(),now.getMonth()-1,1);
   let le=new Date(now.getFullYear(),now.getMonth(),0);
   lastmonth.textContent=money(sum(data.filter(x=>{
-    let q=parseExpenseDate(x);
-    return q>=lm&&q<=le;
+    let q=localDateFromISO(x.date);
+    return !!q&&q>=lm&&q<=le;
   })));
 
   const yearRows=getCurrentYearRows();
@@ -1387,9 +1386,9 @@ function renderPaidForOverview(){
 function updateMonthlyComparison(){
   const box=document.getElementById('monthCompare'); if(!box)return;
   const now=new Date(), y=now.getFullYear(), m=now.getMonth();
-  const cur=sum(data.filter(x=>{const d=parseExpenseDate(x);return d&&d.getFullYear()===y&&d.getMonth()===m;}));
+  const cur=sum(data.filter(x=>{return isDateInMonth(x.date,y,m);}));
   const pm=new Date(y,m-1,1), py=pm.getFullYear(), pmo=pm.getMonth();
-  const prev=sum(data.filter(x=>{const d=parseExpenseDate(x);return d.getFullYear()===py&&d.getMonth()===pmo;}));
+  const prev=sum(data.filter(x=>isDateInMonth(x.date,py,pmo)));
   const diff=cur-prev, pct=prev?Math.round((diff/prev)*100):null;
   const cls=diff>0?'compareup':diff<0?'comparedown':'';
   box.innerHTML=`<div class="comparecard"><span>${now.toLocaleDateString('en-IN',{month:'long',year:'numeric'})}</span><b>${money(cur)}</b></div><div class="comparecard"><span>${pm.toLocaleDateString('en-IN',{month:'long',year:'numeric'})}</span><b>${money(prev)}</b><small class="${cls}">${pct===null?'No previous data':(diff>0?'↑ ':'↓ ')+Math.abs(pct)+'%'}</small></div>`;
@@ -1821,8 +1820,7 @@ function openMonthlyReport(){monthlyModal.classList.add('show');generateMonthlyR
 function generateMonthlyReport(){
   const m=Number(reportMonth.value), y=Number(reportYear.value);
   const rows=data.filter(x=>{
-    const d=parseExpenseDate(x);
-    return d&&d.getFullYear()===y&&d.getMonth()===m;
+    return isDateInMonth(x.date,y,m);
   }).sort((a,b)=>a.date.localeCompare(b.date)||String(a.id).localeCompare(String(b.id)));
   const total=sum(rows), cash=sum(rows.filter(x=>x.mode==='Cash')),
         online=sum(rows.filter(x=>x.mode==='UPI'||x.mode==='Credit Card'));
@@ -1979,8 +1977,7 @@ function restoreBackup(ev){
       pushSafetySnapshot('Before Restore');
       data=arr.map(x=>({
         id:x.id||('EXP-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7)),
-        date:normalizeCloudDate(x.date,x.monthKey||x.sheetMonthKey||''),
-      monthKey:String(x.monthKey||x.sheetMonthKey||'').slice(0,7),
+        date:String(x.date||'').slice(0,10),
         cat:String(x.cat||x.category||'Miscellaneous').trim()||'Miscellaneous',
         subcat:String(x.subcat||x.subCategory||x.subcategory||'').trim(),
         paidFor:String(x.paidFor||x.paid_for||'').trim(),
@@ -2022,23 +2019,24 @@ function saveSheetConfig(){
   return true;
 }
 function loadSheetConfig(){
-  const u=localStorage.getItem('expenseTrackerAppsScriptUrl')||DEFAULT_APPS_SCRIPT_URL;
-  if(!localStorage.getItem('expenseTrackerAppsScriptUrl')) localStorage.setItem('expenseTrackerAppsScriptUrl',u);
+  let u=localStorage.getItem('expenseTrackerAppsScriptUrl')||'';
+  const legacyWrong='https://script.google.com/macros/s/AKfycbyASHG3qUbDvsL-wpop8RCOKW5zK-rkRaLyvpsOYWPIy21CoUvsE8-5cBNZRaWiSfTe6w/exec';
+  if(!u || u===legacyWrong){u=DEFAULT_APPS_SCRIPT_URL;localStorage.setItem('expenseTrackerAppsScriptUrl',u);}
   const urlEl=document.getElementById('appsScriptUrl');
   const sheetEl=document.getElementById('sheetId');
   const statusEl=document.getElementById('syncStatus');
   if(urlEl) urlEl.value=u;
   if(sheetEl) sheetEl.value=localStorage.getItem('expenseTrackerSheetId')||DEFAULT_GOOGLE_SHEET_ID;
-  if(statusEl) statusEl.innerHTML=u?'🟢 Google Sheet connected · Ready to sync':'🟡 Google Sheet connection check करें';
+  if(statusEl) statusEl.innerHTML='🟢 Google Sheet connected · Ready to sync';
 }
 function currentMonthKey(){
   const d=new Date();
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
 }
-function monthKeyFor(x){ return String(x.date||'').slice(0,7); }
+function monthKeyFor(x){ return dateMonthKey(x.date); }
 
 function scheduleCloudSync(monthKey){if(!localStorage.getItem('expenseTrackerAppsScriptUrl'))return;clearTimeout(window._cloudSyncTimer);window._cloudSyncTimer=setTimeout(()=>syncMonth(monthKey),1200)}
-async function postToSheet(payload){const u=(localStorage.getItem('expenseTrackerAppsScriptUrl')||(document.getElementById('appsScriptUrl')?.value||'').trim()||DEFAULT_APPS_SCRIPT_URL);if(!u){syncStatus.innerHTML='🟡 पहले Google Sheet connection save करें';return false}syncStatus.innerHTML='⏳ Google Sheet में syncing...';try{const r=await fetch(u,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});const j=await r.json();if(!j||!j.ok)throw new Error(j?.error||'Server confirmation failed');const count=payload.expenses?.length||0;syncStatus.innerHTML=`🟢 ${count} records successfully synced · Server confirmed`;localStorage.setItem('lastGoogleSync',new Date().toISOString());return true}catch(e){try{await fetch(u,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});const count=payload.expenses?.length||0;syncStatus.innerHTML=`🟠 ${count} records sync request sent — server confirmation उपलब्ध नहीं हो सकी`;return false}catch(_){syncStatus.innerHTML='🔴 Sync failed. Internet/Apps Script URL check करें।';return false}}}
+async function postToSheet(payload){const u=localStorage.getItem('expenseTrackerAppsScriptUrl')||(document.getElementById('appsScriptUrl')?.value||'').trim();if(!u){syncStatus.innerHTML='🟡 पहले Google Sheet connection save करें';return false}syncStatus.innerHTML='⏳ Google Sheet में syncing...';try{const r=await fetch(u,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});const j=await r.json();if(!j||!j.ok)throw new Error(j?.error||'Server confirmation failed');const count=payload.expenses?.length||0;syncStatus.innerHTML=`🟢 ${count} records successfully synced · Server confirmed`;localStorage.setItem('lastGoogleSync',new Date().toISOString());return true}catch(e){try{await fetch(u,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});const count=payload.expenses?.length||0;syncStatus.innerHTML=`🟠 ${count} records sync request sent — server confirmation उपलब्ध नहीं हो सकी`;return false}catch(_){syncStatus.innerHTML='🔴 Sync failed. Internet/Apps Script URL check करें।';return false}}}
 async function syncMonth(monthKey){if(!monthKey)return false;const rows=data.filter(x=>monthKeyFor(x)===monthKey);return postToSheet({action:'syncMonth',sheetId:localStorage.getItem('expenseTrackerSheetId')||DEFAULT_GOOGLE_SHEET_ID,month:monthKey,expenses:rows,categories:EXPENSE_CATEGORY_META,categoryOrder:getCategories(),paidFor:['Mukesh','Priti','Kids','Family','Household','Other'],paymentModes:['Cash','UPI','Credit Card']})}
 async function syncCurrentMonth(){return syncMonth(currentMonthKey())}
 async function syncAllData(){return postToSheet({action:'syncAll',sheetId:localStorage.getItem('expenseTrackerSheetId')||DEFAULT_GOOGLE_SHEET_ID,expenses:data,categories:EXPENSE_CATEGORY_META,categoryOrder:getCategories(),paidFor:['Mukesh','Priti','Kids','Family','Household','Other'],paymentModes:['Cash','UPI','Credit Card']})}
@@ -2333,12 +2331,37 @@ function deleteCategory(name){
   data.forEach(x=>{if(x.cat===name){x.cat=fallback;x.subcat=EXPENSE_CATEGORY_META[fallback].subs[0]||''}});
   delete EXPENSE_CATEGORY_META[name]; saveCategoryStructure(); persist(); render(); renderCategoryOptions(); renderCategoryManager();
 }
+function normalizeCloudDate(v,monthKey){
+  // The monthly sheet is the source of truth. When the backend supplies
+  // monthKey, always keep that month and take only the day from the date.
+  const mk=String(monthKey||'').trim().match(/^(\d{4})-(\d{2})$/);
+  const s=String(v||'').trim();
+  let day=0,year=0,month=0;
+  let m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+  if(m){year=+m[1];month=+m[2];day=+m[3];}
+  else {
+    m=s.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})$/);
+    if(m){day=+m[1];month=+m[2];year=+m[3];}
+  }
+  if(mk && day>=1 && day<=31){
+    const yy=+mk[1],mm=+mk[2];
+    const chk=new Date(Date.UTC(yy,mm-1,day));
+    if(mm>=1&&mm<=12&&chk.getUTCFullYear()===yy&&chk.getUTCMonth()===mm-1&&chk.getUTCDate()===day)
+      return `${yy}-${String(mm).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+  }
+  if(year>=2000&&month>=1&&month<=12&&day>=1&&day<=31){
+    const chk=new Date(Date.UTC(year,month-1,day));
+    if(chk.getUTCFullYear()===year&&chk.getUTCMonth()===month-1&&chk.getUTCDate()===day)
+      return `${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+  }
+  return '';
+}
+function cloudMonthTotals(rows){const out={};rows.forEach(x=>{const k=String(x.date||'').slice(0,7);if(/^\d{4}-\d{2}$/.test(k))out[k]=(out[k]||0)+Number(x.amount||0)});return out}
 async function restoreFromGoogleSheet(){
-  const u=(localStorage.getItem('expenseTrackerAppsScriptUrl')||appsScriptUrl.value||DEFAULT_APPS_SCRIPT_URL).trim();
+  const u=(localStorage.getItem('expenseTrackerAppsScriptUrl')||DEFAULT_APPS_SCRIPT_URL||appsScriptUrl.value||'').trim();
   const sid=(localStorage.getItem('expenseTrackerSheetId')||DEFAULT_GOOGLE_SHEET_ID).trim();
   if(!u){alert('पहले Google Apps Script Web App URL Save करें।');return;}
   if(!confirm('Google Sheet से पूरा backup (Expenses + Categories + Master Lists) लेकर current Tracker data replace करना है?'))return;
-  // Safety snapshot before cloud restore
   const safety={version:8,createdAt:new Date().toISOString(),expenses:data,categories:JSON.parse(JSON.stringify(EXPENSE_CATEGORY_META)),categoryOrder:getCategories()};
   localStorage.setItem('dailyExpensePreCloudRestoreBackup',JSON.stringify(safety));
   syncStatus.innerHTML='⏳ Google Sheet से पूरा backup restore हो रहा है...';
@@ -2348,39 +2371,31 @@ async function restoreFromGoogleSheet(){
     if(!res.ok)throw new Error('HTTP '+res.status);
     const payload=await res.json();
     if(!payload.ok||!Array.isArray(payload.expenses))throw new Error(payload.error||'Invalid cloud data');
-    if(payload.dataContract && payload.dataContract!=='MONTH_SHEET_TRUTH_V2') throw new Error('Old/unsupported Google Sheet backup contract. Deploy the current Code.gs first.');
+    if(payload.dataContract!==CLOUD_DATA_CONTRACT)throw new Error('Google Apps Script backend पुराना है। पहले इस package का Code.gs deploy करें, फिर Restore करें।');
     const arr=payload.expenses.map(x=>({
       id:String(x.id||x.expenseId||('EXP-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7))),
-      date:normalizeCloudDate(x.date,x.monthKey||x.sheetMonthKey||''),
-      monthKey:String(x.monthKey||x.sheetMonthKey||'').slice(0,7),
-      cat:String(x.cat||x.category||'Miscellaneous').trim()||'Miscellaneous',
-      subcat:String(x.subcat||x.subCategory||'').trim(),
-      paidFor:String(x.paidFor||'').trim(),
-      desc:String(x.desc||x.description||'').trim(),
+      date:normalizeCloudDate(x.date,x.monthKey||x.sheetMonthKey||''),monthKey:String(normalizeCloudDate(x.date,x.monthKey||x.sheetMonthKey||'')).slice(0,7),cat:String(x.cat||x.category||'Miscellaneous').trim()||'Miscellaneous',
+      subcat:String(x.subcat||x.subCategory||'').trim(),paidFor:String(x.paidFor||'').trim(),desc:String(x.desc||x.description||'').trim(),
       mode:(()=>{const m=String(x.mode||x.paymentMode||'Cash').trim().toLowerCase();return m==='upi'?'UPI':m.includes('credit')?'Credit Card':'Cash'})(),
       amount:Number(x.amount)||0,remark:String(x.remark||x.remarks||'').trim()
     })).filter(x=>x.date&&Number.isFinite(x.amount)&&x.amount>=0);
-    const calcGrand=arr.reduce((a,x)=>a+Number(x.amount||0),0);
-    if(Number.isFinite(Number(payload.grandTotal)) && Math.round(calcGrand*100)!==Math.round(Number(payload.grandTotal)*100)) throw new Error(`Cloud total mismatch: received ${calcGrand}, expected ${payload.grandTotal}`);
-    if(payload.monthlyTotals && typeof payload.monthlyTotals==='object'){
-      const calcMonths={}; arr.forEach(x=>{const k=String(x.date).slice(0,7);calcMonths[k]=(calcMonths[k]||0)+Number(x.amount||0);});
-      for(const k of Object.keys(payload.monthlyTotals)) if(Math.round(Number(calcMonths[k]||0)*100)!==Math.round(Number(payload.monthlyTotals[k]||0)*100)) throw new Error(`Cloud month mismatch for ${k}`);
-    }
-    if(payload.expenses.length!==arr.length) throw new Error(`Cloud backup contains ${payload.expenses.length} rows but ${arr.length} valid rows were parsed.`);
-    if(payload.expenses.length<1) throw new Error('Google Sheet backup contains no expenses. Local data was not changed.');
-    if(payload.categories && typeof payload.categories==='object'){
-      const clean={}; Object.keys(payload.categories).forEach(k=>{const v=payload.categories[k]||{};const subs=Array.isArray(v.subs)?v.subs.map(z=>String(z).trim()).filter(Boolean):[];if(String(k).trim())clean[String(k).trim()]={icon:String(v.icon||'🏷️'),subs:[...new Set(subs)]};});
+    const total=sum(arr),expectedTotal=Number(payload.grandTotal);
+    if(Number.isFinite(expectedTotal)&&Math.abs(total-expectedTotal)>0.01)throw new Error(`Cloud total mismatch: ${total} vs ${expectedTotal}`);
+    if(!arr.length&&payload.expenses.length)throw new Error('Cloud dates could not be normalized. No data was restored.');
+    const mt=cloudMonthTotals(arr), expectedMonths=(payload.monthlyTotals&&typeof payload.monthlyTotals==='object')?payload.monthlyTotals:{};
+    const mismatches=[];
+    Object.keys(expectedMonths).forEach(k=>{const a=Number(mt[k]||0),e=Number(expectedMonths[k]||0);if(Math.abs(a-e)>0.01)mismatches.push(`${k}: app ₹${a.toLocaleString('en-IN')} / sheet ₹${e.toLocaleString('en-IN')}`)});
+    if(mismatches.length)throw new Error('Monthly total integrity check failed.\n'+mismatches.join('\n'));
+    if(payload.categories&&typeof payload.categories==='object'){
+      const clean={};Object.keys(payload.categories).forEach(k=>{const v=payload.categories[k]||{};const subs=Array.isArray(v.subs)?v.subs.map(z=>String(z).trim()).filter(Boolean):[];if(String(k).trim())clean[String(k).trim()]={icon:String(v.icon||'🏷️'),subs:[...new Set(subs)]};});
       if(Object.keys(clean).length){EXPENSE_CATEGORY_META=clean;EXPENSE_CATEGORY_ORDER=Array.isArray(payload.categoryOrder)?payload.categoryOrder.filter(x=>clean[x]):Object.keys(clean);saveCategoryStructure();}
     }
-    data=arr;
-    migrateLegacyCategories();
-    persist(); renderManagedCategoryCards(); renderCategoryOptions(); render();
+    data=arr;migrateLegacyCategories();persist();renderManagedCategoryCards();renderCategoryOptions();render();
     syncStatus.innerHTML='🟢 Google Sheet backup restored · '+new Date().toLocaleString('en-IN');
-    alert(arr.length+' expenses + Categories Google Sheet से restore हो गए।\nआपका पुराना data safety backup में भी रखा गया है।');
-  }catch(e){
-    syncStatus.innerHTML='🔴 Google Sheet restore failed';
-    alert('Google Sheet से restore नहीं हो सका।\n\nApps Script Web App URL / deployment / permissions check करें।\n\nआपका पुराना data सुरक्षित local safety backup में रखा गया है।');
-  }
+    const currentYear=new Date().getFullYear();
+    const monthLines=Array.from({length:12},(_,i)=>{const k=`${currentYear}-${String(i+1).padStart(2,'0')}`;return `${['January','February','March','April','May','June','July','August','September','October','November','December'][i]}: ${money(mt[k]||0)}`;}).join('\n');
+    alert(`${arr.length} expenses + Categories Google Sheet से restore हो गए।\n\nGrand Total: ${money(total)}\n\n${monthLines}\n\nआपका पुराना data safety backup भी सुरक्षित है।`);
+  }catch(e){syncStatus.innerHTML='🔴 Google Sheet restore failed';alert('Google Sheet से restore नहीं हो सका।\n\n'+String(e.message||e)+'\n\nआपका पुराना data सुरक्षित local safety backup में रखा गया है।');}
 }
 function getFeatureStore(key,fallback){try{const v=JSON.parse(localStorage.getItem(key)||'null');return v??fallback}catch(_){return fallback}}
 let recurringExpenses=getFeatureStore('dailyExpenseRecurring',[]),billsDue=getFeatureStore('dailyExpenseBills',[]),calendarCursor=new Date();
@@ -2431,14 +2446,14 @@ function fillBillSelect(current=''){
   el.innerHTML=html;
   if(current && [...el.options].some(o=>o.value===current))el.value=current;
 }
-function openRecurringExpenses(){fillFeatureSelect('recName');const d=document.getElementById('recDueDate');if(d&&!d.value)d.value=iso();renderRecurringList();document.getElementById('recurringModal').classList.add('show')}
+function openRecurringExpenses(){fillFeatureSelect('recName');const d=document.getElementById('recDueDate');if(d&&!d.value)setDateField('recDueDate',iso());renderRecurringList();document.getElementById('recurringModal').classList.add('show')}
 function closeRecurringExpenses(){document.getElementById('recurringModal').classList.remove('show')}
 function addRecurringExpense(){
   let name=document.getElementById('recName').value;
   if(name==='__custom__'){name=prompt('Expense / Bill name लिखें:','');}
-  name=String(name||'').trim(); const due=document.getElementById('recDueDate').value; const amount=Number(document.getElementById('recAmount').value)||0;
-  if(!name||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(due)){alert('Expense/Bill select करें और valid Due Date चुनें।');return}
-  recurringExpenses.push({id:Date.now(),name,due,amount});saveFeatureData();document.getElementById('recName').value='';document.getElementById('recDueDate').value=iso();document.getElementById('recAmount').value='';renderRecurringList();renderDashboardReminders();
+  name=String(name||'').trim(); const due=getISO('recDueDate'); const amount=Number(document.getElementById('recAmount').value)||0;
+  if(!name||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(due)){alert('Expense/Bill select करें और valid Due Date (DD-MM-YYYY) चुनें।');return}
+  recurringExpenses.push({id:Date.now(),name,due,amount});saveFeatureData();document.getElementById('recName').value='';setDateField('recDueDate',iso());document.getElementById('recAmount').value='';renderRecurringList();renderDashboardReminders();
 }
 function recurringState(due){const t=new Date();t.setHours(0,0,0,0);const d=new Date(due+'T00:00:00');const diff=Math.round((d-t)/86400000);return diff<0?'overdue':diff<=7?'soon':''}
 function renderRecurringList(){const box=document.getElementById('recurringList');if(!box)return;const arr=[...recurringExpenses].sort((a,b)=>a.due.localeCompare(b.due));box.innerHTML=arr.length?arr.map(x=>`<div class="featureItem ${recurringState(x.due)}"><div><b>🔁 ${escapeHtml(x.name)}</b><div class="small">Due: ${fmtDate(x.due)} ${x.amount?`• ${money(x.amount)}`:''}</div></div><div class="featureActions"><button type="button" onclick="removeRecurringExpense(${x.id})">🗑️</button></div></div>`).join(''):'<div class="empty">अभी कोई expense reminder नहीं है।</div>'}
@@ -2463,9 +2478,9 @@ function getBillOptions(){
   const out=[]; Object.entries(EXPENSE_CATEGORY_META||{}).forEach(([cat,meta])=>{if(billCats.has(cat))(meta.subs||[]).forEach(s=>out.push(s));});
   return [...new Set([...out,'Electricity Bill','Mobile Bill','Internet / Wi-Fi','OTT Subscription','Insurance','FD','Car Insurance','Bike Insurance','AI Subscription'])].sort((a,b)=>a.localeCompare(b));
 }
-function openBillsTracker(){fillBillSelect();const d=document.getElementById('billDue');if(d&&!d.value)d.value=iso();renderBillsList();document.getElementById('billsModal').classList.add('show')}
+function openBillsTracker(){fillBillSelect();const d=document.getElementById('billDue');if(d&&!d.value)setDateField('billDue',iso());renderBillsList();document.getElementById('billsModal').classList.add('show')}
 function closeBillsTracker(){document.getElementById('billsModal').classList.remove('show')}
-function addBillDue(){let name=document.getElementById('billName').value;if(name==='__custom__')name=prompt('Bill / Payment name लिखें:','');name=String(name||'').trim();const due=document.getElementById('billDue').value,amount=Number(document.getElementById('billAmount').value)||0;if(!name||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(due)){alert('Bill select करें और valid Due Date चुनें।');return}billsDue.push({id:Date.now(),name,due,amount,status:'Due'});saveFeatureData();document.getElementById('billName').value='';document.getElementById('billDue').value=iso();document.getElementById('billAmount').value='';renderBillsList();renderDashboardReminders()}
+function addBillDue(){let name=document.getElementById('billName').value;if(name==='__custom__')name=prompt('Bill / Payment name लिखें:','');name=String(name||'').trim();const due=getISO('billDue'),amount=Number(document.getElementById('billAmount').value)||0;if(!name||!due){alert('Bill select करें और valid Due Date (DD-MM-YYYY) चुनें।');return}billsDue.push({id:Date.now(),name,due,amount,status:'Due'});saveFeatureData();document.getElementById('billName').value='';setDateField('billDue',iso());document.getElementById('billAmount').value='';renderBillsList();renderDashboardReminders()}
 function billClass(due,status){if(status==='Paid')return '';return recurringState(due)}
 function renderBillsList(){const box=document.getElementById('billsList');if(!box)return;const arr=[...billsDue].sort((a,b)=>a.due.localeCompare(b.due));box.innerHTML=arr.length?arr.map(x=>`<div class="billItem ${billClass(x.due,x.status)}"><div><b>🧾 ${escapeHtml(x.name)}</b><div class="small">Due: ${fmtDate(x.due)} ${x.amount?`• <span class="dueAmount">${money(x.amount)}</span>`:''} • <span class="billStatus">${x.status}</span></div></div><div class="featureActions"><button type="button" onclick="toggleBillStatus(${x.id})">${x.status==='Paid'?'↩️ Due':'✅ Paid'}</button><button type="button" onclick="removeBill(${x.id})">🗑️</button></div></div>`).join(''):'<div class="empty">अभी कोई bill/payment due नहीं है।</div>'}
 function toggleBillStatus(id){const x=billsDue.find(z=>z.id===id);if(!x)return;x.status=x.status==='Paid'?'Due':'Paid';saveFeatureData();renderBillsList();renderDashboardReminders()}
@@ -2493,8 +2508,7 @@ function sendMonthlyStatement(){
   const now=new Date();
   const y=now.getFullYear(), m=now.getMonth();
   const rows=(Array.isArray(data)?data:[]).filter(x=>{
-    const d=parseExpenseDate(x);
-    return d&&d.getFullYear()===y&&d.getMonth()===m;
+    return isDateInMonth(x.date,y,m);
   });
   const groups={};
   rows.forEach(x=>{
@@ -2521,7 +2535,7 @@ function openEmailStatement(){sendMonthlyStatement()}
 function shareWhatsApp(){
   const now=new Date();
   const y=now.getFullYear(), m=now.getMonth();
-  const rows=(Array.isArray(data)?data:[]).filter(x=>{const d=parseExpenseDate(x);return d&&d.getFullYear()===y&&d.getMonth()===m;});
+  const rows=(Array.isArray(data)?data:[]).filter(x=>{return isDateInMonth(x.date,y,m);});
   const groups={};
   rows.forEach(x=>{const cat=String(x.cat||x.category||'Miscellaneous').trim()||'Miscellaneous';groups[cat]=(groups[cat]||0)+Number(x.amount||0)});
   const monthLabel=now.toLocaleDateString('en-IN',{month:'long',year:'numeric'});
@@ -2547,46 +2561,9 @@ document.addEventListener('click',function(e){
   selectAnnualPickerItem(value,type);
 });
 </script> <script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}</script>
-<script id="v8-final-stable-patch">
+<script id="v8-data-safety-patch">
 (function(){
-  function updateMobileTodayLabel(){
-    const el=document.getElementById('mobileTodayLabel'); if(!el)return;
-    const d=new Date();
-    el.textContent=d.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric',weekday:'long'});
-  }
-  window.openWhatsAppMonthModal=function(){
-    const el=document.getElementById('whatsappMonthModal'); if(!el)return;
-    el.classList.add('show'); document.body.classList.add('modal-open');
-    const current=new Date().getMonth();
-    document.querySelectorAll('.whatsappMonthBtn').forEach(b=>b.classList.toggle('current',Number(b.dataset.month)===current));
-  };
-  window.closeWhatsAppMonthModal=function(){
-    const el=document.getElementById('whatsappMonthModal'); if(el)el.classList.remove('show');
-    document.body.classList.remove('modal-open');
-  };
-  window.shareWhatsApp=function(){openWhatsAppMonthModal();};
-  window.shareWhatsAppSelected=function(monthIndex){
-    const year=new Date().getFullYear();
-    const key=`${year}-${String(monthIndex+1).padStart(2,'0')}`;
-    const rows=(Array.isArray(data)?data:[]).filter(x=>String(x.date||'').slice(0,7)===key);
-    const groups={};
-    rows.forEach(x=>{const cat=String(x.cat||x.category||'Miscellaneous').trim()||'Miscellaneous';groups[cat]=(groups[cat]||0)+Number(x.amount||0);});
-    const entries=Object.entries(groups).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]);
-    const total=sum(rows);
-    const monthLabel=new Date(year,monthIndex,1).toLocaleDateString('en-IN',{month:'long',year:'numeric'});
-    let msg='📊 *Daily Expense Tracker*\n\n📅 '+monthLabel+'\n\n*Category-wise Expense*';
-    if(entries.length)entries.forEach(([cat,amt])=>{msg+='\n• '+cat+': ₹ '+Number(amt).toLocaleString('en-IN',{maximumFractionDigits:2});}); else msg+='\n• No expense recorded';
-    msg+='\n\n💰 *TOTAL EXPENSE: ₹ '+Number(total).toLocaleString('en-IN',{maximumFractionDigits:2})+'*\n\n📌 Total Entries: '+rows.length+'\n\nTrack Smart | Spend Wise';
-    closeWhatsAppMonthModal(); window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank','noopener');
-  };
-  function setupSmartBottomNav(){
-    const nav=document.querySelector('.mobileBottomNav'); if(!nav)return;
-    const buttons=[...nav.querySelectorAll('button')];
-    const activate=i=>buttons.forEach((b,n)=>b.classList.toggle('active',n===i));
-    window.setMobileNavActive=activate;
-    buttons.forEach((b,i)=>b.addEventListener('click',()=>activate(i),{passive:true})); activate(0);
-  }
-  updateMobileTodayLabel(); setupSmartBottomNav();
-  document.addEventListener('click',e=>{const m=document.getElementById('whatsappMonthModal');if(m&&e.target===m)closeWhatsAppMonthModal();});
+  try{localStorage.setItem('expenseTrackerV8SafeBuild','2026-09-24-cloud-restore-fixed');}catch(e){}
 })();
-</script></body></html>
+</script>
+</body></html>
